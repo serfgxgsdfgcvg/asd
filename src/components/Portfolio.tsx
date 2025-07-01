@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-import { ExternalLink, Eye, Calendar, Tag } from 'lucide-react';
+import { ExternalLink, Eye, Calendar, Tag, Play } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
+import ProjectModal from './ProjectModal';
 
 export default function Portfolio() {
   const { t } = useApp();
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentBehanceId, setCurrentBehanceId] = useState<string | null>(null);
+  const [currentProjectTitle, setCurrentProjectTitle] = useState<string>('');
 
   const behanceProjects = [
     {
       id: 1,
-      title: 'SOUNDWAVE',
-      category: 'Audio Experience',
+      title: 'ATHENIS - Brand Identity',
+      category: 'Branding',
       year: '2024',
-      description: 'Designing an Immersive Audio Tech Experience with cutting-edge UI/UX',
-      tags: ['UI/UX', 'Product Design', 'Audio Tech', 'Interactive'],
-      behanceId: '220519773'
+      description: 'Balance Between Tradition & Modernity - Complete brand identity system',
+      tags: ['Brand Identity', 'Logo Design', 'Visual Identity', 'Strategy'],
+      behanceId: '220519773',
+      thumbnail: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
     {
       id: 2,
@@ -24,16 +29,18 @@ export default function Portfolio() {
       year: '2024',
       description: 'Modern financial dashboard with real-time analytics and data visualization',
       tags: ['Dashboard', 'Fintech', 'Data Viz', 'React'],
-      behanceId: '220519773'
+      behanceId: '220519773',
+      thumbnail: 'https://images.pexels.com/photos/5926390/pexels-photo-5926390.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
     {
       id: 3,
-      title: 'BRAND IDENTITY',
-      category: 'Branding',
-      year: '2023',
-      description: 'Complete brand identity system for sustainable fashion startup',
-      tags: ['Branding', 'Logo Design', 'Guidelines', 'Strategy'],
-      behanceId: '220519773'
+      title: 'SOUNDWAVE EXPERIENCE',
+      category: 'Audio Experience',
+      year: '2024',
+      description: 'Designing an Immersive Audio Tech Experience with cutting-edge UI/UX',
+      tags: ['UI/UX', 'Product Design', 'Audio Tech', 'Interactive'],
+      behanceId: '220519773',
+      thumbnail: 'https://images.pexels.com/photos/20415409/pexels-photo-20415409.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
     {
       id: 4,
@@ -42,7 +49,8 @@ export default function Portfolio() {
       year: '2024',
       description: 'Modern e-commerce solution with AI-powered recommendations',
       tags: ['E-commerce', 'AI/ML', 'Next.js', 'Stripe'],
-      behanceId: '220519773'
+      behanceId: '220519773',
+      thumbnail: 'https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
     {
       id: 5,
@@ -51,7 +59,8 @@ export default function Portfolio() {
       year: '2023',
       description: 'Intuitive mobile banking interface with advanced security features',
       tags: ['Mobile Design', 'Banking', 'Security', 'UX'],
-      behanceId: '220519773'
+      behanceId: '220519773',
+      thumbnail: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
     {
       id: 6,
@@ -60,7 +69,8 @@ export default function Portfolio() {
       year: '2024',
       description: 'Creative motion graphics showcase for brand campaigns',
       tags: ['Motion Graphics', 'Animation', 'After Effects', 'Cinema 4D'],
-      behanceId: '220519773'
+      behanceId: '220519773',
+      thumbnail: 'https://images.pexels.com/photos/163064/pexels-photo-163064.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     }
   ];
 
@@ -76,6 +86,18 @@ export default function Portfolio() {
   const filteredProjects = selectedCategory === 'All' 
     ? behanceProjects 
     : behanceProjects.filter(project => project.category === selectedCategory);
+
+  const openModal = (behanceId: string, title: string) => {
+    setCurrentBehanceId(behanceId);
+    setCurrentProjectTitle(title);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentBehanceId(null);
+    setCurrentProjectTitle('');
+  };
 
   return (
     <section id="work" className="py-16 sm:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
@@ -170,7 +192,7 @@ export default function Portfolio() {
           ))}
         </motion.div>
 
-        {/* Projects Grid with Behance Embeds */}
+        {/* Projects Grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedCategory}
@@ -187,37 +209,36 @@ export default function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                className="group bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all"
+                className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer"
               >
-                {/* Behance Embed */}
+                {/* Project Thumbnail */}
                 <div className="relative overflow-hidden h-48 sm:h-64">
-                  
-                  <iframe 
-                    src={`https://www.behance.net/embed/project/${project.behanceId}?ilo0=1`}
-                    height="316" 
-                    width="100%" 
-                    allowFullScreen 
-                    loading="lazy" 
-                    frameBorder="0" 
-                    allow="clipboard-write" 
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  <motion.img
+                    src={project.thumbnail}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    whileHover={{ scale: 1.05 }}
                   />
+                  
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Overlay with buttons */}
                   <motion.div 
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                    className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
                   >
-                    <div className="flex gap-2 sm:gap-3">
+                    <div className="flex gap-3">
                       <motion.button
+                        onClick={() => openModal(project.behanceId, project.title)}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-10 h-10 sm:w-12 sm:h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
+                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg"
+                        title="Voir le projet"
                       >
-                        <Eye size={16} className="sm:w-5 sm:h-5" />
+                        <Play size={18} className="ml-0.5" />
                       </motion.button>
                       <motion.a
                         href={`https://www.behance.net/gallery/${project.behanceId}`}
@@ -225,9 +246,10 @@ export default function Portfolio() {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.1, rotate: -5 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-10 h-10 sm:w-12 sm:h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
+                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg"
+                        title="Voir sur Behance"
                       >
-                        <ExternalLink size={16} className="sm:w-5 sm:h-5" />
+                        <ExternalLink size={18} />
                       </motion.a>
                     </div>
                   </motion.div>
@@ -262,11 +284,11 @@ export default function Portfolio() {
                     <motion.h3 
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
-                      className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
+                      className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 group-hover:text-black dark:group-hover:text-gray-100 transition-colors line-clamp-1"
                     >
                       {project.title}
                     </motion.h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-2">
                       {project.description}
                     </p>
                   </div>
@@ -286,6 +308,11 @@ export default function Portfolio() {
                         {tag}
                       </motion.span>
                     ))}
+                    {project.tags.length > 3 && (
+                      <span className="text-xs text-gray-500 dark:text-gray-500 px-2 py-1">
+                        +{project.tags.length - 3}
+                      </span>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -325,6 +352,14 @@ export default function Portfolio() {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        behanceId={currentBehanceId}
+        projectTitle={currentProjectTitle}
+      />
     </section>
   );
 }
