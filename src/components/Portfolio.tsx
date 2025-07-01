@@ -8,8 +8,7 @@ export default function Portfolio() {
   const { t } = useApp();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentBehanceId, setCurrentBehanceId] = useState<string | null>(null);
-  const [currentProjectTitle, setCurrentProjectTitle] = useState<string>('');
+  const [currentProject, setCurrentProject] = useState<any>(null);
 
   const behanceProjects = [
     {
@@ -17,8 +16,8 @@ export default function Portfolio() {
       title: 'ATHENIS - Brand Identity',
       category: 'Branding',
       year: '2024',
-      description: 'Balance Between Tradition & Modernity - Complete brand identity system',
-      tags: ['Brand Identity', 'Logo Design', 'Visual Identity', 'Strategy'],
+      description: 'Balance Between Tradition & Modernity - Complete brand identity system for a luxury hospitality brand. This project explores the intersection of classical Greek aesthetics with contemporary design principles.',
+      tags: ['Brand Identity', 'Logo Design', 'Visual Identity', 'Strategy', 'Luxury', 'Hospitality'],
       behanceId: '220519773',
       thumbnail: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
@@ -27,8 +26,8 @@ export default function Portfolio() {
       title: 'FINTECH DASHBOARD',
       category: 'Web Application',
       year: '2024',
-      description: 'Modern financial dashboard with real-time analytics and data visualization',
-      tags: ['Dashboard', 'Fintech', 'Data Viz', 'React'],
+      description: 'Modern financial dashboard with real-time analytics and data visualization. Designed for traders and financial analysts who need quick access to market data.',
+      tags: ['Dashboard', 'Fintech', 'Data Visualization', 'React', 'TypeScript', 'Charts'],
       behanceId: '220519773',
       thumbnail: 'https://images.pexels.com/photos/5926390/pexels-photo-5926390.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
@@ -37,8 +36,8 @@ export default function Portfolio() {
       title: 'SOUNDWAVE EXPERIENCE',
       category: 'Audio Experience',
       year: '2024',
-      description: 'Designing an Immersive Audio Tech Experience with cutting-edge UI/UX',
-      tags: ['UI/UX', 'Product Design', 'Audio Tech', 'Interactive'],
+      description: 'Designing an Immersive Audio Tech Experience with cutting-edge UI/UX. Interactive sound visualization and spatial audio controls.',
+      tags: ['UI/UX', 'Product Design', 'Audio Tech', 'Interactive', '3D', 'WebGL'],
       behanceId: '220519773',
       thumbnail: 'https://images.pexels.com/photos/20415409/pexels-photo-20415409.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
@@ -47,8 +46,8 @@ export default function Portfolio() {
       title: 'E-COMMERCE PLATFORM',
       category: 'Web Application',
       year: '2024',
-      description: 'Modern e-commerce solution with AI-powered recommendations',
-      tags: ['E-commerce', 'AI/ML', 'Next.js', 'Stripe'],
+      description: 'Modern e-commerce solution with AI-powered recommendations and seamless checkout experience. Built for scalability and performance.',
+      tags: ['E-commerce', 'AI/ML', 'Next.js', 'Stripe', 'Microservices', 'PWA'],
       behanceId: '220519773',
       thumbnail: 'https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
@@ -57,8 +56,8 @@ export default function Portfolio() {
       title: 'MOBILE BANKING APP',
       category: 'Mobile Design',
       year: '2023',
-      description: 'Intuitive mobile banking interface with advanced security features',
-      tags: ['Mobile Design', 'Banking', 'Security', 'UX'],
+      description: 'Intuitive mobile banking interface with advanced security features. Biometric authentication and real-time fraud detection.',
+      tags: ['Mobile Design', 'Banking', 'Security', 'UX', 'Biometrics', 'Flutter'],
       behanceId: '220519773',
       thumbnail: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     },
@@ -67,8 +66,8 @@ export default function Portfolio() {
       title: 'MOTION GRAPHICS REEL',
       category: 'Animation',
       year: '2024',
-      description: 'Creative motion graphics showcase for brand campaigns',
-      tags: ['Motion Graphics', 'Animation', 'After Effects', 'Cinema 4D'],
+      description: 'Creative motion graphics showcase for brand campaigns. Combining 2D and 3D animation techniques for maximum visual impact.',
+      tags: ['Motion Graphics', 'Animation', 'After Effects', 'Cinema 4D', 'Branding', '3D'],
       behanceId: '220519773',
       thumbnail: 'https://images.pexels.com/photos/163064/pexels-photo-163064.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
     }
@@ -87,16 +86,14 @@ export default function Portfolio() {
     ? behanceProjects 
     : behanceProjects.filter(project => project.category === selectedCategory);
 
-  const openModal = (behanceId: string, title: string) => {
-    setCurrentBehanceId(behanceId);
-    setCurrentProjectTitle(title);
+  const openModal = (project: any) => {
+    setCurrentProject(project);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCurrentBehanceId(null);
-    setCurrentProjectTitle('');
+    setCurrentProject(null);
   };
 
   return (
@@ -209,7 +206,7 @@ export default function Portfolio() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer"
+                className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card"
               >
                 {/* Project Thumbnail */}
                 <div className="relative overflow-hidden h-48 sm:h-64">
@@ -232,13 +229,13 @@ export default function Portfolio() {
                   >
                     <div className="flex gap-3">
                       <motion.button
-                        onClick={() => openModal(project.behanceId, project.title)}
+                        onClick={() => openModal(project)}
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg"
-                        title="Voir le projet"
+                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
+                        title="Voir les détails"
                       >
-                        <Play size={18} className="ml-0.5" />
+                        <Eye size={18} />
                       </motion.button>
                       <motion.a
                         href={`https://www.behance.net/gallery/${project.behanceId}`}
@@ -246,7 +243,7 @@ export default function Portfolio() {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.1, rotate: -5 }}
                         whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg"
+                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
                         title="Voir sur Behance"
                       >
                         <ExternalLink size={18} />
@@ -289,13 +286,13 @@ export default function Portfolio() {
                       {project.title}
                     </motion.h3>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-2">
-                      {project.description}
+                      {project.description.split('.')[0]}.
                     </p>
                   </div>
                   
                   {/* Tags */}
                   <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                    {project.tags.slice(0, 3).map((tag: string, tagIndex: number) => (
                       <motion.span
                         key={tag}
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -333,7 +330,7 @@ export default function Portfolio() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 sm:gap-3 bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base"
+            className="inline-flex items-center gap-2 sm:gap-3 bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base btn-hover-effect"
           >
             <motion.div
               whileHover={{ rotate: 45 }}
@@ -357,8 +354,7 @@ export default function Portfolio() {
       <ProjectModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        behanceId={currentBehanceId}
-        projectTitle={currentProjectTitle}
+        project={currentProject}
       />
     </section>
   );
