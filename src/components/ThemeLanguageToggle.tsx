@@ -123,21 +123,6 @@ export default function ThemeLanguageToggle() {
           </AnimatePresence>
         </motion.button>
       </motion.div>
-
-      {/* Floating Labels - Hidden on mobile */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="absolute -left-16 sm:-left-20 top-1/2 transform -translate-y-1/2 text-right hidden md:block"
-      >
-        <div className="text-xs text-gray-500 dark:text-gray-400 font-medium">
-          {theme === 'light' ? 'Mode Sombre' : 'Mode Clair'}
-        </div>
-        <div className="text-xs text-gray-500 dark:text-gray-400 font-medium mt-1">
-          Langue
-        </div>
-      </motion.div>
     </div>
   );
 }
