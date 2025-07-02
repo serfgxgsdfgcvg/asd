@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Star, Quote, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useApp } from '../contexts/AppContext';
@@ -339,7 +339,7 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Call to Action - Laisser un témoignage */}
+        {/* Call to Action - Google Review */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -350,44 +350,43 @@ export default function Testimonials() {
             initial={{ scale: 0, rotate: -180 }}
             whileInView={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
-            className="w-16 h-16 bg-black dark:bg-white text-white dark:text-black rounded-full flex items-center justify-center mx-auto mb-6"
+            className="w-16 h-16 bg-gradient-to-r from-blue-500 to-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
           >
-            <MessageCircle className="w-8 h-8" />
+            <Star className="w-8 h-8 fill-current" />
           </motion.div>
 
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Vous avez travaillé avec moi ?
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Votre retour d'expérience est précieux ! Partagez votre témoignage et aidez d'autres clients à découvrir la qualité de mes services.
+            Votre avis compte énormément ! Partagez votre expérience sur Google Reviews et aidez d'autres clients à découvrir la qualité de mes services créatifs.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="bg-black dark:bg-white text-white dark:text-black px-8 py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group inline-flex items-center justify-center gap-3"
+          <motion.a
+            href="https://g.page/r/CXN7nnxPn82qEAI/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-green-500 text-white px-8 py-4 rounded-full font-medium hover:from-blue-600 hover:to-green-600 transition-all shadow-lg group"
+          >
+            <Star size={20} className="fill-current" />
+            Laisser un avis sur Google
+            <motion.div
+              whileHover={{ x: 5, rotate: 15 }}
+              transition={{ duration: 0.2 }}
             >
-              <MessageCircle size={20} />
-              Laisser un témoignage
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                whileHover={{ opacity: 1, x: 0 }}
-                className="group-hover:ml-1 transition-all"
-              >
-                →
-              </motion.span>
-            </motion.a>
+              <ExternalLink size={18} />
+            </motion.div>
+          </motion.a>
 
-            <motion.a
-              href="mailto:hello@theoblondel.ch?subject=Témoignage%20client"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-8 py-4 rounded-full font-medium hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all inline-flex items-center justify-center gap-3"
-            >
-              Envoyer par email
-            </motion.a>
+          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex gap-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={16} className="text-yellow-400 fill-current" />
+              ))}
+            </div>
+            <span>Votre avis nous aide à grandir</span>
           </div>
         </motion.div>
       </div>
