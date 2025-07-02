@@ -189,15 +189,15 @@ export default function Portfolio() {
                   whileHover={{ scale: 1.05 }}
                 />
                 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Gradient Overlay - Toujours visible mais plus subtil */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent group-hover:from-black/60 transition-all duration-300" />
                 
-                {/* Overlay avec les deux boutons - SEULEMENT AU SURVOL */}
+                {/* Overlay avec les deux boutons - Géré uniquement par Framer Motion */}
                 <motion.div 
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100"
+                  transition={{ duration: 0.2 }}
+                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
                 >
                   <div className="flex gap-3">
                     {/* Bouton Preview (Œil) - Blanc */}
@@ -206,8 +206,11 @@ export default function Portfolio() {
                         e.stopPropagation();
                         openModal(project);
                       }}
+                      initial={{ scale: 0, rotate: -180 }}
                       whileHover={{ scale: 1.1, rotate: 5 }}
+                      animate={{ scale: 1, rotate: 0 }}
                       whileTap={{ scale: 0.9 }}
+                      transition={{ delay: 0.1 }}
                       className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition-all shadow-lg"
                       title="Voir la preview"
                     >
@@ -220,8 +223,11 @@ export default function Portfolio() {
                         e.stopPropagation();
                         window.open(project.behanceLink, '_blank');
                       }}
+                      initial={{ scale: 0, rotate: 180 }}
                       whileHover={{ scale: 1.1, rotate: -5 }}
+                      animate={{ scale: 1, rotate: 0 }}
                       whileTap={{ scale: 0.9 }}
+                      transition={{ delay: 0.2 }}
                       className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-all shadow-lg"
                       title="Voir sur Behance"
                     >
