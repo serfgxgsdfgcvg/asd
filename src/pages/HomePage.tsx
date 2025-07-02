@@ -7,6 +7,7 @@ import SEOHead from '../components/SEOHead';
 // Lazy load components for better performance
 const About = React.lazy(() => import('../components/About'));
 const Portfolio = React.lazy(() => import('../components/Portfolio'));
+const Process = React.lazy(() => import('../components/Process'));
 const Services = React.lazy(() => import('../components/Services'));
 const Testimonials = React.lazy(() => import('../components/Testimonials'));
 const Contact = React.lazy(() => import('../components/Contact'));
@@ -36,6 +37,10 @@ export default function HomePage() {
       
       <Suspense fallback={<SectionLoader />}>
         <Portfolio />
+      </Suspense>
+      
+      <Suspense fallback={<SectionLoader />}>
+        <Process />
       </Suspense>
       
       <Suspense fallback={<SectionLoader />}>
