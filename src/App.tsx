@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './contexts/AppContext';
 import HomePage from './pages/HomePage';
-import InteractiveCV from './components/InteractiveCV';
+import PersonalWebsite from './pages/PersonalWebsite';
 import ThemeLanguageToggle from './components/ThemeLanguageToggle';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
           <ThemeLanguageToggle />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/cv" element={<InteractiveCV />} />
+            <Route path="/cv" element={<PersonalWebsite />} />
           </Routes>
         </div>
       </Router>
