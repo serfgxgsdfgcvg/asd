@@ -324,21 +324,21 @@ export default function About() {
         </div>
       </div>
 
-      {/* PowerPoint Mode Popup - Apparaît après 2 secondes */}
+      {/* PowerPoint Mode Popup - SANS FLOU ni arrière-plan sombre */}
       <AnimatePresence>
         {showUglyPopup && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-end justify-center p-4"
+            className="fixed inset-0 z-50 flex items-end justify-center p-4 pointer-events-none"
           >
             <motion.div
               initial={{ y: 100, scale: 0.9 }}
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 100, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="bg-white dark:bg-gray-900 rounded-t-3xl p-8 max-w-2xl w-full shadow-2xl border-t-4 border-blue-500"
+              className="bg-white dark:bg-gray-900 rounded-t-3xl p-8 max-w-2xl w-full shadow-2xl border-t-4 border-blue-500 pointer-events-auto"
             >
               <div className="text-center">
                 <motion.div
