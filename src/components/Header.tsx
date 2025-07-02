@@ -16,6 +16,18 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false);
+    }
+  };
+
+  const handleLetsTalk = () => {
+    scrollToSection('contact');
+  };
+
   return (
     <motion.header 
       initial={{ y: -100 }}
@@ -30,6 +42,7 @@ export default function Header() {
           <motion.div 
             whileHover={{ scale: 1.05 }}
             className="flex items-center cursor-pointer"
+            onClick={() => scrollToSection('hero')}
           >
             <motion.img
               whileHover={{ rotate: 10 }}
@@ -42,14 +55,14 @@ export default function Header() {
           
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {[
-              { key: 'nav.about', href: '#about' },
-              { key: 'nav.work', href: '#work' },
-              { key: 'nav.services', href: '#services' },
-              { key: 'nav.contact', href: '#contact' }
+              { key: 'nav.about', href: 'about' },
+              { key: 'nav.work', href: 'work' },
+              { key: 'nav.services', href: 'services' },
+              { key: 'nav.contact', href: 'contact' }
             ].map((item, index) => (
-              <motion.a
+              <motion.button
                 key={item.key}
-                href={item.href}
+                onClick={() => scrollToSection(item.href)}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 + 0.5 }}
@@ -63,11 +76,12 @@ export default function Header() {
                   transition={{ duration: 0.3 }}
                   className="absolute -bottom-1 left-0 h-0.5 bg-black dark:bg-white"
                 />
-              </motion.a>
+              </motion.button>
             ))}
           </nav>
 
           <motion.button
+            onClick={handleLetsTalk}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             className="hidden md:block bg-black dark:bg-white text-white dark:text-black px-4 lg:px-6 py-2 lg:py-3 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm lg:text-base"
@@ -110,25 +124,25 @@ export default function Header() {
       >
         <div className="px-4 py-4 sm:py-6 space-y-3 sm:space-y-4">
           {[
-            { key: 'nav.about', href: '#about' },
-            { key: 'nav.work', href: '#work' },
-            { key: 'nav.services', href: '#services' },
-            { key: 'nav.contact', href: '#contact' }
+            { key: 'nav.about', href: 'about' },
+            { key: 'nav.work', href: 'work' },
+            { key: 'nav.services', href: 'services' },
+            { key: 'nav.contact', href: 'contact' }
           ].map((item, index) => (
-            <motion.a
+            <motion.button
               key={item.key}
-              href={item.href}
+              onClick={() => scrollToSection(item.href)}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ x: 10 }}
-              className="block text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white py-2 sm:py-3 font-medium transition-colors text-base sm:text-lg"
-              onClick={() => setIsMenuOpen(false)}
+              className="block text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white py-2 sm:py-3 font-medium transition-colors text-base sm:text-lg w-full text-left"
             >
               {t(item.key)}
-            </motion.a>
+            </motion.button>
           ))}
           <motion.button 
+            onClick={handleLetsTalk}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
