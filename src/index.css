@@ -159,9 +159,38 @@ a:focus {
 }
 
 @keyframes shake {
-  0% { transform: rotate(-1deg); }
-  50% { transform: rotate(1deg); }
-  100% { transform: rotate(-1deg); }
+  0% { transform: rotate(-1deg) scale(1); }
+  25% { transform: rotate(1deg) scale(1.02); }
+  50% { transform: rotate(-1deg) scale(0.98); }
+  75% { transform: rotate(1deg) scale(1.01); }
+  100% { transform: rotate(-1deg) scale(1); }
+}
+
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg) saturate(2) brightness(1.2); }
+  25% { filter: hue-rotate(90deg) saturate(3) brightness(1.5); }
+  50% { filter: hue-rotate(180deg) saturate(2.5) brightness(1.3); }
+  75% { filter: hue-rotate(270deg) saturate(3.5) brightness(1.4); }
+  100% { filter: hue-rotate(360deg) saturate(2) brightness(1.2); }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes blink-colors {
+  0% { background-color: #ff00ff; }
+  16% { background-color: #00ffff; }
+  32% { background-color: #ffff00; }
+  48% { background-color: #ff0000; }
+  64% { background-color: #00ff00; }
+  80% { background-color: #0000ff; }
+  100% { background-color: #ff00ff; }
 }
 
 .animate-float-slow {
@@ -297,60 +326,136 @@ a:focus {
   }
 }
 
-/* Ugly Mode Styles */
-.ugly-mode {
-  font-family: "Comic Sans MS", cursive !important;
-  background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00) !important;
+/* ULTRA UGLY MODE - Le mode le plus hideux possible */
+.ultra-ugly-mode {
+  font-family: "Comic Sans MS", "Papyrus", "Brush Script MT", cursive !important;
+  background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000, #00ff00, #0000ff) !important;
+  background-size: 400% 400% !important;
+  animation: rainbow 0.5s infinite, shake 0.1s infinite, blink-colors 2s infinite !important;
   color: black !important;
-  animation: shake 0.1s infinite !important;
-  transition: all 0.3s ease-in-out !important;
+  transition: none !important;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><text y="16" font-size="16">💩</text></svg>'), auto !important;
 }
 
-.ugly-mode * {
-  font-family: "Comic Sans MS", cursive !important;
+.ultra-ugly-mode * {
+  font-family: "Comic Sans MS", "Papyrus", "Brush Script MT", cursive !important;
+  text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff, 3px -3px 0px #ffff00, -3px 3px 0px #ff0000 !important;
+  animation: glitch 0.3s infinite !important;
 }
 
-.ugly-mode a,
-.ugly-mode button {
-  background: #ff69b4 !important;
+.ultra-ugly-mode h1,
+.ultra-ugly-mode h2,
+.ultra-ugly-mode h3,
+.ultra-ugly-mode h4,
+.ultra-ugly-mode h5,
+.ultra-ugly-mode h6 {
+  font-size: 3rem !important;
+  font-weight: 900 !important;
+  text-decoration: underline wavy #ff00ff !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5em !important;
+  line-height: 0.8 !important;
+  animation: rainbow 0.2s infinite, shake 0.05s infinite !important;
+}
+
+.ultra-ugly-mode p {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  text-decoration: line-through !important;
+  background: repeating-linear-gradient(
+    45deg,
+    #ff00ff,
+    #ff00ff 10px,
+    #00ffff 10px,
+    #00ffff 20px
+  ) !important;
+  padding: 20px !important;
+  border: 10px dashed #ff0000 !important;
+  margin: 20px 0 !important;
+  transform: rotate(-2deg) !important;
+  box-shadow: 20px 20px 0px #000000, 40px 40px 0px #ff00ff !important;
+}
+
+.ultra-ugly-mode a,
+.ultra-ugly-mode button {
+  background: linear-gradient(45deg, #ff69b4, #ff0000, #ffff00, #00ff00) !important;
   color: #000 !important;
-  border: 2px dashed #000 !important;
-  font-weight: bold !important;
+  border: 5px solid #000 !important;
+  border-style: dotted dashed solid double !important;
+  font-weight: 900 !important;
+  font-size: 2rem !important;
+  padding: 20px 40px !important;
+  margin: 10px !important;
+  text-shadow: 2px 2px 0px #fff, -2px -2px 0px #000 !important;
+  box-shadow: 10px 10px 0px #000, 20px 20px 0px #ff00ff !important;
+  transform: rotate(5deg) skew(-5deg) !important;
+  animation: shake 0.1s infinite, rainbow 0.3s infinite !important;
+  text-decoration: blink !important;
 }
 
-.ugly-mode .primary-button,
-.ugly-mode .ugly-mode-button {
-  background: #ff69b4 !important;
+.ultra-ugly-mode a:hover,
+.ultra-ugly-mode button:hover {
+  transform: rotate(-10deg) skew(10deg) scale(1.5) !important;
+  animation: shake 0.05s infinite, rainbow 0.1s infinite !important;
+}
+
+.ultra-ugly-mode img {
+  filter: hue-rotate(180deg) saturate(5) brightness(2) contrast(3) !important;
+  border: 20px solid #ff00ff !important;
+  border-style: ridge !important;
+  transform: rotate(10deg) !important;
+  animation: rainbow 0.2s infinite, shake 0.1s infinite !important;
+}
+
+.ultra-ugly-mode .primary-button,
+.ultra-ugly-mode .ugly-mode-button {
+  background: linear-gradient(45deg, #ff69b4, #ff0000, #ffff00, #00ff00) !important;
   color: #000 !important;
-  border: 2px dashed #000 !important;
-  font-weight: bold !important;
-  text-shadow: 1px 1px 0px #fff !important;
+  border: 5px dashed #000 !important;
+  font-weight: 900 !important;
+  text-shadow: 3px 3px 0px #fff !important;
+  box-shadow: 10px 10px 0px #000 !important;
+  animation: shake 0.1s infinite, rainbow 0.5s infinite !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.2em !important;
 }
 
-.ugly-message {
-  position: relative;
+/* Ajout d'effets visuels horribles */
+.ultra-ugly-mode::before {
+  content: '🚨 SITE CORPORATIF GÉNÉRIQUE 🚨';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(45deg, #ff0000, #ffff00);
+  color: #000;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 20px;
+  z-index: 9999;
+  animation: blink-colors 0.5s infinite, shake 0.1s infinite;
+  border-bottom: 10px solid #ff00ff;
+  text-shadow: 2px 2px 0px #fff;
 }
 
-.ugly-message::before {
-  content: '🚨 ATTENTION 🚨';
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ff0000;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 0.8rem;
-  animation: shake 0.2s infinite;
-}
-
-.ugly-ctas {
-  display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
+.ultra-ugly-mode::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 0, 255, 0.1) 10px,
+    rgba(255, 0, 255, 0.1) 20px
+  );
+  pointer-events: none;
+  z-index: 9998;
+  animation: glitch 0.2s infinite;
 }
 
 /* Fullscreen section utilities */

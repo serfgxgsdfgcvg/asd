@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Palette, Zap, Target, Brush, ExternalLink, Brain, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
@@ -7,6 +7,7 @@ import LazyImage from './LazyImage';
 export default function About() {
   const { t } = useApp();
   const [isUglyMode, setIsUglyMode] = useState(false);
+  const [showUglyPopup, setShowUglyPopup] = useState(false);
 
   const skills = [
     { icon: Brush, title: t('about.skill1.title'), desc: t('about.skill1.desc'), percentage: 95 },
@@ -17,12 +18,18 @@ export default function About() {
 
   const activateUglyMode = () => {
     setIsUglyMode(true);
-    document.body.classList.add('ugly-mode');
+    document.body.classList.add('ultra-ugly-mode');
+    
+    // Popup apparaît après 2 secondes
+    setTimeout(() => {
+      setShowUglyPopup(true);
+    }, 2000);
   };
 
   const deactivateUglyMode = () => {
     setIsUglyMode(false);
-    document.body.classList.remove('ugly-mode');
+    setShowUglyPopup(false);
+    document.body.classList.remove('ultra-ugly-mode');
   };
 
   const goToBlackout = () => {
@@ -30,7 +37,7 @@ export default function About() {
       <div style='
         background: black;
         color: #0f0;
-        font-family: monospace;
+        font-family: "Courier New", monospace;
         padding: 5rem;
         text-align: center;
         min-height: 100vh;
@@ -40,20 +47,52 @@ export default function About() {
         align-items: center;
         font-size: 1.5rem;
         line-height: 1.8;
+        position: relative;
+        overflow: hidden;
       '>
-        <div style='border: 2px solid #0f0; padding: 2rem; margin-bottom: 2rem; animation: blink 1s infinite;'>
-          GAME OVER.
+        <div style='
+          border: 2px solid #0f0; 
+          padding: 2rem; 
+          margin-bottom: 2rem; 
+          animation: blink 1s infinite;
+          text-shadow: 0 0 10px #0f0;
+        '>
+          ⚠️ GAME OVER ⚠️
         </div>
-        <div style='margin-bottom: 2rem;'>
+        <div style='margin-bottom: 2rem; text-shadow: 0 0 5px #0f0;'>
           Ton portfolio est devenu une plaquette PowerPoint de 2010.
         </div>
-        <div style='font-size: 1rem; opacity: 0.7;'>
+        <div style='font-size: 1rem; opacity: 0.7; animation: fadeInOut 2s infinite;'>
           Tu as choisi... mal.
         </div>
+        <div style='
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px
+          );
+          pointer-events: none;
+          animation: scanlines 0.1s linear infinite;
+        '></div>
         <style>
           @keyframes blink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0.3; }
+          }
+          @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 0.3; }
+          }
+          @keyframes scanlines {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(4px); }
           }
         </style>
       </div>
@@ -285,67 +324,61 @@ export default function About() {
         </div>
       </div>
 
-      {/* Ugly Mode Overlay */}
+      {/* Ugly Mode Popup - Apparaît après 2 secondes */}
       <AnimatePresence>
-        {isUglyMode && (
+        {showUglyPopup && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-end justify-center p-4"
           >
             <motion.div
-              initial={{ scale: 0.8, y: 50 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 50 }}
-              className="ugly-message bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-2xl w-full shadow-2xl border border-gray-200 dark:border-gray-700 text-center"
+              initial={{ y: 100, scale: 0.9 }}
+              animate={{ y: 0, scale: 1 }}
+              exit={{ y: 100, scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="bg-white dark:bg-gray-900 rounded-t-3xl p-8 max-w-2xl w-full shadow-2xl border-t-4 border-red-500"
             >
-              <motion.div
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
-                className="text-6xl mb-6"
-              >
-                🤮
-              </motion.div>
-              
-              <h3 className="text-2xl font-bold text-black dark:text-white mb-6">
-                Bienvenue sur le site professionnel de Théo Blondel
-              </h3>
-              
-              <div className="space-y-4 mb-8 text-gray-600 dark:text-gray-400">
-                <p className="text-lg leading-relaxed">
-                  <strong>Créatif dynamique</strong>, passionné par l'<em>innovation agile</em> et les <strong>KPIs disruptifs</strong>. 
-                  Ensemble, propulsons vos projets vers l'avenir <em>scalable</em>.
+              <div className="text-center">
+                <motion.div
+                  animate={{ 
+                    rotate: [0, 10, -10, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                  className="text-6xl mb-6"
+                >
+                  🤮
+                </motion.div>
+                
+                <h3 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-4">
+                  Alors, qu'est-ce que tu en penses ?
+                </h3>
+                
+                <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+                  Tu viens de voir ce que j'aurais pu être si j'avais abandonné mon style et ma personnalité pour du "corporate générique".
                 </p>
                 
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                  className="text-base italic border-l-4 border-red-500 pl-4 bg-red-50 dark:bg-red-900/20 py-3 rounded"
-                >
-                  Tu viens de voir ce que j'aurais pu être si j'avais abandonné mon style et ma personnalité.
-                </motion.p>
-              </div>
-              
-              <div className="ugly-ctas flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.button
-                  onClick={deactivateUglyMode}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all shadow-lg"
-                >
-                  🔙 Revenir à mon vrai travail
-                </motion.button>
-                
-                <motion.button
-                  onClick={goToBlackout}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all shadow-lg"
-                >
-                  🪦 Restons sur cette version
-                </motion.button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <motion.button
+                    onClick={deactivateUglyMode}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-medium flex items-center justify-center gap-3 transition-all shadow-lg text-lg"
+                  >
+                    🔙 Revenir à mon vrai travail
+                  </motion.button>
+                  
+                  <motion.button
+                    onClick={goToBlackout}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-full font-medium flex items-center justify-center gap-3 transition-all shadow-lg text-lg"
+                  >
+                    🪦 Restons sur ce magnifique site
+                  </motion.button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
