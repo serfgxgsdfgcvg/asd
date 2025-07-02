@@ -201,7 +201,7 @@ export default function InteractiveCV() {
                   Theo Blondel
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
-                  Médiamaticien & Solutions Créatives polyvalente
+                  Médiamaticien & Solutions Créatives <span className="font-bold">polyvalente</span>
                 </p>
                 <div className="flex items-center justify-center gap-6 text-gray-500 dark:text-gray-500">
                   <div className="flex items-center gap-2">
