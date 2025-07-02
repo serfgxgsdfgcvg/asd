@@ -1,29 +1,22 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppProvider } from './contexts/AppContext';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Portfolio from './components/Portfolio';
-import Services from './components/Services';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import InteractiveCV from './components/InteractiveCV';
 import ThemeLanguageToggle from './components/ThemeLanguageToggle';
 
 function App() {
   return (
     <AppProvider>
-      <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
-        <ThemeLanguageToggle />
-        <Header />
-        <Hero />
-        <About />
-        <Portfolio />
-        <Services />
-        <Testimonials />
-        <Contact />
-        <Footer />
-      </div>
+      <Router>
+        <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden transition-colors duration-300">
+          <ThemeLanguageToggle />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/cv" element={<InteractiveCV />} />
+          </Routes>
+        </div>
+      </Router>
     </AppProvider>
   );
 }

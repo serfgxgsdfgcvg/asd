@@ -1,5 +1,6 @@
 import React from 'react';
-import { Palette, Zap, Target, Brush } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Palette, Zap, Target, Brush, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 
@@ -134,6 +135,30 @@ export default function About() {
                   <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500 mt-1 group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors">{skill.desc}</p>
                 </motion.div>
               ))}
+            </motion.div>
+
+            {/* Call to Action Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5 }}
+              className="flex justify-center lg:justify-start pt-6"
+            >
+              <Link to="/cv">
+                <motion.button
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base"
+                >
+                  En savoir plus sur moi
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </motion.div>
+                </motion.button>
+              </Link>
             </motion.div>
           </motion.div>
 
