@@ -2,6 +2,7 @@ import React from 'react';
 import { Palette, Zap, Target, Brush, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
+import LazyImage from './LazyImage';
 
 export default function About() {
   const { t } = useApp();
@@ -177,7 +178,7 @@ export default function About() {
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                 className="aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl cursor-pointer"
               >
-                <img 
+                <LazyImage 
                   src="/Groudp.png" 
                   alt="Theo Blondel Illustration"
                   className="w-full h-full object-cover"

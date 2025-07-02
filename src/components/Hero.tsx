@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Download, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
+import LazyImage from './LazyImage';
 
 export default function Hero() {
   const { t } = useApp();
@@ -146,11 +147,10 @@ export default function Hero() {
                 className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto"
               >
                 <div className="w-full h-full rounded-full overflow-hidden">
-                  <img 
+                  <LazyImage 
                     src="/DSC00831.png" 
                     alt="Theo Blondel"
                     className="w-full h-full object-cover"
-                    loading="lazy"
                   />
                 </div>
               </motion.div>

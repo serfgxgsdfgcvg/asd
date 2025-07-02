@@ -24,6 +24,7 @@ import {
   Target
 } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
+import SEOHead from './SEOHead';
 
 type Section = 'intro' | 'experience' | 'education' | 'skills' | 'projects' | 'contact';
 
@@ -189,6 +190,7 @@ export default function InteractiveCV() {
                   src="/DSC00831.png" 
                   alt="Theo Blondel"
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </motion.div>
               
@@ -505,6 +507,7 @@ export default function InteractiveCV() {
                       src={project.image} 
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     <div className="absolute top-4 right-4 bg-black dark:bg-white text-white dark:text-black px-2 py-1 rounded-full text-xs">
@@ -681,77 +684,86 @@ export default function InteractiveCV() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
-      {/* Header */}
-      <motion.header 
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 p-6"
-      >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/">
-            <motion.button
-              whileHover={{ scale: 1.05, x: -5 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            >
-              <ArrowLeft size={20} />
-              <span className="font-medium">Retour au portfolio</span>
-            </motion.button>
-          </Link>
-          
-          <motion.h1 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-2xl font-bold text-gray-900 dark:text-white"
-          >
-            CV Interactif
-          </motion.h1>
-        </div>
-      </motion.header>
-
-      {/* Navigation */}
-      <motion.nav 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="relative z-10 px-6 mb-8"
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-2 md:gap-4">
-            {sections.map((section, index) => (
+    <>
+      <SEOHead
+        title="CV Interactif - Theo Blondel | Médiamaticien Créatif"
+        description="Découvrez mon parcours professionnel, mes compétences et mes réalisations. CV interactif de Theo Blondel, médiamaticien spécialisé en design et solutions créatives."
+        url="https://theoblondel.ch/cv"
+        type="profile"
+      />
+      
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+        {/* Header */}
+        <motion.header 
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 p-6"
+        >
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <Link to="/">
               <motion.button
-                key={section.id}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.7 + index * 0.1 }}
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={{ scale: 1.05, x: -5 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveSection(section.id as Section)}
-                className={`flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-full font-medium transition-all ${
-                  activeSection === section.id
-                    ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md border border-gray-200 dark:border-gray-700'
-                }`}
+                className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
-                <section.icon size={16} />
-                <span className="hidden sm:inline">{section.label}</span>
+                <ArrowLeft size={20} />
+                <span className="font-medium">Retour au portfolio</span>
               </motion.button>
-            ))}
+            </Link>
+            
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-2xl font-bold text-gray-900 dark:text-white"
+            >
+              CV Interactif
+            </motion.h1>
           </div>
-        </div>
-      </motion.nav>
+        </motion.header>
 
-      {/* Content */}
-      <main className="relative z-10 px-6 pb-12">
-        <div className="max-w-6xl mx-auto">
-          <AnimatePresence mode="wait">
-            {renderSection()}
-          </AnimatePresence>
-        </div>
-      </main>
-    </div>
+        {/* Navigation */}
+        <motion.nav 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="relative z-10 px-6 mb-8"
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
+              {sections.map((section, index) => (
+                <motion.button
+                  key={section.id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.7 + index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setActiveSection(section.id as Section)}
+                  className={`flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-full font-medium transition-all ${
+                    activeSection === section.id
+                      ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md border border-gray-200 dark:border-gray-700'
+                  }`}
+                >
+                  <section.icon size={16} />
+                  <span className="hidden sm:inline">{section.label}</span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+        </motion.nav>
+
+        {/* Content */}
+        <main className="relative z-10 px-6 pb-12">
+          <div className="max-w-6xl mx-auto">
+            <AnimatePresence mode="wait">
+              {renderSection()}
+            </AnimatePresence>
+          </div>
+        </main>
+      </div>
+    </>
   );
 }
