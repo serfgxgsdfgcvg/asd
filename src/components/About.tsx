@@ -18,7 +18,7 @@ export default function About() {
 
   const activateUglyMode = () => {
     setIsUglyMode(true);
-    document.body.classList.add('ultra-ugly-mode');
+    document.body.classList.add('powerpoint-ugly-mode');
     
     // Popup apparaît après 2 secondes
     setTimeout(() => {
@@ -29,13 +29,13 @@ export default function About() {
   const deactivateUglyMode = () => {
     setIsUglyMode(false);
     setShowUglyPopup(false);
-    document.body.classList.remove('ultra-ugly-mode');
+    document.body.classList.remove('powerpoint-ugly-mode');
   };
 
   const goToBlackout = () => {
     document.body.innerHTML = `
       <div style='
-        background: black;
+        background: #000;
         color: #0f0;
         font-family: "Courier New", monospace;
         padding: 5rem;
@@ -324,7 +324,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Ugly Mode Popup - Apparaît après 2 secondes */}
+      {/* PowerPoint Mode Popup - Apparaît après 2 secondes */}
       <AnimatePresence>
         {showUglyPopup && (
           <motion.div
@@ -338,7 +338,7 @@ export default function About() {
               animate={{ y: 0, scale: 1 }}
               exit={{ y: 100, scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="bg-white dark:bg-gray-900 rounded-t-3xl p-8 max-w-2xl w-full shadow-2xl border-t-4 border-red-500"
+              className="bg-white dark:bg-gray-900 rounded-t-3xl p-8 max-w-2xl w-full shadow-2xl border-t-4 border-blue-500"
             >
               <div className="text-center">
                 <motion.div
@@ -357,7 +357,7 @@ export default function About() {
                 </h3>
                 
                 <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
-                  Tu viens de voir ce que j'aurais pu être si j'avais abandonné mon style et ma personnalité pour du "corporate générique".
+                  Tu viens de voir ce que j'aurais pu être si j'avais abandonné mon style pour du "corporate PowerPoint 2010" avec des animations lentes et des couleurs pas assorties.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
