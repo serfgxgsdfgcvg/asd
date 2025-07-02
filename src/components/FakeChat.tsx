@@ -6,7 +6,7 @@ interface Message {
   id: number;
   type: 'client' | 'you';
   content: string;
-  timestamp?: string;
+  timestamp: string;
   hasAttachment?: boolean;
   attachmentName?: string;
   attachmentUrl?: string;
