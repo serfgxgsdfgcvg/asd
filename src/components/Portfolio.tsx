@@ -16,7 +16,7 @@ export default function Portfolio() {
       description: 'Balance Between Tradition & Modernity - Complete brand identity system for a luxury hospitality brand. This project explores the intersection of classical Greek aesthetics with contemporary design principles.',
       tags: ['Brand Identity', 'Logo Design', 'Visual Identity', 'Strategy', 'Luxury', 'Hospitality'],
       behanceId: '220519773',
-      thumbnail: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      thumbnail: '/Athenis.png'
     },
     {
       id: 2,
