@@ -1,11 +1,12 @@
-import React from 'react';
-import { Palette, Zap, Target, Brush, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { Palette, Zap, Target, Brush, ExternalLink, Brain, RotateCcw } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 import LazyImage from './LazyImage';
 
 export default function About() {
   const { t } = useApp();
+  const [isUglyMode, setIsUglyMode] = useState(false);
 
   const skills = [
     { icon: Brush, title: t('about.skill1.title'), desc: t('about.skill1.desc'), percentage: 95 },
@@ -13,6 +14,51 @@ export default function About() {
     { icon: Zap, title: t('about.skill3.title'), desc: t('about.skill3.desc'), percentage: 88 },
     { icon: Target, title: t('about.skill4.title'), desc: t('about.skill4.desc'), percentage: 92 }
   ];
+
+  const activateUglyMode = () => {
+    setIsUglyMode(true);
+    document.body.classList.add('ugly-mode');
+  };
+
+  const deactivateUglyMode = () => {
+    setIsUglyMode(false);
+    document.body.classList.remove('ugly-mode');
+  };
+
+  const goToBlackout = () => {
+    document.body.innerHTML = `
+      <div style='
+        background: black;
+        color: #0f0;
+        font-family: monospace;
+        padding: 5rem;
+        text-align: center;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        line-height: 1.8;
+      '>
+        <div style='border: 2px solid #0f0; padding: 2rem; margin-bottom: 2rem; animation: blink 1s infinite;'>
+          GAME OVER.
+        </div>
+        <div style='margin-bottom: 2rem;'>
+          Ton portfolio est devenu une plaquette PowerPoint de 2010.
+        </div>
+        <div style='font-size: 1rem; opacity: 0.7;'>
+          Tu as choisi... mal.
+        </div>
+        <style>
+          @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+          }
+        </style>
+      </div>
+    `;
+  };
 
   return (
     <section id="about" className="py-16 sm:py-24 lg:py-32 bg-white dark:bg-black relative overflow-hidden">
@@ -137,29 +183,44 @@ export default function About() {
               ))}
             </motion.div>
 
-            {/* Call to Action Button - Updated to LinkedIn */}
+            {/* About Buttons - Côte à côte */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5 }}
               className="flex justify-center lg:justify-start pt-6"
             >
-              <motion.a
-                href="https://www.linkedin.com/in/theo-blondel-6952432aa/"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm sm:text-base"
-              >
-                En savoir plus sur moi
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
+              <div className="about-buttons flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
+                {/* Bouton LinkedIn */}
+                <motion.a
+                  href="https://www.linkedin.com/in/theo-blondel-6952432aa/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="primary-button bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center justify-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm sm:text-base flex-1 sm:flex-none"
                 >
-                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
-                </motion.div>
-              </motion.a>
+                  <Brain className="w-4 h-4 sm:w-5 sm:h-5" />
+                  En savoir plus sur moi
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </motion.div>
+                </motion.a>
+
+                {/* Bouton Mode Hideux */}
+                <motion.button
+                  onClick={activateUglyMode}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="ugly-mode-button border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center justify-center gap-3 hover:border-black dark:hover:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-all group text-sm sm:text-base flex-1 sm:flex-none"
+                >
+                  <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+                  À quoi je sers ?
+                </motion.button>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -223,6 +284,73 @@ export default function About() {
           </motion.div>
         </div>
       </div>
+
+      {/* Ugly Mode Overlay */}
+      <AnimatePresence>
+        {isUglyMode && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 50 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 50 }}
+              className="ugly-message bg-white dark:bg-gray-900 rounded-2xl p-8 max-w-2xl w-full shadow-2xl border border-gray-200 dark:border-gray-700 text-center"
+            >
+              <motion.div
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+                className="text-6xl mb-6"
+              >
+                🤮
+              </motion.div>
+              
+              <h3 className="text-2xl font-bold text-black dark:text-white mb-6">
+                Bienvenue sur le site professionnel de Théo Blondel
+              </h3>
+              
+              <div className="space-y-4 mb-8 text-gray-600 dark:text-gray-400">
+                <p className="text-lg leading-relaxed">
+                  <strong>Créatif dynamique</strong>, passionné par l'<em>innovation agile</em> et les <strong>KPIs disruptifs</strong>. 
+                  Ensemble, propulsons vos projets vers l'avenir <em>scalable</em>.
+                </p>
+                
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                  className="text-base italic border-l-4 border-red-500 pl-4 bg-red-50 dark:bg-red-900/20 py-3 rounded"
+                >
+                  Tu viens de voir ce que j'aurais pu être si j'avais abandonné mon style et ma personnalité.
+                </motion.p>
+              </div>
+              
+              <div className="ugly-ctas flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.button
+                  onClick={deactivateUglyMode}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all shadow-lg"
+                >
+                  🔙 Revenir à mon vrai travail
+                </motion.button>
+                
+                <motion.button
+                  onClick={goToBlackout}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full font-medium flex items-center justify-center gap-2 transition-all shadow-lg"
+                >
+                  🪦 Restons sur cette version
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
