@@ -32,12 +32,12 @@ export default function InteractiveCV() {
   const [activeSection, setActiveSection] = useState<Section>('intro');
 
   const sections = [
-    { id: 'intro', icon: User, label: 'Introduction', color: 'bg-blue-500' },
-    { id: 'experience', icon: Briefcase, label: 'Expérience', color: 'bg-green-500' },
-    { id: 'education', icon: GraduationCap, label: 'Formation', color: 'bg-purple-500' },
-    { id: 'skills', icon: Code, label: 'Compétences', color: 'bg-orange-500' },
-    { id: 'projects', icon: FolderOpen, label: 'Projets', color: 'bg-red-500' },
-    { id: 'contact', icon: Mail, label: 'Contact', color: 'bg-indigo-500' }
+    { id: 'intro', icon: User, label: 'Introduction' },
+    { id: 'experience', icon: Briefcase, label: 'Expérience' },
+    { id: 'education', icon: GraduationCap, label: 'Formation' },
+    { id: 'skills', icon: Code, label: 'Compétences' },
+    { id: 'projects', icon: FolderOpen, label: 'Projets' },
+    { id: 'contact', icon: Mail, label: 'Contact' }
   ];
 
   const experiences = [
@@ -147,32 +147,21 @@ export default function InteractiveCV() {
   const sectionVariants = {
     hidden: { 
       opacity: 0, 
-      x: Math.random() > 0.5 ? 100 : -100,
-      y: Math.random() > 0.5 ? 50 : -50,
-      scale: 0.8,
-      rotate: Math.random() > 0.5 ? 10 : -10
+      y: 20
     },
     visible: { 
       opacity: 1, 
-      x: 0, 
-      y: 0, 
-      scale: 1,
-      rotate: 0,
+      y: 0,
       transition: { 
-        duration: 0.8, 
-        ease: "easeOut",
-        type: "spring",
-        stiffness: 100
+        duration: 0.6, 
+        ease: "easeOut"
       }
     },
     exit: { 
       opacity: 0, 
-      x: Math.random() > 0.5 ? -100 : 100,
-      y: Math.random() > 0.5 ? -50 : 50,
-      scale: 0.8,
-      rotate: Math.random() > 0.5 ? -10 : 10,
+      y: -20,
       transition: { 
-        duration: 0.5 
+        duration: 0.3 
       }
     }
   };
@@ -194,7 +183,7 @@ export default function InteractiveCV() {
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white shadow-xl"
+                className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-gray-200 dark:border-gray-700 shadow-xl"
               >
                 <img 
                   src="/DSC00831.png" 
@@ -208,13 +197,13 @@ export default function InteractiveCV() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
                   Theo Blondel
                 </h1>
-                <p className="text-xl text-blue-100 mb-6">
+                <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
                   Médiamaticien & Solutions Créatives polyvalente
                 </p>
-                <div className="flex items-center justify-center gap-6 text-blue-200">
+                <div className="flex items-center justify-center gap-6 text-gray-500 dark:text-gray-500">
                   <div className="flex items-center gap-2">
                     <MapPin size={16} />
                     <span>Zurich, Suisse</span>
@@ -231,15 +220,15 @@ export default function InteractiveCV() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-8"
+              className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700"
             >
-              <h2 className="text-2xl font-bold text-white mb-4">À propos de moi</h2>
-              <p className="text-blue-100 leading-relaxed mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">À propos de moi</h2>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 Médiamaticien passionné basé en Suisse, je combine créativité artistique et expertise technique 
                 pour créer des expériences visuelles authentiques. Mon approche holistique du design me permet 
                 de développer des solutions créatives qui racontent votre histoire de manière unique.
               </p>
-              <p className="text-blue-100 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                 Spécialisé en identité de marque et design d'interface, j'accompagne mes clients dans la 
                 création d'expériences mémorables qui marquent les esprits et génèrent des résultats concrets.
               </p>
@@ -263,10 +252,10 @@ export default function InteractiveCV() {
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ delay: 1.1 + index * 0.1, type: "spring" }}
                   whileHover={{ scale: 1.05, y: -5 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center cursor-pointer"
+                  className="bg-white dark:bg-gray-800 rounded-xl p-4 text-center cursor-pointer shadow-md border border-gray-100 dark:border-gray-700"
                 >
-                  <div className="text-2xl font-bold text-white">{stat.number}</div>
-                  <div className="text-sm text-blue-200">{stat.label}</div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">{stat.number}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -287,7 +276,7 @@ export default function InteractiveCV() {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-3xl font-bold text-white mb-8"
+              className="text-3xl font-bold text-gray-900 dark:text-white mb-8"
             >
               Expérience Professionnelle
             </motion.h2>
@@ -296,27 +285,27 @@ export default function InteractiveCV() {
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.title}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100, rotate: index % 2 === 0 ? -5 : 5 }}
-                  animate={{ opacity: 1, x: 0, rotate: 0 }}
-                  transition={{ delay: 0.5 + index * 0.2, type: "spring" }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.2 }}
                   whileHover={{ scale: 1.02, y: -5 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer"
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 cursor-pointer shadow-lg border border-gray-100 dark:border-gray-700"
                 >
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                      <p className="text-green-300 font-medium">{exp.company}</p>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{exp.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 font-medium">{exp.company}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-green-200">{exp.period}</p>
-                      <p className="text-sm text-green-300">{exp.location}</p>
+                      <p className="text-gray-600 dark:text-gray-400">{exp.period}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-500">{exp.location}</p>
                     </div>
                   </div>
                   
-                  <p className="text-green-100 mb-4 leading-relaxed">{exp.description}</p>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">{exp.description}</p>
                   
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-white">Réalisations clés :</h4>
+                    <h4 className="font-semibold text-gray-900 dark:text-white">Réalisations clés :</h4>
                     <ul className="space-y-1">
                       {exp.achievements.map((achievement, i) => (
                         <motion.li
@@ -324,9 +313,9 @@ export default function InteractiveCV() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.7 + index * 0.2 + i * 0.1 }}
-                          className="flex items-center gap-2 text-green-200"
+                          className="flex items-center gap-2 text-gray-600 dark:text-gray-400"
                         >
-                          <Star size={12} className="text-yellow-400 fill-current" />
+                          <Star size={12} className="text-black dark:text-white" />
                           {achievement}
                         </motion.li>
                       ))}
@@ -352,7 +341,7 @@ export default function InteractiveCV() {
               initial={{ opacity: 0, y: -30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-3xl font-bold text-white mb-8"
+              className="text-3xl font-bold text-gray-900 dark:text-white mb-8"
             >
               Formation & Certifications
             </motion.h2>
@@ -361,24 +350,24 @@ export default function InteractiveCV() {
               {education.map((edu, index) => (
                 <motion.div
                   key={edu.degree}
-                  initial={{ opacity: 0, scale: 0.8, rotate: index % 2 === 0 ? 10 : -10 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.5 + index * 0.3, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.02, rotate: 2 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 cursor-pointer"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.3 }}
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 cursor-pointer shadow-lg border border-gray-100 dark:border-gray-700"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-xl font-bold text-white">{edu.degree}</h3>
-                      <p className="text-purple-300 font-medium">{edu.school}</p>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{edu.degree}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 font-medium">{edu.school}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-purple-200">{edu.period}</p>
-                      <p className="text-sm text-purple-300">{edu.grade}</p>
+                      <p className="text-gray-600 dark:text-gray-400">{edu.period}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-500">{edu.grade}</p>
                     </div>
                   </div>
                   
-                  <p className="text-purple-100 leading-relaxed">{edu.description}</p>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{edu.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -387,9 +376,9 @@ export default function InteractiveCV() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 }}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6"
+              className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
             >
-              <h3 className="text-xl font-bold text-white mb-4">Formations continues</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Formations continues</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   'Advanced Motion Graphics - School of Motion',
@@ -402,9 +391,9 @@ export default function InteractiveCV() {
                     initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 1.4 + index * 0.1 }}
-                    className="flex items-center gap-2 text-purple-200"
+                    className="flex items-center gap-2 text-gray-600 dark:text-gray-400"
                   >
-                    <Award size={16} className="text-yellow-400" />
+                    <Award size={16} className="text-black dark:text-white" />
                     {course}
                   </motion.div>
                 ))}
@@ -427,7 +416,7 @@ export default function InteractiveCV() {
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3, type: "spring" }}
-              className="text-3xl font-bold text-white mb-8"
+              className="text-3xl font-bold text-gray-900 dark:text-white mb-8"
             >
               Compétences Techniques
             </motion.h2>
@@ -436,19 +425,19 @@ export default function InteractiveCV() {
               {skills.map((category, categoryIndex) => (
                 <motion.div
                   key={category.category}
-                  initial={{ opacity: 0, y: 50, rotate: categoryIndex % 2 === 0 ? -5 : 5 }}
-                  animate={{ opacity: 1, y: 0, rotate: 0 }}
-                  transition={{ delay: 0.5 + categoryIndex * 0.2, type: "spring" }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + categoryIndex * 0.2 }}
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <motion.div
                       whileHover={{ scale: 1.2, rotate: 15 }}
-                      className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center"
+                      className="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-xl flex items-center justify-center"
                     >
-                      <category.icon className="w-6 h-6 text-white" />
+                      <category.icon className="w-6 h-6" />
                     </motion.div>
-                    <h3 className="text-xl font-bold text-white">{category.category}</h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category.category}</h3>
                   </div>
                   
                   <div className="space-y-4">
@@ -462,15 +451,15 @@ export default function InteractiveCV() {
                         className="cursor-pointer"
                       >
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-orange-100 font-medium">{skill.name}</span>
-                          <span className="text-orange-200 text-sm">{skill.level}%</span>
+                          <span className="text-gray-900 dark:text-white font-medium">{skill.name}</span>
+                          <span className="text-gray-600 dark:text-gray-400 text-sm">{skill.level}%</span>
                         </div>
-                        <div className="w-full bg-white/20 rounded-full h-2">
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${skill.level}%` }}
                             transition={{ delay: 0.9 + categoryIndex * 0.2 + skillIndex * 0.1, duration: 1 }}
-                            className="bg-gradient-to-r from-orange-400 to-orange-600 h-2 rounded-full"
+                            className="bg-black dark:bg-white h-2 rounded-full"
                           />
                         </div>
                       </motion.div>
@@ -496,7 +485,7 @@ export default function InteractiveCV() {
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-3xl font-bold text-white mb-8"
+              className="text-3xl font-bold text-gray-900 dark:text-white mb-8"
             >
               Projets Sélectionnés
             </motion.h2>
@@ -505,16 +494,11 @@ export default function InteractiveCV() {
               {projects.map((project, index) => (
                 <motion.div
                   key={project.title}
-                  initial={{ 
-                    opacity: 0, 
-                    y: index % 2 === 0 ? 100 : -100,
-                    x: index % 3 === 0 ? -50 : index % 3 === 1 ? 0 : 50,
-                    rotate: Math.random() * 20 - 10
-                  }}
-                  animate={{ opacity: 1, y: 0, x: 0, rotate: 0 }}
-                  transition={{ delay: 0.5 + index * 0.2, type: "spring", stiffness: 100 }}
-                  whileHover={{ scale: 1.05, y: -10, rotate: 2 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden cursor-pointer group"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + index * 0.2 }}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden cursor-pointer group shadow-lg border border-gray-100 dark:border-gray-700"
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img 
@@ -523,19 +507,19 @@ export default function InteractiveCV() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded-full text-xs">
+                    <div className="absolute top-4 right-4 bg-black dark:bg-white text-white dark:text-black px-2 py-1 rounded-full text-xs">
                       {project.year}
                     </div>
                   </div>
                   
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-bold text-white">{project.title}</h3>
-                      <span className="text-xs text-red-300 bg-red-500/20 px-2 py-1 rounded-full">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white">{project.title}</h3>
+                      <span className="text-xs text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
                         {project.category}
                       </span>
                     </div>
-                    <p className="text-red-100 text-sm mb-4 leading-relaxed">{project.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">{project.description}</p>
                     
                     <motion.a
                       href={project.link}
@@ -543,7 +527,7 @@ export default function InteractiveCV() {
                       rel="noopener noreferrer"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="inline-flex items-center gap-2 text-red-300 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-2 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                     >
                       Voir le projet
                       <ExternalLink size={14} />
@@ -566,23 +550,23 @@ export default function InteractiveCV() {
             className="space-y-8"
           >
             <motion.h2 
-              initial={{ opacity: 0, y: -50, rotate: -10 }}
-              animate={{ opacity: 1, y: 0, rotate: 0 }}
-              transition={{ delay: 0.3, type: "spring" }}
-              className="text-3xl font-bold text-white mb-8"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-3xl font-bold text-gray-900 dark:text-white mb-8"
             >
               Restons en Contact
             </motion.h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <motion.div
-                initial={{ opacity: 0, x: -100, rotate: -5 }}
-                animate={{ opacity: 1, x: 0, rotate: 0 }}
-                transition={{ delay: 0.5, type: "spring" }}
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
                 className="space-y-6"
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                  <h3 className="text-xl font-bold text-white mb-4">Informations de Contact</h3>
+                <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Informations de Contact</h3>
                   
                   <div className="space-y-4">
                     {[
@@ -597,14 +581,14 @@ export default function InteractiveCV() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.7 + index * 0.1 }}
                         whileHover={{ x: 10, scale: 1.02 }}
-                        className="flex items-center gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 transition-all cursor-pointer"
+                        className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-all cursor-pointer"
                       >
-                        <div className="w-12 h-12 bg-indigo-500 rounded-xl flex items-center justify-center">
-                          <contact.icon className="w-6 h-6 text-white" />
+                        <div className="w-12 h-12 bg-black dark:bg-white text-white dark:text-black rounded-xl flex items-center justify-center">
+                          <contact.icon className="w-6 h-6" />
                         </div>
                         <div>
-                          <div className="text-sm text-indigo-300">{contact.label}</div>
-                          <div className="text-white font-medium">{contact.value}</div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">{contact.label}</div>
+                          <div className="text-gray-900 dark:text-white font-medium">{contact.value}</div>
                         </div>
                       </motion.a>
                     ))}
@@ -615,13 +599,13 @@ export default function InteractiveCV() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.0 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-6"
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
                 >
-                  <h3 className="text-xl font-bold text-white mb-4">Télécharger mon CV</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Télécharger mon CV</h3>
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-6 rounded-xl font-medium flex items-center justify-center gap-3 transition-all"
+                    className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 py-3 px-6 rounded-xl font-medium flex items-center justify-center gap-3 transition-all"
                   >
                     <Download size={20} />
                     Télécharger CV (PDF)
@@ -630,12 +614,12 @@ export default function InteractiveCV() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 100, rotate: 5 }}
-                animate={{ opacity: 1, x: 0, rotate: 0 }}
-                transition={{ delay: 0.7, type: "spring" }}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7 }}
+                className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
               >
-                <h3 className="text-xl font-bold text-white mb-6">Envoyez-moi un message</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Envoyez-moi un message</h3>
                 
                 <form className="space-y-4">
                   <motion.div
@@ -646,7 +630,7 @@ export default function InteractiveCV() {
                     <input
                       type="text"
                       placeholder="Votre nom"
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-indigo-300 focus:border-indigo-400 focus:outline-none transition-all"
+                      className="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-black dark:focus:border-white focus:outline-none transition-all"
                     />
                   </motion.div>
                   
@@ -658,7 +642,7 @@ export default function InteractiveCV() {
                     <input
                       type="email"
                       placeholder="Votre email"
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-indigo-300 focus:border-indigo-400 focus:outline-none transition-all"
+                      className="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-black dark:focus:border-white focus:outline-none transition-all"
                     />
                   </motion.div>
                   
@@ -670,7 +654,7 @@ export default function InteractiveCV() {
                     <textarea
                       placeholder="Votre message"
                       rows={4}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-indigo-300 focus:border-indigo-400 focus:outline-none transition-all resize-none"
+                      className="w-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:border-black dark:focus:border-white focus:outline-none transition-all resize-none"
                     />
                   </motion.div>
                   
@@ -681,7 +665,7 @@ export default function InteractiveCV() {
                     transition={{ delay: 1.2 }}
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-3 px-6 rounded-xl font-medium transition-all"
+                    className="w-full bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 py-3 px-6 rounded-xl font-medium transition-all"
                   >
                     Envoyer le message
                   </motion.button>
@@ -697,32 +681,7 @@ export default function InteractiveCV() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
-            initial={{ 
-              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
-            }}
-            animate={{ 
-              y: [null, -100, -200],
-              opacity: [0.2, 0.5, 0],
-              scale: [0.5, 1, 0.5]
-            }}
-            transition={{
-              duration: 10 + Math.random() * 5,
-              repeat: Infinity,
-              delay: Math.random() * 10,
-              ease: "easeOut"
-            }}
-          />
-        ))}
-      </div>
-
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
       {/* Header */}
       <motion.header 
         initial={{ y: -100 }}
@@ -735,7 +694,7 @@ export default function InteractiveCV() {
             <motion.button
               whileHover={{ scale: 1.05, x: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-3 text-white hover:text-blue-200 transition-colors"
+              className="flex items-center gap-3 text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             >
               <ArrowLeft size={20} />
               <span className="font-medium">Retour au portfolio</span>
@@ -746,7 +705,7 @@ export default function InteractiveCV() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-2xl font-bold text-white"
+            className="text-2xl font-bold text-gray-900 dark:text-white"
           >
             CV Interactif
           </motion.h1>
@@ -765,16 +724,16 @@ export default function InteractiveCV() {
             {sections.map((section, index) => (
               <motion.button
                 key={section.id}
-                initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ delay: 0.7 + index * 0.1, type: "spring" }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.7 + index * 0.1 }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveSection(section.id as Section)}
                 className={`flex items-center gap-2 px-4 py-2 md:px-6 md:py-3 rounded-full font-medium transition-all ${
                   activeSection === section.id
-                    ? 'bg-white text-gray-900 shadow-lg'
-                    : 'bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm'
+                    ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md border border-gray-200 dark:border-gray-700'
                 }`}
               >
                 <section.icon size={16} />
