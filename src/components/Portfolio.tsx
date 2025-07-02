@@ -11,42 +11,42 @@ export default function Portfolio() {
       id: 1,
       title: 'ATHENIS',
       description: 'Balance Between Tradition & Modernity - Complete brand identity system for a luxury hospitality brand. This project explores the intersection of classical Greek aesthetics with contemporary design principles.',
-      behanceLink: 'https://www.behance.net/gallery/220519773',
+      behanceLink: 'https://www.behance.net/gallery/220519773/Athenis-Balance-Between-Tradition-Modernity-Brand',
       thumbnail: '/Athenis copy.png'
     },
     {
       id: 2,
       title: 'BLONDEL',
       description: 'Personal brand identity development with modern typography and clean aesthetic. A sophisticated approach to personal branding in the creative industry.',
-      behanceLink: 'https://www.behance.net/gallery/215415201',
+      behanceLink: 'https://www.behance.net/gallery/215415201/Blondel-Display-Font',
       thumbnail: '/Blondel.png'
     },
     {
       id: 3,
       title: 'LES OMBRES DU PARADIS',
       description: 'Editorial design project combining storytelling with visual narrative. An exploration of shadows and light through typography and layout design.',
-      behanceLink: 'https://www.behance.net/gallery/199683469',
+      behanceLink: 'https://www.behance.net/gallery/199683469/Les-Ombres-Du-Paradis',
       thumbnail: '/ombreduparadis.webp'
     },
     {
       id: 4,
       title: 'AUMY',
       description: 'Modern brand identity for a contemporary lifestyle brand. Clean, minimalist approach with focus on user experience and brand consistency.',
-      behanceLink: 'https://www.behance.net/gallery/215162609',
+      behanceLink: 'https://www.behance.net/gallery/215162609/Aumy-Redefining-Vegetarian-Fast-Food',
       thumbnail: '/Aumy.png'
     },
     {
       id: 5,
       title: 'NEWWAVE',
       description: 'Digital design project exploring new wave aesthetics with modern technology. A fusion of retro-futuristic elements and contemporary design principles.',
-      behanceLink: 'https://www.behance.net/gallery/211972073',
+      behanceLink: 'https://www.behance.net/gallery/211972073/NewWave',
       thumbnail: '/NewWave.png'
     },
     {
       id: 6,
       title: 'HOLZKERN',
       description: 'Product design and branding for sustainable wooden accessories. Emphasis on natural materials and eco-friendly design philosophy.',
-      behanceLink: 'https://www.behance.net/gallery/216987243',
+      behanceLink: 'https://www.behance.net/gallery/216987243/Holzkern-Studio-Photography',
       thumbnail: '/Holzkern.jpg'
     }
   ];
