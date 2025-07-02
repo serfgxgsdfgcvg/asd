@@ -1,70 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { 
   ArrowLeft, 
-  Code, 
+  Code2, 
   Palette, 
-  Video, 
-  TrendingUp,
+  Zap, 
   Mail,
   Github,
   Instagram,
   ExternalLink,
-  ChevronDown
+  ChevronDown,
+  Play
 } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
 
 export default function PersonalWebsite() {
-  const { theme } = useApp();
   const [currentSection, setCurrentSection] = useState(0);
   const { scrollYProgress } = useScroll();
   
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '200%']);
+  // Parallax transforms
+  const heroY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-50%']);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.1]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+  
+  // Smooth spring animation
+  const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+  const y = useSpring(useTransform(scrollYProgress, [0, 1], ['0%', '-10%']), springConfig);
 
   const projects = [
     {
       title: 'ATHENIS',
-      description: 'Luxury hospitality brand with Greek heritage',
-      image: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      color: 'from-amber-500 to-orange-600'
+      subtitle: 'Luxury Brand Identity',
+      description: 'Complete visual identity for a luxury hospitality brand, merging Greek heritage with contemporary design language.',
+      image: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=2',
+      year: '2024',
+      tags: ['Branding', 'Identity', 'Luxury']
     },
     {
-      title: 'FinTech Dashboard',
-      description: 'Real-time trading interface',
-      image: 'https://images.pexels.com/photos/5926390/pexels-photo-5926390.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      color: 'from-blue-500 to-cyan-600'
+      title: 'FINTECH',
+      subtitle: 'Trading Dashboard',
+      description: 'Real-time financial interface with advanced data visualization and seamless user experience for professional traders.',
+      image: 'https://images.pexels.com/photos/5926390/pexels-photo-5926390.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=2',
+      year: '2024',
+      tags: ['UI/UX', 'Fintech', 'Dashboard']
     },
     {
-      title: 'SoundWave',
-      description: 'Immersive audio experience',
-      image: 'https://images.pexels.com/photos/20415409/pexels-photo-20415409.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      color: 'from-purple-500 to-pink-600'
-    },
-    {
-      title: 'E-commerce Platform',
-      description: 'AI-powered shopping experience',
-      image: 'https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      color: 'from-green-500 to-emerald-600'
-    },
-    {
-      title: 'Banking App',
-      description: 'Secure mobile banking',
-      image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      color: 'from-indigo-500 to-blue-600'
-    },
-    {
-      title: 'Motion Reel',
-      description: '2D & 3D animation showcase',
-      image: 'https://images.pexels.com/photos/163064/pexels-photo-163064.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2',
-      color: 'from-red-500 to-pink-600'
+      title: 'SOUNDWAVE',
+      subtitle: 'Audio Experience',
+      description: 'Immersive audio platform with spatial controls and real-time visualization for next-generation music consumption.',
+      image: 'https://images.pexels.com/photos/20415409/pexels-photo-20415409.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&dpr=2',
+      year: '2024',
+      tags: ['Audio', 'Interactive', '3D']
     }
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = document.querySelectorAll('section');
+      const sections = document.querySelectorAll('section[data-section]');
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       sections.forEach((section, index) => {
@@ -82,32 +74,33 @@ export default function PersonalWebsite() {
   }, []);
 
   const scrollToSection = (index: number) => {
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section[data-section]');
     sections[index]?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="bg-white dark:bg-black text-gray-900 dark:text-white overflow-x-hidden">
-      {/* Minimal Navigation */}
+    <div className="bg-black text-white overflow-x-hidden">
+      {/* Minimal Fixed Navigation */}
       <motion.nav 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 p-6"
+        className="fixed top-0 left-0 right-0 z-50 p-4 sm:p-6"
       >
         <div className="flex items-center justify-between">
           <Link to="/">
             <motion.button
               whileHover={{ scale: 1.05, x: -5 }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors bg-white/80 dark:bg-black/80 backdrop-blur-xl rounded-full px-4 py-2 border border-gray-200 dark:border-gray-800"
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors bg-black/50 backdrop-blur-xl rounded-full px-4 py-2 border border-gray-800"
             >
               <ArrowLeft size={16} />
-              <span className="text-sm font-medium">Back</span>
+              <span className="text-sm font-medium hidden sm:inline">Back</span>
             </motion.button>
           </Link>
           
+          {/* Section Indicators */}
           <motion.div 
-            className="flex gap-1"
+            className="flex gap-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -118,8 +111,8 @@ export default function PersonalWebsite() {
                 onClick={() => scrollToSection(index)}
                 className={`w-2 h-2 rounded-full transition-all ${
                   currentSection === index 
-                    ? 'bg-gray-900 dark:bg-white' 
-                    : 'bg-gray-300 dark:bg-gray-700'
+                    ? 'bg-white w-8' 
+                    : 'bg-gray-600 hover:bg-gray-400'
                 }`}
               />
             ))}
@@ -127,82 +120,92 @@ export default function PersonalWebsite() {
         </div>
       </motion.nav>
 
-      {/* Hero Section - Fullscreen */}
-      <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* HERO SECTION - Massive Typography */}
+      <section data-section="0" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        {/* Background with parallax */}
         <motion.div 
-          style={{ y: backgroundY }}
-          className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black"
+          style={{ y: heroY, scale: heroScale, opacity: heroOpacity }}
+          className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"
         />
         
-        <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
+        {/* Floating elements */}
+        <div className="absolute inset-0">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-white/20 rounded-full"
+              initial={{ 
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+              }}
+              animate={{ 
+                y: [null, -100, -200],
+                opacity: [0.2, 0.5, 0],
+                scale: [0.5, 1, 0.5]
+              }}
+              transition={{
+                duration: 8 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 8,
+                ease: "easeOut"
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="relative z-10 text-center px-4 sm:px-6 max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="space-y-8"
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="space-y-8 sm:space-y-12"
           >
-            {/* Huge Typography */}
-            <motion.h1 
-              style={{ y: textY }}
-              className="text-6xl sm:text-8xl lg:text-9xl xl:text-[12rem] font-light leading-none tracking-tight"
-            >
-              <motion.span
-                initial={{ opacity: 0, y: 50 }}
+            {/* MASSIVE NAME */}
+            <div className="space-y-4">
+              <motion.h1 
+                className="text-[12vw] sm:text-[10vw] lg:text-[8vw] xl:text-[12rem] font-extralight leading-[0.8] tracking-tighter"
+                initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                className="block"
+                transition={{ delay: 0.3, duration: 1.2 }}
               >
-                Théo
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="block"
-              >
-                Blondel
-              </motion.span>
-            </motion.h1>
+                <motion.span
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.8 }}
+                  className="block"
+                >
+                  THÉO
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7, duration: 0.8 }}
+                  className="block text-gray-400"
+                >
+                  BLONDEL
+                </motion.span>
+              </motion.h1>
+            </div>
             
+            {/* Subtitle */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="space-y-6"
+              transition={{ delay: 1.0, duration: 0.8 }}
+              className="space-y-4 sm:space-y-6"
             >
-              <p className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-400 font-light">
-                Digital designer & creative technologist
+              <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 font-light tracking-wide">
+                Digital Designer & Creative Technologist
               </p>
               
               <motion.p 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.2 }}
-                className="text-lg sm:text-xl text-gray-500 dark:text-gray-500 italic max-w-2xl mx-auto"
+                transition={{ delay: 1.4 }}
+                className="text-lg sm:text-xl text-gray-500 italic max-w-2xl mx-auto font-light"
               >
                 "Curious mind with a visual instinct."
               </motion.p>
-            </motion.div>
-
-            {/* Profile Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.0, duration: 0.8 }}
-              className="relative mx-auto w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48"
-            >
-              <div className="w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
-                <img 
-                  src="/DSC00831.png" 
-                  alt="Théo Blondel"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-full"
-              />
             </motion.div>
           </motion.div>
         </div>
@@ -211,244 +214,311 @@ export default function PersonalWebsite() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 2.0 }}
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center gap-2 text-gray-400 dark:text-gray-600"
+            className="flex flex-col items-center gap-2 text-gray-500"
           >
-            <span className="text-sm font-medium">Scroll</span>
+            <span className="text-sm font-light tracking-wider">SCROLL</span>
             <ChevronDown size={20} />
           </motion.div>
         </motion.div>
       </section>
 
-      {/* About Section - Fullscreen */}
-      <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 relative">
-        <div className="max-w-5xl mx-auto px-6 text-center">
+      {/* ABOUT SECTION - Immersive Text */}
+      <section data-section="1" className="min-h-screen flex items-center justify-center bg-white text-black relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.2 }}
             viewport={{ once: true }}
-            className="space-y-12"
+            className="space-y-12 sm:space-y-16"
           >
             <motion.h2 
-              className="text-4xl sm:text-6xl lg:text-7xl font-light mb-12"
+              className="text-[8vw] sm:text-[6vw] lg:text-[5vw] xl:text-8xl font-extralight leading-none"
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 30 }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: 50 }}
+              transition={{ duration: 1 }}
             >
-              About
+              ABOUT
             </motion.h2>
             
-            <motion.p 
-              className="text-2xl sm:text-3xl lg:text-4xl leading-relaxed font-light text-gray-700 dark:text-gray-300"
+            <motion.div 
+              className="space-y-8 sm:space-y-12"
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 30 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
+              initial={{ opacity: 0, y: 50 }}
+              transition={{ delay: 0.3, duration: 1 }}
             >
-              Swiss-based multimedia creator with{' '}
-              <span className="font-medium text-gray-900 dark:text-white">7 years</span>{' '}
-              of exploration in design, marketing and tech — across both{' '}
-              <span className="font-medium text-gray-900 dark:text-white">SFW and NSFW</span>{' '}
-              fields.
-            </motion.p>
+              <p className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-relaxed font-light text-gray-800 max-w-5xl mx-auto">
+                Swiss-based multimedia creator with{' '}
+                <span className="font-medium text-black">7 years</span>{' '}
+                of exploration in design, marketing and tech
+              </p>
+              
+              <motion.p 
+                className="text-xl sm:text-2xl lg:text-3xl text-gray-600 font-light max-w-4xl mx-auto"
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+              >
+                — across both SFW and NSFW fields.
+              </motion.p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Projects Section - Horizontal Scroll */}
-      <section className="min-h-screen flex items-center py-20 bg-white dark:bg-black">
+      {/* PROJECTS SECTION - Edge-to-edge visuals */}
+      <section data-section="2" className="min-h-screen bg-black py-20">
         <div className="w-full">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="text-center mb-16 px-6"
+            className="text-center mb-16 sm:mb-20 px-4 sm:px-6"
           >
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light">Projects</h2>
+            <h2 className="text-[8vw] sm:text-[6vw] lg:text-[5vw] xl:text-8xl font-extralight">PROJECTS</h2>
           </motion.div>
 
-          {/* Horizontal Scrolling Container */}
-          <div className="overflow-x-auto pb-8">
-            <motion.div 
-              className="flex gap-8 px-6 w-max"
-              initial={{ x: 100 }}
-              whileInView={{ x: 0 }}
-              transition={{ duration: 1 }}
-              viewport={{ once: true }}
-            >
-              {projects.map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.8 }}
-                  whileHover={{ y: -20, scale: 1.02 }}
-                  className="flex-shrink-0 w-80 sm:w-96 h-[500px] relative group cursor-pointer"
-                >
-                  <div className="w-full h-full rounded-3xl overflow-hidden relative">
-                    <img 
-                      src={project.image} 
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className={`absolute inset-0 bg-gradient-to-t ${project.color} opacity-60 group-hover:opacity-40 transition-opacity`} />
-                    
-                    <div className="absolute inset-0 flex flex-col justify-end p-8 text-white">
+          {/* Large Project Cards */}
+          <div className="space-y-0">
+            {projects.map((project, index) => (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2, duration: 1 }}
+                viewport={{ once: true }}
+                className="relative h-screen group cursor-pointer overflow-hidden"
+              >
+                {/* Full-width background image */}
+                <div className="absolute inset-0">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-all duration-700" />
+                </div>
+                
+                {/* Content overlay */}
+                <div className="relative z-10 h-full flex items-center justify-center text-center px-4 sm:px-6">
+                  <motion.div
+                    whileHover={{ y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="space-y-6 sm:space-y-8"
+                  >
+                    <div className="space-y-4">
                       <motion.h3 
-                        className="text-3xl sm:text-4xl font-light mb-4"
-                        whileHover={{ x: 10 }}
+                        className="text-[8vw] sm:text-[6vw] lg:text-[4vw] xl:text-7xl font-extralight leading-none"
+                        whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
                       >
                         {project.title}
                       </motion.h3>
-                      <p className="text-lg opacity-90 leading-relaxed">
-                        {project.description}
+                      <p className="text-xl sm:text-2xl lg:text-3xl text-gray-300 font-light">
+                        {project.subtitle}
                       </p>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+                    
+                    <motion.p 
+                      className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      {project.description}
+                    </motion.p>
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+                      {project.tags.map((tag) => (
+                        <span 
+                          key={tag}
+                          className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium border border-white/20"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </div>
+                
+                {/* Year indicator */}
+                <div className="absolute top-8 right-8 text-6xl sm:text-8xl font-extralight text-white/20">
+                  {project.year}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Expertise Section - Fullscreen */}
-      <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      {/* EXPERTISE SECTION - Dramatic layout */}
+      <section data-section="3" className="min-h-screen flex items-center justify-center bg-white text-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="space-y-20"
+            className="space-y-20 sm:space-y-24"
           >
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light">Expertise</h2>
+            <h2 className="text-[8vw] sm:text-[6vw] lg:text-[5vw] xl:text-8xl font-extralight">EXPERTISE</h2>
             
-            {/* Oversized Keywords */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-8">
+            {/* Three massive words */}
+            <div className="space-y-12 sm:space-y-16">
               <motion.div
-                whileInView={{ opacity: 1, scale: 1 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                className="space-y-6 group cursor-pointer"
+                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -100 }}
+                transition={{ delay: 0.2, duration: 1 }}
+                whileHover={{ scale: 1.05, x: 20 }}
+                className="group cursor-pointer"
               >
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 to-cyan-500 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Code size={48} className="text-white" />
+                <div className="flex items-center justify-center gap-8 sm:gap-12">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Code2 size={32} className="text-white sm:w-10 sm:h-10" />
+                  </div>
+                  <h3 className="text-[10vw] sm:text-[8vw] lg:text-[6vw] xl:text-9xl font-extralight group-hover:text-blue-500 transition-colors">
+                    DESIGN
+                  </h3>
                 </div>
-                <h3 className="text-4xl sm:text-5xl font-light group-hover:text-blue-500 transition-colors">Design.</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-400">React, Tailwind, Figma</p>
+                <p className="text-xl sm:text-2xl text-gray-600 mt-4 font-light">React, Tailwind, Figma</p>
               </motion.div>
 
               <motion.div
-                whileInView={{ opacity: 1, scale: 1 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                className="space-y-6 group cursor-pointer"
+                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: 100 }}
+                transition={{ delay: 0.4, duration: 1 }}
+                whileHover={{ scale: 1.05, x: -20 }}
+                className="group cursor-pointer"
               >
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Palette size={48} className="text-white" />
+                <div className="flex items-center justify-center gap-8 sm:gap-12">
+                  <h3 className="text-[10vw] sm:text-[8vw] lg:text-[6vw] xl:text-9xl font-extralight group-hover:text-purple-500 transition-colors">
+                    CODE
+                  </h3>
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Palette size={32} className="text-white sm:w-10 sm:h-10" />
+                  </div>
                 </div>
-                <h3 className="text-4xl sm:text-5xl font-light group-hover:text-purple-500 transition-colors">Code.</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-400">HTML, CSS, JavaScript, React</p>
+                <p className="text-xl sm:text-2xl text-gray-600 mt-4 font-light">HTML, CSS, JavaScript, React</p>
               </motion.div>
 
               <motion.div
-                whileInView={{ opacity: 1, scale: 1 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                whileHover={{ scale: 1.05 }}
-                className="space-y-6 group cursor-pointer"
+                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -100 }}
+                transition={{ delay: 0.6, duration: 1 }}
+                whileHover={{ scale: 1.05, x: 20 }}
+                className="group cursor-pointer"
               >
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-green-500 to-emerald-500 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <TrendingUp size={48} className="text-white" />
+                <div className="flex items-center justify-center gap-8 sm:gap-12">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Zap size={32} className="text-white sm:w-10 sm:h-10" />
+                  </div>
+                  <h3 className="text-[10vw] sm:text-[8vw] lg:text-[6vw] xl:text-9xl font-extralight group-hover:text-green-500 transition-colors">
+                    BRAND
+                  </h3>
                 </div>
-                <h3 className="text-4xl sm:text-5xl font-light group-hover:text-green-500 transition-colors">Branding.</h3>
-                <p className="text-lg text-gray-600 dark:text-gray-400">SEO, Strategy, No-code</p>
+                <p className="text-xl sm:text-2xl text-gray-600 mt-4 font-light">SEO, Strategy, No-code</p>
               </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Section - Final Screen */}
-      <section className="min-h-screen flex items-center justify-center bg-black dark:bg-white text-white dark:text-black">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+      {/* CONTACT SECTION - High contrast finale */}
+      <section data-section="4" className="min-h-screen flex items-center justify-center bg-black text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.2 }}
             viewport={{ once: true }}
-            className="space-y-16"
+            className="space-y-16 sm:space-y-20"
           >
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-light">Let's Connect</h2>
+            <motion.h2 
+              className="text-[8vw] sm:text-[6vw] lg:text-[5vw] xl:text-8xl font-extralight"
+              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 1 }}
+            >
+              LET'S CONNECT
+            </motion.h2>
             
             <motion.div
               whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 30 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="space-y-8"
+              initial={{ opacity: 0, y: 50 }}
+              transition={{ delay: 0.3, duration: 1 }}
+              className="space-y-12"
             >
+              {/* Email - Huge and clickable */}
               <motion.a
                 href="mailto:hello@theoblondel.ch"
-                whileHover={{ scale: 1.05, y: -5 }}
-                className="inline-flex items-center gap-4 text-2xl sm:text-3xl lg:text-4xl font-light hover:opacity-70 transition-all"
+                whileHover={{ scale: 1.05, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="inline-flex items-center gap-6 text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light hover:text-gray-300 transition-all group"
               >
-                <Mail size={40} />
-                hello@theoblondel.ch
+                <Mail size={60} className="group-hover:scale-110 transition-transform sm:w-16 sm:h-16 lg:w-20 lg:h-20" />
+                <span className="border-b border-transparent group-hover:border-white transition-all">
+                  hello@theoblondel.ch
+                </span>
               </motion.a>
 
-              <div className="flex justify-center gap-12 pt-8">
+              {/* Social Links */}
+              <motion.div 
+                className="flex justify-center gap-12 sm:gap-16 pt-8"
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+              >
                 <motion.a
                   href="https://github.com/theoblondel"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -10 }}
-                  className="flex flex-col items-center gap-3 hover:opacity-70 transition-all"
+                  whileHover={{ scale: 1.3, y: -15, rotate: 5 }}
+                  className="flex flex-col items-center gap-4 hover:text-gray-300 transition-all group"
                 >
-                  <Github size={32} />
-                  <span className="text-sm font-medium">GitHub</span>
+                  <Github size={40} className="sm:w-12 sm:h-12" />
+                  <span className="text-sm font-light tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">GITHUB</span>
                 </motion.a>
                 
                 <motion.a
                   href="https://behance.net/theoblondel"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -10 }}
-                  className="flex flex-col items-center gap-3 hover:opacity-70 transition-all"
+                  whileHover={{ scale: 1.3, y: -15, rotate: -5 }}
+                  className="flex flex-col items-center gap-4 hover:text-gray-300 transition-all group"
                 >
-                  <ExternalLink size={32} />
-                  <span className="text-sm font-medium">Behance</span>
+                  <ExternalLink size={40} className="sm:w-12 sm:h-12" />
+                  <span className="text-sm font-light tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">BEHANCE</span>
                 </motion.a>
                 
                 <motion.a
                   href="https://instagram.com/theoblondel"
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -10 }}
-                  className="flex flex-col items-center gap-3 hover:opacity-70 transition-all"
+                  whileHover={{ scale: 1.3, y: -15, rotate: 5 }}
+                  className="flex flex-col items-center gap-4 hover:text-gray-300 transition-all group"
                 >
-                  <Instagram size={32} />
-                  <span className="text-sm font-medium">Instagram</span>
+                  <Instagram size={40} className="sm:w-12 sm:h-12" />
+                  <span className="text-sm font-light tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">INSTAGRAM</span>
                 </motion.a>
-              </div>
+              </motion.div>
             </motion.div>
 
+            {/* Copyright */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="pt-16 text-sm opacity-50"
+              transition={{ delay: 1.0 }}
+              className="pt-16 text-sm text-gray-500 font-light tracking-widest"
             >
-              © 2024 Théo Blondel
+              © 2024 THÉO BLONDEL
             </motion.div>
           </motion.div>
         </div>
