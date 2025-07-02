@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Eye } from 'lucide-react';
+import { ExternalLink, Eye, Github } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 import ProjectModal from './ProjectModal';
@@ -28,6 +28,7 @@ export default function Portfolio() {
       title: 'ATHENIS',
       description: 'Balance Between Tradition & Modernity - Complete brand identity system for a luxury hospitality brand. This project explores the intersection of classical Greek aesthetics with contemporary design principles.',
       behanceId: '220519773',
+      githubLink: 'https://github.com/theoblondel/athenis-brand',
       previewLink: 'https://www.behance.net/gallery/220519773',
       thumbnail: '/Athenis copy.png'
     },
@@ -36,6 +37,7 @@ export default function Portfolio() {
       title: 'BLONDEL',
       description: 'Personal brand identity development with modern typography and clean aesthetic. A sophisticated approach to personal branding in the creative industry.',
       behanceId: '215415201',
+      githubLink: 'https://github.com/theoblondel/personal-brand',
       previewLink: 'https://www.behance.net/gallery/215415201',
       thumbnail: '/Blondel.png'
     },
@@ -44,6 +46,7 @@ export default function Portfolio() {
       title: 'LES OMBRES DU PARADIS',
       description: 'Editorial design project combining storytelling with visual narrative. An exploration of shadows and light through typography and layout design.',
       behanceId: '199683469',
+      githubLink: 'https://github.com/theoblondel/ombres-paradis',
       previewLink: 'https://www.behance.net/gallery/199683469',
       thumbnail: '/ombreduparadis.webp'
     },
@@ -52,6 +55,7 @@ export default function Portfolio() {
       title: 'AUMY',
       description: 'Modern brand identity for a contemporary lifestyle brand. Clean, minimalist approach with focus on user experience and brand consistency.',
       behanceId: '215162609',
+      githubLink: 'https://github.com/theoblondel/aumy-brand',
       previewLink: 'https://www.behance.net/gallery/215162609',
       thumbnail: '/Aumy.png'
     },
@@ -60,6 +64,7 @@ export default function Portfolio() {
       title: 'NEWWAVE',
       description: 'Digital design project exploring new wave aesthetics with modern technology. A fusion of retro-futuristic elements and contemporary design principles.',
       behanceId: '211972073',
+      githubLink: 'https://github.com/theoblondel/newwave-design',
       previewLink: 'https://www.behance.net/gallery/211972073',
       thumbnail: '/NewWave.png'
     },
@@ -68,6 +73,7 @@ export default function Portfolio() {
       title: 'HOLZKERN',
       description: 'Product design and branding for sustainable wooden accessories. Emphasis on natural materials and eco-friendly design philosophy.',
       behanceId: '216987243',
+      githubLink: 'https://github.com/theoblondel/holzkern-design',
       previewLink: 'https://www.behance.net/gallery/216987243',
       thumbnail: '/Holzkern.jpg'
     }
@@ -186,10 +192,12 @@ export default function Portfolio() {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Overlay avec les deux boutons - TOUJOURS VISIBLE pour déboguer */}
+                {/* Overlay avec les deux boutons - SEULEMENT AU SURVOL */}
                 <motion.div 
-                  initial={{ opacity: 1 }}
-                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100"
                 >
                   <div className="flex gap-3">
                     {/* Bouton Preview (Œil) - Blanc */}
@@ -206,18 +214,18 @@ export default function Portfolio() {
                       <Eye size={18} />
                     </motion.button>
                     
-                    {/* Bouton Behance (Lien externe) - Noir */}
+                    {/* Bouton GitHub - Noir */}
                     <motion.button
                       onClick={(e) => {
                         e.stopPropagation();
-                        window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
+                        window.open(project.githubLink, '_blank');
                       }}
                       whileHover={{ scale: 1.1, rotate: -5 }}
                       whileTap={{ scale: 0.9 }}
                       className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-all shadow-lg"
-                      title="Voir sur Behance"
+                      title="Voir sur GitHub"
                     >
-                      <ExternalLink size={18} />
+                      <Github size={18} />
                     </motion.button>
                   </div>
                 </motion.div>
