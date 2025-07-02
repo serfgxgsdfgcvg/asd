@@ -11,7 +11,7 @@ export default function Process() {
       id: 1,
       icon: MessageCircle,
       title: 'Brief & Écoute',
-      description: 'Comprendre vos besoins, vos objectifs et l\'univers de votre marque.',
+      description: 'Comprendre tes besoins, tes objectifs et l\'univers de ta marque.',
       color: 'from-blue-500 to-blue-600',
       delay: 0.1
     },
@@ -19,7 +19,7 @@ export default function Process() {
       id: 2,
       icon: Search,
       title: 'Recherche & Moodboard',
-      description: 'Explorer les inspirations, les tendances et l\'environnement visuel adapté.',
+      description: 'Explorer les inspirations, les tendances et l\'environnement visuel adapté à ton projet.',
       color: 'from-purple-500 to-purple-600',
       delay: 0.2
     },
@@ -27,7 +27,7 @@ export default function Process() {
       id: 3,
       icon: PenTool,
       title: 'Croquis & Concepts',
-      description: 'Esquisser les premières idées, réfléchir aux formes, aux messages, aux couleurs.',
+      description: 'Esquisser les premières idées, réfléchir aux formes, aux messages, aux couleurs qui te correspondent.',
       color: 'from-green-500 to-green-600',
       delay: 0.3
     },
@@ -35,7 +35,7 @@ export default function Process() {
       id: 4,
       icon: Palette,
       title: 'Design',
-      description: 'Création du rendu final, avec typographies, visuels et composition professionnelle.',
+      description: 'Création du rendu final, avec typographies, visuels et composition professionnelle qui reflètent ton identité.',
       color: 'from-orange-500 to-orange-600',
       delay: 0.4
     },
@@ -43,7 +43,7 @@ export default function Process() {
       id: 5,
       icon: RotateCcw,
       title: 'Révisions',
-      description: 'Vos retours sont essentiels. On ajuste ensemble jusqu\'à valider ce qui vous ressemble.',
+      description: 'Tes retours sont essentiels. On ajuste ensemble jusqu\'à valider ce qui te ressemble parfaitement.',
       color: 'from-pink-500 to-pink-600',
       delay: 0.5
     },
@@ -51,7 +51,7 @@ export default function Process() {
       id: 6,
       icon: Package,
       title: 'Livraison & Accompagnement',
-      description: 'Remise des fichiers optimisés, prêts à l\'emploi (web, print, réseaux). Je reste dispo !',
+      description: 'Remise des fichiers optimisés, prêts à l\'emploi (web, print, réseaux). Je reste dispo pour toi !',
       color: 'from-teal-500 to-teal-600',
       delay: 0.6
     }
@@ -115,7 +115,7 @@ export default function Process() {
             transition={{ delay: 0.5 }}
             className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
-            Chaque projet est unique, mais ma méthode reste solide. Voici comment je transforme vos idées en résultats concrets.
+            Chaque projet est unique, mais ma méthode reste solide. Voici comment je transforme tes idées en résultats concrets.
           </motion.p>
         </motion.div>
 
@@ -218,7 +218,7 @@ export default function Process() {
               transition={{ delay: 1.1 }}
               className="text-gray-600 dark:text-gray-300 mb-8 text-lg max-w-2xl mx-auto"
             >
-              Parlons de votre vision et voyons comment nous pouvons la concrétiser ensemble.
+              Parlons de ta vision et voyons comment nous pouvons la concrétiser ensemble.
             </motion.p>
             
             <motion.a
