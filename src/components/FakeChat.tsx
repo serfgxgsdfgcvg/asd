@@ -23,7 +23,7 @@ export default function FakeChat() {
     {
       id: 1,
       type: 'client',
-      content: '👤 Salut Théo ! J\'ai besoin d\'un logo pour ma marque "NOIRBRUME". Un style streetwear, sobre et poétique.',
+      content: 'Salut Théo ! J\'ai besoin d\'un logo pour ma marque "NOIRBRUME". Un style streetwear, sobre et poétique.',
       timestamp: '14:32'
     },
     {
@@ -35,7 +35,7 @@ export default function FakeChat() {
     {
       id: 3,
       type: 'client',
-      content: '👤 J\'ai trop hâte de voir ça 😍',
+      content: 'J\'ai trop hâte de voir ça',
       timestamp: '14:36'
     },
     {
@@ -50,7 +50,7 @@ export default function FakeChat() {
     {
       id: 5,
       type: 'client',
-      content: '👤 WAW. C\'est exactement ce que je voulais ! On part sur ça 💯',
+      content: 'WAW. C\'est exactement ce que je voulais ! On part sur ça',
       timestamp: '19:45'
     },
     {
@@ -65,13 +65,13 @@ export default function FakeChat() {
     {
       id: 7,
       type: 'client',
-      content: '👤 Incroyable ! Merci pour ton style et ta réactivité 🙏',
+      content: 'Incroyable ! Merci pour ton style et ta réactivité',
       timestamp: '20:18'
     },
     {
       id: 8,
       type: 'you',
-      content: 'Et voilà le dossier complet avec tous les formats :<br/>📦 Logo vectoriel (AI, SVG, PDF)<br/>🖼️ Versions PNG haute résolution<br/>📋 Guide d\'utilisation',
+      content: 'Et voilà le dossier complet avec tous les formats :<br/>Logo vectoriel (AI, SVG, PDF)<br/>Versions PNG haute résolution<br/>Guide d\'utilisation',
       timestamp: '20:20',
       hasAttachment: true,
       attachmentName: 'NOIRBRUME_Complete_Brand_Kit.zip',

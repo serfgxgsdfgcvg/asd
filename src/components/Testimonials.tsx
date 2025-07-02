@@ -19,58 +19,73 @@ export default function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "CEO, TechStart",
-      content: "Theo a transformé complètement notre identité de marque. Son attention aux détails et sa vision créative ont dépassé nos attentes. Le nouveau design a considérablement amélioré notre présence sur le marché.",
-      rating: 5,
-      avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150",
-      company: "TechStart Inc.",
-      project: "Refonte complète de l'identité de marque",
-      date: "Décembre 2023"
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "Founder, DesignCo",
-      content: "Travailler avec Theo a été un plaisir absolu. Il a livré un site web époustouflant qui non seulement a l'air incroyable, mais fonctionne aussi exceptionnellement bien. L'expérience utilisateur est fluide.",
-      rating: 5,
-      avatar: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150",
-      company: "DesignCo Studio",
-      project: "Développement site web & UX",
-      date: "Novembre 2023"
-    },
-    {
-      id: 3,
       name: "Emily Rodriguez",
       role: "Marketing Director, InnovateLab",
-      content: "L'approche créative et l'expertise technique de Theo nous ont aidés à lancer une campagne digitale réussie. Les résultats parlent d'eux-mêmes - 300% d'augmentation de l'engagement !",
+      content: "L'approche créative et l'expertise technique de Théo nous ont aidés à lancer une campagne digitale réussie. Les résultats parlent d'eux-mêmes – 300 % d'augmentation de l'engagement !",
       rating: 5,
-      avatar: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150",
       company: "InnovateLab",
       project: "Campagne digitale & Motion Graphics",
       date: "Octobre 2023"
     },
     {
-      id: 4,
-      name: "David Martinez",
-      role: "Product Manager, StartupX",
-      content: "Theo a une capacité unique à comprendre nos besoins et à les traduire en solutions visuelles exceptionnelles. Son professionnalisme et sa créativité sont remarquables.",
+      id: 2,
+      name: "Client anonyme",
+      role: "",
+      content: "Théo a su capter l'essence de ma marque dès le départ. Communication fluide, délais respectés, et résultat pro. Je recommande vivement.",
       rating: 5,
-      avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150",
-      company: "StartupX",
-      project: "Interface mobile & Prototypage",
-      date: "Septembre 2023"
+      company: "",
+      project: "Création de logo",
+      date: "Avril 2025"
+    },
+    {
+      id: 3,
+      name: "Meier Nils",
+      role: "Entrepreneur",
+      content: "Le design de ma carte de visite est exactement ce que je cherchais : minimaliste, élégant et percutant. Merci pour ton écoute et ton professionnalisme !",
+      rating: 5,
+      company: "",
+      project: "Identité visuelle & carte de visite",
+      date: "Avril 2025"
+    },
+    {
+      id: 4,
+      name: "Lukas Steinmann",
+      role: "Directeur artistique",
+      content: "La collaboration avec Théo Blondel a été excellente. Sa campagne d'affiches a dépassé toutes nos attentes — un travail créatif, moderne, précis jusque dans les détails. Mention spéciale pour son sens des couleurs, des typos et de l'impact visuel.",
+      rating: 5,
+      company: "",
+      project: "Campagne print & direction artistique",
+      date: "Avril 2025"
     },
     {
       id: 5,
-      name: "Lisa Thompson",
-      role: "Creative Director, BrandForge",
-      content: "La collaboration avec Theo a été exceptionnelle. Il apporte une perspective fraîche et innovante à chaque projet. Ses compétences en design et en stratégie sont impressionnantes.",
+      name: "Azdine Tafssout",
+      role: "Chef de projet",
+      content: "Toujours un plaisir de bosser avec Théo. Réactif, créatif et fiable. Chaque projet avance sans stress.",
       rating: 5,
-      avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150",
-      company: "BrandForge",
-      project: "Stratégie de marque & Guidelines",
-      date: "Août 2023"
+      company: "",
+      project: "Identité de marque & print",
+      date: "Février 2025"
+    },
+    {
+      id: 6,
+      name: "Noa Vellin",
+      role: "Responsable produit",
+      content: "Super collaboration. Le projet a été fluide du début à la fin. Résultat propre, livré dans les temps, et fidèle à notre vision.",
+      rating: 5,
+      company: "",
+      project: "Design packaging & supports de com'",
+      date: "Avril 2025"
+    },
+    {
+      id: 7,
+      name: "Julia Renard",
+      role: "Fondatrice, Atelier Kura",
+      content: "Théo a géré notre rebranding de A à Z. Il a tout restructuré avec clarté, goût et une vraie sensibilité. On a su dès les premiers échanges qu'on allait bosser avec lui.",
+      rating: 5,
+      company: "Atelier Kura",
+      project: "Refonte d'identité visuelle",
+      date: "Mars 2025"
     }
   ];
 
@@ -117,6 +132,22 @@ export default function Testimonials() {
 
     return () => clearInterval(autoplay);
   }, [emblaApi]);
+
+  // Fonction pour générer un avatar par défaut basé sur les initiales
+  const getDefaultAvatar = (name: string) => {
+    const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+    const colors = [
+      'bg-blue-500', 'bg-green-500', 'bg-purple-500', 'bg-pink-500', 
+      'bg-indigo-500', 'bg-yellow-500', 'bg-red-500', 'bg-teal-500'
+    ];
+    const colorIndex = name.length % colors.length;
+    
+    return (
+      <div className={`w-16 h-16 ${colors[colorIndex]} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
+        {initials}
+      </div>
+    );
+  };
 
   return (
     <section className="py-24 sm:py-32 lg:py-40 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
@@ -271,13 +302,12 @@ export default function Testimonials() {
 
                       {/* Author Info */}
                       <div className="flex items-center gap-4">
-                        <motion.img
+                        <motion.div
                           whileHover={{ scale: 1.1, rotate: 5 }}
                           transition={{ duration: 0.3 }}
-                          src={testimonial.avatar}
-                          alt={testimonial.name}
-                          className="w-16 h-16 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600"
-                        />
+                        >
+                          {getDefaultAvatar(testimonial.name)}
+                        </motion.div>
                         <div>
                           <motion.h4
                             whileHover={{ x: 5 }}
@@ -286,12 +316,16 @@ export default function Testimonials() {
                           >
                             {testimonial.name}
                           </motion.h4>
-                          <p className="text-gray-600 dark:text-gray-400 text-sm group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
-                            {testimonial.role}
-                          </p>
-                          <p className="text-gray-500 dark:text-gray-500 text-xs font-medium">
-                            {testimonial.company}
-                          </p>
+                          {testimonial.role && (
+                            <p className="text-gray-600 dark:text-gray-400 text-sm group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+                              {testimonial.role}
+                            </p>
+                          )}
+                          {testimonial.company && (
+                            <p className="text-gray-500 dark:text-gray-500 text-xs font-medium">
+                              {testimonial.company}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -357,10 +391,10 @@ export default function Testimonials() {
           </motion.div>
 
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Vous avez travaillé avec moi ?
+            Tu as travaillé avec moi ?
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Votre avis compte énormément ! Partagez votre expérience sur Google Reviews et aidez d'autres clients à découvrir la qualité de mes services créatifs.
+            Ton avis compte énormément ! Partage ton expérience sur Google Reviews et aide d'autres clients à découvrir la qualité de mes services créatifs.
           </p>
 
           <motion.a
@@ -387,7 +421,7 @@ export default function Testimonials() {
                 <Star key={i} size={16} className="text-yellow-400 fill-current" />
               ))}
             </div>
-            <span>Votre avis nous aide à grandir</span>
+            <span>Ton avis nous aide à grandir</span>
           </div>
         </motion.div>
       </div>
