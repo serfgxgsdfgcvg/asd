@@ -26,7 +26,7 @@ export default function Portfolio() {
       description: 'Personal brand identity development with modern typography and clean aesthetic. A sophisticated approach to personal branding in the creative industry.',
       tags: ['Personal Brand', 'Typography', 'Logo Design', 'Visual Identity', 'Portfolio', 'Creative'],
       behanceId: '215415201',
-      thumbnail: 'https://images.pexels.com/photos/5926390/pexels-photo-5926390.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      thumbnail: '/Blondel.png'
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ export default function Portfolio() {
       description: 'Editorial design project combining storytelling with visual narrative. An exploration of shadows and light through typography and layout design.',
       tags: ['Editorial', 'Typography', 'Layout Design', 'Storytelling', 'Print Design', 'Art Direction'],
       behanceId: '199683469',
-      thumbnail: 'https://images.pexels.com/photos/20415409/pexels-photo-20415409.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      thumbnail: '/ombreduparadis.webp'
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ export default function Portfolio() {
       description: 'Modern brand identity for a contemporary lifestyle brand. Clean, minimalist approach with focus on user experience and brand consistency.',
       tags: ['Brand Identity', 'Minimalism', 'Logo Design', 'Brand Guidelines', 'Modern', 'Lifestyle'],
       behanceId: '215162609',
-      thumbnail: 'https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      thumbnail: '/Aumy.png'
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ export default function Portfolio() {
       description: 'Digital design project exploring new wave aesthetics with modern technology. A fusion of retro-futuristic elements and contemporary design principles.',
       tags: ['Digital Design', 'Retro-Futuristic', 'UI Design', 'Visual Effects', 'Motion Graphics', 'Technology'],
       behanceId: '211972073',
-      thumbnail: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      thumbnail: '/NewWave.png'
     },
     {
       id: 6,
@@ -66,7 +66,7 @@ export default function Portfolio() {
       description: 'Product design and branding for sustainable wooden accessories. Emphasis on natural materials and eco-friendly design philosophy.',
       tags: ['Product Design', 'Sustainability', 'Eco-Design', 'Natural Materials', 'Branding', 'Packaging'],
       behanceId: '216987243',
-      thumbnail: 'https://images.pexels.com/photos/163064/pexels-photo-163064.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=2'
+      thumbnail: '/Holzkern.jpg'
     }
   ];
 
