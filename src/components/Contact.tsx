@@ -1,31 +1,135 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Instagram, MessageCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Send, Linkedin, Github, Instagram, MessageCircle, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
 
 export default function Contact() {
   const { t } = useApp();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionSuccess, setSubmissionSuccess] = useState(false);
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = (): boolean => {
+    const errors: FormErrors = {};
+
+    // Validation du nom
+    if (!formData.name.trim()) {
+      errors.name = 'Le nom est requis';
+    } else if (formData.name.trim().length < 2) {
+      errors.name = 'Le nom doit contenir au moins 2 caractères';
+    }
+
+    // Validation de l'email
+    if (!formData.email.trim()) {
+      errors.email = 'L\'email est requis';
+    } else if (!validateEmail(formData.email)) {
+      errors.email = 'Veuillez entrer un email valide';
+    }
+
+    // Validation du sujet
+    if (!formData.subject.trim()) {
+      errors.subject = 'Le sujet est requis';
+    } else if (formData.subject.trim().length < 5) {
+      errors.subject = 'Le sujet doit contenir au moins 5 caractères';
+    }
+
+    // Validation du message
+    if (!formData.message.trim()) {
+      errors.message = 'Le message est requis';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Le message doit contenir au moins 10 caractères';
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setFormErrors({});
+
+    try {
+      // Simulation d'envoi (remplacer par votre logique d'envoi réelle)
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.log('Formulaire soumis:', formData);
+      
+      // Réinitialiser le formulaire
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      setSubmissionSuccess(true);
+      
+      // Masquer le message de succès après 5 secondes
+      setTimeout(() => {
+        setSubmissionSuccess(false);
+      }, 5000);
+      
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      setFormErrors({ message: 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Effacer l'erreur du champ modifié
+    if (formErrors[name as keyof FormErrors]) {
+      setFormErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
   };
 
+  const hasErrors = Object.keys(formErrors).length > 0;
+  const isFormValid = formData.name && formData.email && formData.subject && formData.message && !hasErrors;
+
   return (
-    <section id="contact" className="py-32 bg-white dark:bg-black relative overflow-hidden">
+    <section id="contact" className="py-24 sm:py-32 lg:py-40 bg-white dark:bg-black relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -33,7 +137,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16 sm:mb-20"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -60,7 +164,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6"
           >
             <motion.span
               initial={{ opacity: 0, y: 30 }}
@@ -90,7 +194,7 @@ export default function Contact() {
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Contact Info with enhanced interactions */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -100,8 +204,8 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('contact.getInTouch')}</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8 text-lg">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('contact.getInTouch')}</h3>
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8 text-base sm:text-lg">
                 {t('contact.getInTouchDesc')}
               </p>
             </div>
@@ -137,27 +241,27 @@ export default function Contact() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.6 }}
                   whileHover={{ x: 10, scale: 1.02, transition: { duration: 0.3 } }}
-                  className="flex items-center gap-6 p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-lg transition-all group cursor-pointer"
+                  className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-lg transition-all group cursor-pointer"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.2 }}
-                    className="w-16 h-16 bg-black dark:bg-white text-white dark:text-black rounded-2xl flex items-center justify-center group-hover:bg-gray-900 dark:group-hover:bg-gray-100 transition-colors"
+                    className="w-12 h-12 sm:w-16 sm:h-16 bg-accent-500 text-white rounded-2xl flex items-center justify-center group-hover:bg-accent-600 transition-colors shadow-lg"
                   >
-                    <contact.icon className="w-8 h-8" />
+                    <contact.icon className="w-5 h-5 sm:w-8 sm:h-8" />
                   </motion.div>
-                  <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-500 mb-1 uppercase tracking-wider font-medium">
+                  <div className="flex-1">
+                    <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-500 mb-1 uppercase tracking-wider font-medium">
                       {contact.label}
                     </div>
                     <motion.div 
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
-                      className="font-bold text-gray-900 dark:text-white text-lg group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
+                      className="font-bold text-gray-900 dark:text-white text-base sm:text-lg group-hover:text-accent-500 transition-colors"
                     >
                       {contact.value}
                     </motion.div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">{contact.description}</div>
+                    <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">{contact.description}</div>
                   </div>
                 </motion.a>
               ))}
@@ -170,8 +274,8 @@ export default function Contact() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="pt-8"
             >
-              <h4 className="font-bold text-gray-900 dark:text-white mb-6 text-xl">{t('contact.followMe')}</h4>
-              <div className="flex gap-4">
+              <h4 className="font-bold text-gray-900 dark:text-white mb-6 text-lg sm:text-xl">{t('contact.followMe')}</h4>
+              <div className="flex gap-3 sm:gap-4">
                 {[
                   { icon: Linkedin, href: 'https://linkedin.com/in/theoblondel', label: 'LinkedIn' },
                   { icon: Github, href: 'https://github.com/theoblondel', label: 'GitHub' },
@@ -188,9 +292,9 @@ export default function Contact() {
                     transition={{ delay: 0.6 + index * 0.1, type: "spring", stiffness: 200 }}
                     whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-14 h-14 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-2xl flex items-center justify-center hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all"
+                    className="w-12 h-12 sm:w-14 sm:h-14 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-2xl flex items-center justify-center hover:bg-accent-500 hover:text-white transition-all shadow-md hover:shadow-lg"
                   >
-                    <social.icon className="w-6 h-6" />
+                    <social.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.a>
                 ))}
               </div>
@@ -203,17 +307,36 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-8"
+            className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 dark:border-gray-800"
           >
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">{t('contact.sendMessage')}</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">{t('contact.sendMessage')}</h3>
+            
+            {/* Success Message */}
+            <AnimatePresence>
+              {submissionSuccess && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                  className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center gap-3"
+                >
+                  <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                  <div>
+                    <p className="text-green-800 dark:text-green-200 font-medium">Message envoyé avec succès !</p>
+                    <p className="text-green-600 dark:text-green-400 text-sm">Je vous répondrai dans les plus brefs délais.</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
                     {t('contact.name')} *
                   </label>
                   <motion.input
@@ -222,17 +345,34 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:border-black dark:focus:border-white focus:outline-none transition-all text-gray-900 dark:text-white"
+                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                      formErrors.name 
+                        ? 'border-red-500 focus:border-red-500' 
+                        : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                    }`}
                     placeholder={t('contact.namePlaceholder')}
                   />
+                  <AnimatePresence>
+                    {formErrors.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="mt-2 flex items-center gap-2 text-red-600 dark:text-red-400 text-sm"
+                      >
+                        <AlertCircle size={14} />
+                        {formErrors.name}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
+                
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
                     Email *
                   </label>
                   <motion.input
@@ -241,10 +381,26 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:border-black dark:focus:border-white focus:outline-none transition-all text-gray-900 dark:text-white"
+                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                      formErrors.email 
+                        ? 'border-red-500 focus:border-red-500' 
+                        : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                    }`}
                     placeholder={t('contact.emailPlaceholder')}
                   />
+                  <AnimatePresence>
+                    {formErrors.email && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="mt-2 flex items-center gap-2 text-red-600 dark:text-red-400 text-sm"
+                      >
+                        <AlertCircle size={14} />
+                        {formErrors.email}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               </div>
               
@@ -253,7 +409,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
                   {t('contact.subject')} *
                 </label>
                 <motion.input
@@ -262,10 +418,26 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:border-black dark:focus:border-white focus:outline-none transition-all text-gray-900 dark:text-white"
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    formErrors.subject 
+                      ? 'border-red-500 focus:border-red-500' 
+                      : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                  }`}
                   placeholder={t('contact.subjectPlaceholder')}
                 />
+                <AnimatePresence>
+                  {formErrors.subject && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-2 flex items-center gap-2 text-red-600 dark:text-red-400 text-sm"
+                    >
+                      <AlertCircle size={14} />
+                      {formErrors.subject}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
               
               <motion.div
@@ -273,7 +445,7 @@ export default function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
               >
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 sm:mb-3">
                   {t('contact.message')} *
                 </label>
                 <motion.textarea
@@ -281,11 +453,27 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  required
                   rows={6}
-                  className="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:border-black dark:focus:border-white focus:outline-none transition-all resize-none text-gray-900 dark:text-white"
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    formErrors.message 
+                      ? 'border-red-500 focus:border-red-500' 
+                      : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                  }`}
                   placeholder={t('contact.messagePlaceholder')}
                 />
+                <AnimatePresence>
+                  {formErrors.message && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="mt-2 flex items-center gap-2 text-red-600 dark:text-red-400 text-sm"
+                    >
+                      <AlertCircle size={14} />
+                      {formErrors.message}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
               
               <motion.button
@@ -293,19 +481,54 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-black dark:bg-white text-white dark:text-black py-4 rounded-xl font-medium flex items-center justify-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group"
+                whileHover={{ scale: isFormValid && !isSubmitting ? 1.02 : 1, y: isFormValid && !isSubmitting ? -2 : 0 }}
+                whileTap={{ scale: isFormValid && !isSubmitting ? 0.98 : 1 }}
+                disabled={!isFormValid || isSubmitting}
+                className={`w-full py-3 sm:py-4 rounded-xl font-medium flex items-center justify-center gap-3 transition-all ${
+                  isFormValid && !isSubmitting
+                    ? 'bg-accent-500 hover:bg-accent-600 text-white shadow-lg hover:shadow-xl'
+                    : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                }`}
               >
-                {t('contact.sendBtn')}
-                <motion.div
-                  whileHover={{ x: 5, rotate: 15 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Send className="w-5 h-5" />
-                </motion.div>
+                {isSubmitting ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    Envoi en cours...
+                  </>
+                ) : (
+                  <>
+                    {t('contact.sendBtn')}
+                    <motion.div
+                      whileHover={{ x: 5, rotate: 15 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Send className="w-5 h-5" />
+                    </motion.div>
+                  </>
+                )}
               </motion.button>
             </form>
+
+            {/* Form validation summary */}
+            <AnimatePresence>
+              {hasErrors && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl"
+                >
+                  <div className="flex items-center gap-2 text-red-800 dark:text-red-200 text-sm">
+                    <AlertCircle size={16} />
+                    <span className="font-medium">Veuillez corriger les erreurs ci-dessus</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>
