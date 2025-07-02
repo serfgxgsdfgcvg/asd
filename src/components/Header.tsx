@@ -6,7 +6,7 @@ import { useApp } from '../contexts/AppContext';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { t } = useApp();
+  const { t, theme } = useApp();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,16 +29,15 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 sm:h-20">
           <motion.div 
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 sm:gap-3 cursor-pointer"
+            className="flex items-center cursor-pointer"
           >
             <motion.img
               whileHover={{ rotate: 10 }}
               transition={{ duration: 0.2 }}
-              src="/Mode_Isolation.png"
+              src={theme === 'dark' ? "/Groudp.png" : "/Mode_Isolation.png"}
               alt="Theo Blondel Logo"
-              className="w-8 h-8 sm:w-10 sm:h-10"
+              className="h-8 w-auto sm:h-10 object-contain"
             />
-            <span className="text-lg sm:text-xl font-bold text-black dark:text-white">THEO BLONDEL</span>
           </motion.div>
           
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
