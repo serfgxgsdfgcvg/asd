@@ -82,7 +82,7 @@ export default function Hero() {
                     className="block"
                   >
                     <span className="italic font-light">{t('hero.title2')}</span>{' '}
-                    <span className="font-bold">{t('hero.title3')}</span>
+                    <span className="font-semibold">{t('hero.title3')}</span>
                   </motion.span>
                 </h1>
               </motion.div>
