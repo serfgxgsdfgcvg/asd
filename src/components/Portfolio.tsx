@@ -186,12 +186,10 @@ export default function Portfolio() {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Overlay avec les deux boutons - Exactement comme dans l'image */}
+                {/* Overlay avec les deux boutons - TOUJOURS VISIBLE pour déboguer */}
                 <motion.div 
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100"
+                  initial={{ opacity: 1 }}
+                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
                 >
                   <div className="flex gap-3">
                     {/* Bouton Preview (Œil) - Blanc */}
