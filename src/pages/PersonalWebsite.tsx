@@ -65,11 +65,41 @@ export default function PersonalWebsite() {
   ];
 
   const timeline = [
-    { year: '2018', milestone: 'First edits & drawings' },
-    { year: '2020', milestone: 'Branding / design focus' },
-    { year: '2021', milestone: 'NSFW ecosystem / SlyClub' },
-    { year: '2023', milestone: 'Privacy, tools, and desktop UI' },
-    { year: '2025', milestone: 'Reinvention, refined style' }
+    { 
+      year: '2025', 
+      milestone: 'Reinvention, refined style',
+      description: 'Today, as a professional in media technology, I am capable of working on a variety of multimedia projects, ranging from website and app design to video and graphic content creation.'
+    },
+    { 
+      year: '2024', 
+      milestone: 'Professional media technology career',
+      description: 'This career enables me to leverage all my skills and continue exploring my passion for multimedia in its myriad forms.'
+    },
+    { 
+      year: '2023', 
+      milestone: 'Privacy, tools, and desktop UI focus',
+      description: 'After this year of self-exploration and personal growth, I felt the need to find a job that better suited me and would allow me to fully utilize my skills and passions.'
+    },
+    { 
+      year: '2022', 
+      milestone: 'Self-exploration and skill development',
+      description: 'I dedicated this time to delving into various aspects of multimedia, watching tutorials on diverse subjects, and honing my skills in video editing, animation, drawing, and design.'
+    },
+    { 
+      year: '2021', 
+      milestone: 'NSFW ecosystem / SlyClub',
+      description: 'I had the opportunity to experiment with different software and techniques, broadening my proficiency across a wide array of creative tools.'
+    },
+    { 
+      year: '2020', 
+      milestone: 'Transition to drawing and design',
+      description: 'In early 2019, I delved deeper into drawing. I spent countless hours sketching portraits of people I admired, whether they were video game characters, heroes from my favorite TV shows, or icons from manga series.'
+    },
+    { 
+      year: '2018', 
+      milestone: 'First edits & drawings - YouTube gaming montages',
+      description: 'I started out with video by creating montages on Minecraft, Fortnite, Call of Duty: Black Ops 3, and Rainbow Six Siege for my YouTube channel. The gaming community on YouTube was booming, and I was drawn to the opportunity to share my gaming experiences.'
+    }
   ];
 
   const philosophyQuotes = [
@@ -279,7 +309,7 @@ export default function PersonalWebsite() {
         </motion.div>
       </section>
 
-      {/* ABOUT SECTION - Enhanced Typography */}
+      {/* HOW I GOT HERE SECTION - Enhanced Typography */}
       <section data-section="1" className="min-h-screen flex items-center justify-center bg-immersive-light text-black relative section-transition">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
@@ -295,7 +325,7 @@ export default function PersonalWebsite() {
               initial={{ opacity: 0, y: 50 }}
               transition={{ duration: 1 }}
             >
-              ABOUT
+              HOW I GOT HERE?
             </motion.h2>
             
             <motion.div 
@@ -304,28 +334,46 @@ export default function PersonalWebsite() {
               initial={{ opacity: 0, y: 50 }}
               transition={{ delay: 0.3, duration: 1 }}
             >
-              <p className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl leading-relaxed font-light text-gray-800 max-w-5xl mx-auto text-balance">
-                I'm Théo, a{' '}
-                <span className="font-medium text-black text-gradient-accent">Swiss-based designer</span>{' '}
-                with a background shaped by curiosity more than convention.
+              <p className="text-xl sm:text-2xl lg:text-3xl leading-relaxed font-light text-gray-800 max-w-5xl mx-auto text-balance">
+                I started out with video by creating montages on{' '}
+                <span className="font-medium text-black text-gradient-accent">Minecraft, Fortnite, Call of Duty: Black Ops 3, and Rainbow Six Siege</span>{' '}
+                for my YouTube channel, around 2018. At that time, the gaming community on YouTube was booming, and I was drawn to the opportunity to share my gaming experiences with fellow enthusiasts.
               </p>
               
               <motion.p 
-                className="text-xl sm:text-2xl lg:text-3xl text-gray-600 font-light max-w-4xl mx-auto text-pretty"
+                className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto text-pretty"
                 whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 30 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
               >
-                From illustration and motion to code and product thinking — I've always built things that reflect how I see the world.
+                Then, in early 2019, I delved deeper into drawing. I spent countless hours sketching portraits of people I admired, whether they were video game characters, heroes from my favorite TV shows, or icons from manga series. Drawing became a means for me to express my creativity in a different, perhaps more intimate, way than creating videos.
               </motion.p>
 
               <motion.p 
-                className="text-lg sm:text-xl lg:text-2xl text-gray-500 font-light max-w-3xl mx-auto text-pretty"
+                className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto text-pretty"
                 whileInView={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 30 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
               >
-                I've explored both SFW and NSFW spaces, driven by the same core idea: clarity, control, and emotion. I don't follow trends — I follow questions.
+                However, as I approached the end of my mandatory schooling in Switzerland, I faced a crucial decision about my future: whether to pursue further education at a school or to enter the workforce. Initially, I considered becoming an Interactive Media Designer (IMD) by attending an art school, enticed by the prospect of honing my skills in digital design and visual creation.
+              </motion.p>
+
+              <motion.p 
+                className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto text-pretty"
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+              >
+                Thus, I opted to take a year to explore and discover more about myself. I dedicated this time to delving into various aspects of multimedia, watching tutorials on diverse subjects, and honing my skills in video editing, animation, drawing, and design. I had the opportunity to experiment with different software and techniques, broadening my proficiency across a wide array of creative tools.
+              </motion.p>
+
+              <motion.p 
+                className="text-base sm:text-lg lg:text-xl text-gray-500 font-light max-w-3xl mx-auto text-pretty"
+                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                transition={{ delay: 1.5, duration: 0.8 }}
+              >
+                Ultimately, after this year of self-exploration and personal growth, I felt the need to find a job that better suited me and would allow me to fully utilize my skills and passions. This led me to discover media technology, a field that seamlessly blends my interests in visual creation, design, and technology. Today, as a professional in media technology, I am capable of working on a variety of multimedia projects, ranging from website and app design to video and graphic content creation. This career enables me to leverage all my skills and continue exploring my passion for multimedia in its myriad forms.
               </motion.p>
             </motion.div>
           </motion.div>
@@ -452,55 +500,100 @@ export default function PersonalWebsite() {
         </div>
       </section>
 
-      {/* TIMELINE SECTION - Enhanced Visual */}
+      {/* TIMELINE SECTION - Enhanced Interactive Horizontal Scroll */}
       <section data-section="4" className="min-h-screen flex items-center justify-center bg-black text-white section-transition">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="w-full">
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
-            className="space-y-16 sm:space-y-20"
+            className="text-center mb-16 sm:mb-20 px-4 sm:px-6"
           >
             <motion.h2 
-              className="text-massive font-extralight text-center leading-super-tight tracking-super-tight"
+              className="text-massive font-extralight leading-super-tight tracking-super-tight"
               whileInView={{ opacity: 1, scale: 1 }}
               initial={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 1 }}
             >
               TIMELINE
             </motion.h2>
-            
-            <div className="space-y-12 sm:space-y-16">
+          </motion.div>
+          
+          {/* Interactive Horizontal Timeline */}
+          <div className="overflow-x-auto pb-8">
+            <div className="flex gap-12 px-4 sm:px-6" style={{ width: 'max-content' }}>
               {timeline.map((item, index) => (
                 <motion.div
                   key={item.year}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 100 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.2, duration: 1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.05, x: index % 2 === 0 ? 20 : -20 }}
-                  className={`flex items-center gap-8 sm:gap-12 ${
-                    index % 2 === 0 ? 'justify-start' : 'justify-end'
-                  }`}
+                  whileHover={{ scale: 1.05, y: -20 }}
+                  className="relative group cursor-pointer flex-shrink-0 w-80 sm:w-96 lg:w-[450px] bg-gray-900/50 backdrop-blur-lg rounded-2xl p-6 sm:p-8 border border-gray-800 hover:border-accent-500 transition-all duration-500"
                 >
-                  <div className={`flex items-center gap-8 sm:gap-12 ${
-                    index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
-                  }`}>
-                    <div className="text-6xl sm:text-7xl lg:text-8xl font-extralight text-gray-600 hover:text-accent-400 transition-colors">
-                      {item.year}
-                    </div>
-                    <motion.div 
-                      whileHover={{ scale: 1.5 }}
-                      className="w-4 h-4 bg-accent-500 rounded-full flex-shrink-0 glow-accent"
-                    />
-                    <div className="text-xl sm:text-2xl lg:text-3xl font-light max-w-md text-pretty">
-                      {item.milestone}
+                  {/* Year Display */}
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 2 }}
+                    className="text-6xl sm:text-7xl lg:text-8xl font-extralight text-accent-400 mb-4 group-hover:text-accent-300 transition-colors"
+                  >
+                    {item.year}
+                  </motion.div>
+                  
+                  {/* Milestone */}
+                  <motion.h3 
+                    whileHover={{ x: 10 }}
+                    className="text-xl sm:text-2xl lg:text-3xl font-light text-white mb-4 group-hover:text-accent-200 transition-all"
+                  >
+                    {item.milestone}
+                  </motion.h3>
+                  
+                  {/* Description */}
+                  <motion.p 
+                    whileHover={{ x: 5 }}
+                    className="text-sm sm:text-base text-gray-400 leading-relaxed group-hover:text-gray-300 transition-all text-pretty"
+                  >
+                    {item.description}
+                  </motion.p>
+                  
+                  {/* Interactive Glow Effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-accent-500/10 to-accent-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    whileHover={{ scale: 1.02 }}
+                  />
+                  
+                  {/* Progress Indicator */}
+                  <div className="absolute bottom-4 left-6 right-6">
+                    <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${((timeline.length - index) / timeline.length) * 100}%` }}
+                        transition={{ delay: 0.5 + index * 0.1, duration: 1.5 }}
+                        className="h-full bg-gradient-to-r from-accent-500 to-accent-400 rounded-full"
+                      />
                     </div>
                   </div>
                 </motion.div>
               ))}
             </div>
+          </div>
+          
+          {/* Scroll Hint */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 1.5 }}
+            className="text-center mt-8 px-4"
+          >
+            <motion.div
+              animate={{ x: [0, 20, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="inline-flex items-center gap-2 text-accent-400 text-sm font-light tracking-wider"
+            >
+              <span>SCROLL HORIZONTALLY</span>
+              <ArrowRight size={16} />
+            </motion.div>
           </motion.div>
         </div>
       </section>
