@@ -157,7 +157,7 @@ export default function Portfolio() {
           </motion.p>
         </motion.div>
 
-        {/* Projects Grid - Design épuré avec iframe preview */}
+        {/* Projects Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -174,66 +174,58 @@ export default function Portfolio() {
               onClick={() => handleProjectClick(project)}
               className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card"
             >
-              {/* Iframe Preview Container */}
-              <div className="relative overflow-hidden h-64 sm:h-80 bg-gray-100 dark:bg-gray-700">
-                {/* Iframe de prévisualisation Behance */}
-                <div className="w-full h-full relative">
-                  <iframe
-                    src={`https://www.behance.net/gallery/${project.behanceId}/embed`}
-                    className="w-full h-full border-0 pointer-events-none group-hover:pointer-events-auto transition-all duration-300"
-                    title={`Preview of ${project.title}`}
-                    loading="lazy"
-                    style={{
-                      transform: 'scale(0.8)',
-                      transformOrigin: 'top left',
-                      width: '125%',
-                      height: '125%'
-                    }}
-                  />
-                  
-                  {/* Overlay gradient pour l'esthétique */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
-                  
-                  {/* Overlay avec boutons - Desktop only */}
-                  {!isMobile && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center"
+              {/* Image Container avec overlay */}
+              <div className="relative overflow-hidden h-64 sm:h-80">
+                <motion.img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  whileHover={{ scale: 1.05 }}
+                />
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Overlay avec les deux boutons - Exactement comme dans l'image */}
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100"
+                >
+                  <div className="flex gap-3">
+                    {/* Bouton Preview (Œil) - Blanc */}
+                    <motion.button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(project);
+                      }}
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:bg-gray-100 transition-all shadow-lg"
+                      title="Voir la preview"
                     >
-                      <div className="flex gap-4">
-                        <motion.button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openModal(project);
-                          }}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="w-14 h-14 bg-white/95 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-xl btn-hover-effect"
-                          title="Voir les détails"
-                        >
-                          <Eye size={20} />
-                        </motion.button>
-                        <motion.button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
-                          }}
-                          whileHover={{ scale: 1.1, rotate: -5 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="w-14 h-14 bg-black/90 backdrop-blur-sm text-white rounded-full flex items-center justify-center hover:bg-black transition-all shadow-xl btn-hover-effect"
-                          title="Voir sur Behance"
-                        >
-                          <ExternalLink size={20} />
-                        </motion.button>
-                      </div>
-                    </motion.div>
-                  )}
-                </div>
+                      <Eye size={18} />
+                    </motion.button>
+                    
+                    {/* Bouton Behance (Lien externe) - Noir */}
+                    <motion.button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
+                      }}
+                      whileHover={{ scale: 1.1, rotate: -5 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="w-12 h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-all shadow-lg"
+                      title="Voir sur Behance"
+                    >
+                      <ExternalLink size={18} />
+                    </motion.button>
+                  </div>
+                </motion.div>
               </div>
 
-              {/* Project Content - Simplifié */}
+              {/* Project Content */}
               <div className="p-4 sm:p-6">
                 <div className="mb-4">
                   <motion.h3 
@@ -247,20 +239,6 @@ export default function Portfolio() {
                     {project.description}
                   </p>
                 </div>
-                
-                {/* Bouton Behance intégré */}
-                <motion.a
-                  href={`https://www.behance.net/gallery/${project.behanceId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all text-sm group-hover:shadow-lg"
-                >
-                  <ExternalLink size={14} />
-                  Voir sur Behance
-                </motion.a>
               </div>
             </motion.div>
           ))}
