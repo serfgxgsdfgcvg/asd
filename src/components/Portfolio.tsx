@@ -6,7 +6,6 @@ import ProjectModal from './ProjectModal';
 
 export default function Portfolio() {
   const { t } = useApp();
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState<any>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -32,7 +31,7 @@ export default function Portfolio() {
       description: 'Balance Between Tradition & Modernity - Complete brand identity system for a luxury hospitality brand. This project explores the intersection of classical Greek aesthetics with contemporary design principles.',
       tags: ['Brand Identity', 'Logo Design', 'Visual Identity', 'Strategy', 'Luxury', 'Hospitality'],
       behanceId: '220519773',
-      previewLink: 'https://www.behance.net/gallery/220519773', // Pour l'instant même lien
+      previewLink: 'https://www.behance.net/gallery/220519773',
       thumbnail: '/Athenis copy.png'
     },
     {
@@ -91,19 +90,6 @@ export default function Portfolio() {
       thumbnail: '/Holzkern.jpg'
     }
   ];
-
-  const categories = [
-    { key: 'All', label: t('portfolio.category.all') },
-    { key: 'Brand Identity', label: t('portfolio.category.branding') },
-    { key: 'Personal Branding', label: 'Personal Branding' },
-    { key: 'Editorial Design', label: 'Editorial Design' },
-    { key: 'Digital Design', label: 'Digital Design' },
-    { key: 'Product Design', label: 'Product Design' }
-  ];
-
-  const filteredProjects = selectedCategory === 'All' 
-    ? behanceProjects 
-    : behanceProjects.filter(project => project.category === selectedCategory);
 
   const openModal = (project: any) => {
     setCurrentProject(project);
@@ -189,167 +175,136 @@ export default function Portfolio() {
           </motion.p>
         </motion.div>
 
-        {/* Category Filter */}
+        {/* Projects Grid - Affichage direct de tous les projets */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12 sm:mb-16"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16"
         >
-          {categories.map((category, index) => (
-            <motion.button
-              key={category.key}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedCategory(category.key)}
-              className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base ${
-                selectedCategory === category.key
-                  ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg'
-                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md'
-              }`}
+          {behanceProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              onClick={() => handleProjectClick(project)}
+              className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card"
             >
-              {category.label}
-            </motion.button>
+              {/* Project Thumbnail */}
+              <div className="relative overflow-hidden h-48 sm:h-64">
+                <motion.img
+                  src={project.thumbnail}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  whileHover={{ scale: 1.05 }}
+                />
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Overlay with buttons - Desktop only */}
+                {!isMobile && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
+                  >
+                    <div className="flex gap-3">
+                      <motion.button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openModal(project);
+                        }}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
+                        title="Voir les détails"
+                      >
+                        <Eye size={18} />
+                      </motion.button>
+                      <motion.button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
+                        }}
+                        whileHover={{ scale: 1.1, rotate: -5 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
+                        title="Voir sur Behance"
+                      >
+                        <ExternalLink size={18} />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Badges */}
+                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex gap-2">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    className="bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1"
+                  >
+                    <Calendar size={10} className="sm:w-3 sm:h-3" />
+                    {project.year}
+                  </motion.div>
+                </div>
+                <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.4 + index * 0.1 }}
+                    className="bg-black/80 backdrop-blur-sm text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium"
+                  >
+                    {project.category}
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Project Content */}
+              <div className="p-4 sm:p-6">
+                <div className="mb-3 sm:mb-4">
+                  <motion.h3 
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 group-hover:text-black dark:group-hover:text-gray-100 transition-colors line-clamp-1"
+                  >
+                    {project.title}
+                  </motion.h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-2">
+                    {project.description.split('.')[0]}.
+                  </p>
+                </div>
+                
+                {/* Tags */}
+                <div className="flex flex-wrap gap-1 sm:gap-2">
+                  {project.tags.slice(0, 3).map((tag: string, tagIndex: number) => (
+                    <motion.span
+                      key={tag}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.5 + tagIndex * 0.05 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="inline-flex items-center gap-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 sm:px-3 sm:py-1 rounded-full font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                    >
+                      <Tag size={8} className="sm:w-2.5 sm:h-2.5" />
+                      {tag}
+                    </motion.span>
+                  ))}
+                  {project.tags.length > 3 && (
+                    <span className="text-xs text-gray-500 dark:text-gray-500 px-2 py-1">
+                      +{project.tags.length - 3}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </motion.div>
           ))}
         </motion.div>
-
-        {/* Projects Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16"
-          >
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                onClick={() => handleProjectClick(project)}
-                className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card"
-              >
-                {/* Project Thumbnail */}
-                <div className="relative overflow-hidden h-48 sm:h-64">
-                  <motion.img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    whileHover={{ scale: 1.05 }}
-                  />
-                  
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Overlay with buttons - Desktop only */}
-                  {!isMobile && (
-                    <motion.div 
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
-                    >
-                      <div className="flex gap-3">
-                        <motion.button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openModal(project);
-                          }}
-                          whileHover={{ scale: 1.1, rotate: 5 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
-                          title="Voir les détails"
-                        >
-                          <Eye size={18} />
-                        </motion.button>
-                        <motion.button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
-                          }}
-                          whileHover={{ scale: 1.1, rotate: -5 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
-                          title="Voir sur Behance"
-                        >
-                          <ExternalLink size={18} />
-                        </motion.button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Badges */}
-                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex gap-2">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      className="bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1"
-                    >
-                      <Calendar size={10} className="sm:w-3 sm:h-3" />
-                      {project.year}
-                    </motion.div>
-                  </div>
-                  <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.4 + index * 0.1 }}
-                      className="bg-black/80 backdrop-blur-sm text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium"
-                    >
-                      {project.category}
-                    </motion.div>
-                  </div>
-                </div>
-
-                {/* Project Content */}
-                <div className="p-4 sm:p-6">
-                  <div className="mb-3 sm:mb-4">
-                    <motion.h3 
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
-                      className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 group-hover:text-black dark:group-hover:text-gray-100 transition-colors line-clamp-1"
-                    >
-                      {project.title}
-                    </motion.h3>
-                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-2">
-                      {project.description.split('.')[0]}.
-                    </p>
-                  </div>
-                  
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1 sm:gap-2">
-                    {project.tags.slice(0, 3).map((tag: string, tagIndex: number) => (
-                      <motion.span
-                        key={tag}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.5 + tagIndex * 0.05 }}
-                        whileHover={{ scale: 1.05, y: -2 }}
-                        className="inline-flex items-center gap-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 sm:px-3 sm:py-1 rounded-full font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
-                      >
-                        <Tag size={8} className="sm:w-2.5 sm:h-2.5" />
-                        {tag}
-                      </motion.span>
-                    ))}
-                    {project.tags.length > 3 && (
-                      <span className="text-xs text-gray-500 dark:text-gray-500 px-2 py-1">
-                        +{project.tags.length - 3}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
 
         {/* Call to Action */}
         <motion.div
