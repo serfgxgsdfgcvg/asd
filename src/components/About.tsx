@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Palette, Zap, Target, Brush, ArrowRight } from 'lucide-react';
+import { Palette, Zap, Target, Brush, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 
@@ -137,28 +136,29 @@ export default function About() {
               ))}
             </motion.div>
 
-            {/* Call to Action Button */}
+            {/* Call to Action Button - Updated to LinkedIn */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5 }}
               className="flex justify-center lg:justify-start pt-6"
             >
-              <Link to="/cv">
-                <motion.button
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base"
+              <motion.a
+                href="https://www.linkedin.com/in/theo-blondel-6952432aa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base"
+              >
+                En savoir plus sur moi
+                <motion.div
+                  whileHover={{ x: 5 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  En savoir plus sur moi
-                  <motion.div
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </motion.div>
-                </motion.button>
-              </Link>
+                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.div>
+              </motion.a>
             </motion.div>
           </motion.div>
 
