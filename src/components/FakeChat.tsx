@@ -29,7 +29,7 @@ export default function FakeChat() {
     {
       id: 2,
       type: 'you',
-      content: '🙋 Trop stylé comme nom ! Je vois déjà un logo typographique minimal avec une ambiance brumeuse. Je t\'envoie une première idée ce soir !',
+      content: 'Trop stylé comme nom ! Je vois déjà un logo typographique minimal avec une ambiance brumeuse. Je t\'envoie une première idée ce soir !',
       timestamp: '14:35'
     },
     {
@@ -41,11 +41,11 @@ export default function FakeChat() {
     {
       id: 4,
       type: 'you',
-      content: '🙋 Voilà un premier concept avec croquis et direction graphique.',
+      content: 'Voilà un premier concept avec croquis et direction graphique.',
       timestamp: '19:42',
       hasAttachment: true,
       attachmentName: 'NOIRBRUME_Concept_1.pdf',
-      attachmentUrl: '#'
+      attachmentUrl: '/DSC00831.png'
     },
     {
       id: 5,
@@ -56,11 +56,11 @@ export default function FakeChat() {
     {
       id: 6,
       type: 'you',
-      content: '🙋 Parfait ! Voici le design final en couleur et en noir & blanc.',
+      content: 'Parfait ! Voici le design final en couleur et en noir & blanc.',
       timestamp: '20:15',
       hasAttachment: true,
       attachmentName: 'NOIRBRUME_Final_Package.zip',
-      attachmentUrl: '#'
+      attachmentUrl: '/DSC00831.png'
     },
     {
       id: 7,
@@ -71,11 +71,11 @@ export default function FakeChat() {
     {
       id: 8,
       type: 'you',
-      content: '🙋 Et voilà le dossier complet avec tous les formats :<br/>📦 Logo vectoriel (AI, SVG, PDF)<br/>🖼️ Versions PNG haute résolution<br/>📋 Guide d\'utilisation',
+      content: 'Et voilà le dossier complet avec tous les formats :<br/>📦 Logo vectoriel (AI, SVG, PDF)<br/>🖼️ Versions PNG haute résolution<br/>📋 Guide d\'utilisation',
       timestamp: '20:20',
       hasAttachment: true,
       attachmentName: 'NOIRBRUME_Complete_Brand_Kit.zip',
-      attachmentUrl: '#'
+      attachmentUrl: '/DSC00831.png'
     }
   ];
 
@@ -198,6 +198,15 @@ export default function FakeChat() {
     }
   };
 
+  const handleDownload = (url: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div 
       ref={sectionRef}
@@ -315,6 +324,7 @@ export default function FakeChat() {
                                 <p className="text-xs opacity-70">Fichier joint</p>
                               </div>
                               <motion.button
+                                onClick={() => handleDownload(message.attachmentUrl!, message.attachmentName!)}
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
                                 className="text-xs px-3 py-1 bg-white/20 dark:bg-black/20 rounded-full hover:bg-white/30 dark:hover:bg-black/30 transition-all shadow-sm"
@@ -364,7 +374,7 @@ export default function FakeChat() {
                             className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full"
                           />
                         </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Théo écrit...</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">écrit...</span>
                       </div>
                     </div>
                   </motion.div>
