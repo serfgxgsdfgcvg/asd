@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -30,6 +30,12 @@
     <meta name="distribution" content="global" />
     <meta name="rating" content="general" />
     
+    <!-- Preload critical fonts for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"></noscript>
+    
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -40,9 +46,9 @@
       "description": "Médiamaticien basé en Suisse, spécialisé en identité de marque et design d'interface",
       "url": "https://theoblondel.ch",
       "sameAs": [
-        "https://linkedin.com/in/theoblondel",
-        "https://behance.net/theoblondel",
-        "https://instagram.com/theoblondel"
+        "https://www.linkedin.com/in/theo-blondel-6952432aa/",
+        "https://www.behance.net/theoblondel",
+        "https://www.instagram.com/theo.blondel/"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -93,10 +99,6 @@
       }
     }
     </script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root"></div>

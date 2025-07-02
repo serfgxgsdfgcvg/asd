@@ -150,6 +150,7 @@ export default function Hero() {
                     src="/DSC00831.png" 
                     alt="Theo Blondel"
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
               </motion.div>
