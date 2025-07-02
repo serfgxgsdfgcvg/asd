@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Download } from 'lucide-react';
+import { MessageCircle, Download, User } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -16,6 +16,7 @@ export default function FakeChat() {
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [currentTypingMessage, setCurrentTypingMessage] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   const messages: Message[] = [
@@ -91,8 +92,8 @@ export default function FakeChat() {
         }
       },
       {
-        threshold: 0.3, // Trigger when 30% of section is visible
-        rootMargin: '-50px 0px -50px 0px'
+        threshold: 0.4, // Trigger when 40% of section is visible
+        rootMargin: '-100px 0px -100px 0px'
       }
     );
 
@@ -107,35 +108,56 @@ export default function FakeChat() {
     setVisibleMessages([]);
     setIsTyping(false);
     setHasStarted(false);
+    setCurrentTypingMessage(null);
   };
 
   const startAnimation = async () => {
     // Clear any existing messages
     setVisibleMessages([]);
     setIsTyping(false);
+    setCurrentTypingMessage(null);
 
-    // Start the animation sequence
+    // Wait a bit before starting
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Start the animation sequence with improved timing
     for (let i = 0; i < messages.length; i++) {
-      // Wait before showing message
-      await new Promise(resolve => setTimeout(resolve, i === 0 ? 800 : 2500));
+      const message = messages[i];
       
-      // Show typing indicator before next message (except for last message)
-      if (i < messages.length - 1) {
+      // Show typing indicator before each message (except the first one)
+      if (i > 0) {
+        setCurrentTypingMessage(message.id);
         setIsTyping(true);
-        await new Promise(resolve => setTimeout(resolve, 1200));
+        
+        // Typing duration varies based on message length and type
+        const typingDuration = message.type === 'you' 
+          ? (message.hasAttachment ? 2500 : 1800) // Longer for attachments
+          : 1200; // Shorter for client messages
+        
+        await new Promise(resolve => setTimeout(resolve, typingDuration));
         setIsTyping(false);
+        setCurrentTypingMessage(null);
       }
       
       // Show the message
-      setVisibleMessages(prev => [...prev, messages[i].id]);
+      setVisibleMessages(prev => [...prev, message.id]);
+      
+      // Wait before next message (shorter for quick responses)
+      const waitTime = i === 0 ? 800 : // First message
+                     (i === 2 || i === 4 || i === 6) ? 1000 : // Quick responses
+                     1500; // Normal responses
+      
+      if (i < messages.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+      }
     }
   };
 
   const messageVariants = {
     hidden: { 
       opacity: 0, 
-      y: 30,
-      scale: 0.8
+      y: 20,
+      scale: 0.95
     },
     visible: { 
       opacity: 1, 
@@ -143,29 +165,29 @@ export default function FakeChat() {
       scale: 1,
       transition: {
         type: "spring",
-        stiffness: 500,
+        stiffness: 400,
         damping: 25,
-        duration: 0.6
+        duration: 0.5
       }
     }
   };
 
   const typingVariants = {
-    hidden: { opacity: 0, scale: 0.8, y: 20 },
+    hidden: { opacity: 0, scale: 0.8, y: 15 },
     visible: { 
       opacity: 1, 
       scale: 1,
       y: 0,
       transition: {
         type: "spring",
-        stiffness: 400,
+        stiffness: 500,
         damping: 20
       }
     }
   };
 
   const chatVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
       y: 0,
@@ -176,12 +198,51 @@ export default function FakeChat() {
     }
   };
 
+  const handleDownloadPhoto = () => {
+    // Create a link to download the photo
+    const link = document.createElement('a');
+    link.href = '/DSC00831.png'; // Your photo path
+    link.download = 'Theo_Blondel_Photo.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div 
       ref={sectionRef}
       className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Download Photo Button */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="flex justify-center mb-8"
+        >
+          <motion.button
+            onClick={handleDownloadPhoto}
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all group"
+          >
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.5 }}
+            >
+              <User className="w-5 h-5" />
+            </motion.div>
+            Télécharger ma photo
+            <motion.div
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Download className="w-4 h-4" />
+            </motion.div>
+          </motion.button>
+        </motion.div>
+
         {/* Chat Interface */}
         <motion.div
           variants={chatVariants}
@@ -193,7 +254,7 @@ export default function FakeChat() {
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
             className="bg-white dark:bg-gray-800 rounded-t-2xl border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 shadow-lg"
           >
             <div className="flex items-center gap-4">
@@ -201,19 +262,19 @@ export default function FakeChat() {
                 <motion.div 
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ delay: 0.5, type: "spring" }}
+                  transition={{ delay: 0.6, type: "spring" }}
                   className="w-3 h-3 bg-red-500 rounded-full"
                 />
                 <motion.div 
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ delay: 0.6, type: "spring" }}
+                  transition={{ delay: 0.7, type: "spring" }}
                   className="w-3 h-3 bg-yellow-500 rounded-full"
                 />
                 <motion.div 
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ delay: 0.7, type: "spring" }}
+                  transition={{ delay: 0.8, type: "spring" }}
                   className="w-3 h-3 bg-green-500 rounded-full"
                 />
               </div>
@@ -221,7 +282,7 @@ export default function FakeChat() {
                 <motion.div 
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+                  transition={{ delay: 0.9, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
                 >
                   <MessageCircle className="w-5 h-5 text-white" />
@@ -229,7 +290,7 @@ export default function FakeChat() {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.9 }}
+                  transition={{ delay: 1.0 }}
                 >
                   <h3 className="font-semibold text-black dark:text-white">Client - NOIRBRUME</h3>
                   <div className="flex items-center gap-2">
@@ -277,7 +338,7 @@ export default function FakeChat() {
                           <motion.div
                             initial={{ opacity: 0, y: 10, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            transition={{ delay: 0.3, type: "spring" }}
+                            transition={{ delay: 0.4, type: "spring" }}
                             className="mt-3 p-3 bg-white/10 dark:bg-black/10 rounded-xl border border-white/20 dark:border-black/20 backdrop-blur-sm"
                           >
                             <div className="flex items-center gap-3">
