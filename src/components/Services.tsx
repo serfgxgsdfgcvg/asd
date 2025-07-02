@@ -1,5 +1,5 @@
 import React from 'react';
-import { Palette, Smartphone, Zap, Globe, Camera, Brush } from 'lucide-react';
+import { Palette, Smartphone, Globe, Camera, Brush } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 
@@ -32,10 +32,10 @@ export default function Services() {
       features: ['iOS Design', 'Android Design', 'App Store Optimization', 'User Onboarding']
     },
     {
-      icon: Zap,
-      title: t('services.motion.title'),
-      description: t('services.motion.desc'),
-      features: ['3D Modeling', 'Animation', 'Motion Graphics', 'Video Editing']
+      icon: Palette,
+      title: t('services.uiux.title'),
+      description: t('services.uiux.desc'),
+      features: ['User Research', 'Wireframing', 'Prototyping', 'Usability Testing']
     },
     {
       icon: Camera,
