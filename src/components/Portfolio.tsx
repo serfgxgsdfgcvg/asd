@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Eye, Calendar, Tag } from 'lucide-react';
+import { ExternalLink, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 import ProjectModal from './ProjectModal';
@@ -26,10 +26,7 @@ export default function Portfolio() {
     {
       id: 1,
       title: 'ATHENIS',
-      category: 'Brand Identity',
-      year: '2024',
       description: 'Balance Between Tradition & Modernity - Complete brand identity system for a luxury hospitality brand. This project explores the intersection of classical Greek aesthetics with contemporary design principles.',
-      tags: ['Brand Identity', 'Logo Design', 'Visual Identity', 'Strategy', 'Luxury', 'Hospitality'],
       behanceId: '220519773',
       previewLink: 'https://www.behance.net/gallery/220519773',
       thumbnail: '/Athenis copy.png'
@@ -37,10 +34,7 @@ export default function Portfolio() {
     {
       id: 2,
       title: 'BLONDEL',
-      category: 'Personal Branding',
-      year: '2024',
       description: 'Personal brand identity development with modern typography and clean aesthetic. A sophisticated approach to personal branding in the creative industry.',
-      tags: ['Personal Brand', 'Typography', 'Logo Design', 'Visual Identity', 'Portfolio', 'Creative'],
       behanceId: '215415201',
       previewLink: 'https://www.behance.net/gallery/215415201',
       thumbnail: '/Blondel.png'
@@ -48,10 +42,7 @@ export default function Portfolio() {
     {
       id: 3,
       title: 'LES OMBRES DU PARADIS',
-      category: 'Editorial Design',
-      year: '2023',
       description: 'Editorial design project combining storytelling with visual narrative. An exploration of shadows and light through typography and layout design.',
-      tags: ['Editorial', 'Typography', 'Layout Design', 'Storytelling', 'Print Design', 'Art Direction'],
       behanceId: '199683469',
       previewLink: 'https://www.behance.net/gallery/199683469',
       thumbnail: '/ombreduparadis.webp'
@@ -59,10 +50,7 @@ export default function Portfolio() {
     {
       id: 4,
       title: 'AUMY',
-      category: 'Brand Identity',
-      year: '2024',
       description: 'Modern brand identity for a contemporary lifestyle brand. Clean, minimalist approach with focus on user experience and brand consistency.',
-      tags: ['Brand Identity', 'Minimalism', 'Logo Design', 'Brand Guidelines', 'Modern', 'Lifestyle'],
       behanceId: '215162609',
       previewLink: 'https://www.behance.net/gallery/215162609',
       thumbnail: '/Aumy.png'
@@ -70,10 +58,7 @@ export default function Portfolio() {
     {
       id: 5,
       title: 'NEWWAVE',
-      category: 'Digital Design',
-      year: '2023',
       description: 'Digital design project exploring new wave aesthetics with modern technology. A fusion of retro-futuristic elements and contemporary design principles.',
-      tags: ['Digital Design', 'Retro-Futuristic', 'UI Design', 'Visual Effects', 'Motion Graphics', 'Technology'],
       behanceId: '211972073',
       previewLink: 'https://www.behance.net/gallery/211972073',
       thumbnail: '/NewWave.png'
@@ -81,10 +66,7 @@ export default function Portfolio() {
     {
       id: 6,
       title: 'HOLZKERN',
-      category: 'Product Design',
-      year: '2024',
       description: 'Product design and branding for sustainable wooden accessories. Emphasis on natural materials and eco-friendly design philosophy.',
-      tags: ['Product Design', 'Sustainability', 'Eco-Design', 'Natural Materials', 'Branding', 'Packaging'],
       behanceId: '216987243',
       previewLink: 'https://www.behance.net/gallery/216987243',
       thumbnail: '/Holzkern.jpg'
@@ -175,7 +157,7 @@ export default function Portfolio() {
           </motion.p>
         </motion.div>
 
-        {/* Projects Grid - Affichage direct de tous les projets */}
+        {/* Projects Grid - Design épuré avec iframe preview */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -192,115 +174,93 @@ export default function Portfolio() {
               onClick={() => handleProjectClick(project)}
               className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card"
             >
-              {/* Project Thumbnail */}
-              <div className="relative overflow-hidden h-48 sm:h-64">
-                <motion.img
-                  src={project.thumbnail}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  whileHover={{ scale: 1.05 }}
-                />
-                
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Overlay with buttons - Desktop only */}
-                {!isMobile && (
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center"
-                  >
-                    <div className="flex gap-3">
-                      <motion.button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openModal(project);
-                        }}
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
-                        title="Voir les détails"
-                      >
-                        <Eye size={18} />
-                      </motion.button>
-                      <motion.button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
-                        }}
-                        whileHover={{ scale: 1.1, rotate: -5 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 bg-white/90 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-lg btn-hover-effect"
-                        title="Voir sur Behance"
-                      >
-                        <ExternalLink size={18} />
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Badges */}
-                <div className="absolute top-3 sm:top-4 right-3 sm:right-4 flex gap-2">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    className="bg-white/90 backdrop-blur-sm text-black px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1"
-                  >
-                    <Calendar size={10} className="sm:w-3 sm:h-3" />
-                    {project.year}
-                  </motion.div>
-                </div>
-                <div className="absolute top-3 sm:top-4 left-3 sm:left-4">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="bg-black/80 backdrop-blur-sm text-white px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium"
-                  >
-                    {project.category}
-                  </motion.div>
+              {/* Iframe Preview Container */}
+              <div className="relative overflow-hidden h-64 sm:h-80 bg-gray-100 dark:bg-gray-700">
+                {/* Iframe de prévisualisation Behance */}
+                <div className="w-full h-full relative">
+                  <iframe
+                    src={`https://www.behance.net/gallery/${project.behanceId}/embed`}
+                    className="w-full h-full border-0 pointer-events-none group-hover:pointer-events-auto transition-all duration-300"
+                    title={`Preview of ${project.title}`}
+                    loading="lazy"
+                    style={{
+                      transform: 'scale(0.8)',
+                      transformOrigin: 'top left',
+                      width: '125%',
+                      height: '125%'
+                    }}
+                  />
+                  
+                  {/* Overlay gradient pour l'esthétique */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Overlay avec boutons - Desktop only */}
+                  {!isMobile && (
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center"
+                    >
+                      <div className="flex gap-4">
+                        <motion.button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openModal(project);
+                          }}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="w-14 h-14 bg-white/95 backdrop-blur-sm text-black rounded-full flex items-center justify-center hover:bg-white transition-all shadow-xl btn-hover-effect"
+                          title="Voir les détails"
+                        >
+                          <Eye size={20} />
+                        </motion.button>
+                        <motion.button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(`https://www.behance.net/gallery/${project.behanceId}`, '_blank');
+                          }}
+                          whileHover={{ scale: 1.1, rotate: -5 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="w-14 h-14 bg-black/90 backdrop-blur-sm text-white rounded-full flex items-center justify-center hover:bg-black transition-all shadow-xl btn-hover-effect"
+                          title="Voir sur Behance"
+                        >
+                          <ExternalLink size={20} />
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
               </div>
 
-              {/* Project Content */}
+              {/* Project Content - Simplifié */}
               <div className="p-4 sm:p-6">
-                <div className="mb-3 sm:mb-4">
+                <div className="mb-4">
                   <motion.h3 
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
-                    className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 group-hover:text-black dark:group-hover:text-gray-100 transition-colors line-clamp-1"
+                    className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
                   >
                     {project.title}
                   </motion.h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-2">
-                    {project.description.split('.')[0]}.
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-3">
+                    {project.description}
                   </p>
                 </div>
                 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1 sm:gap-2">
-                  {project.tags.slice(0, 3).map((tag: string, tagIndex: number) => (
-                    <motion.span
-                      key={tag}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5 + tagIndex * 0.05 }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      className="inline-flex items-center gap-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 sm:px-3 sm:py-1 rounded-full font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer"
-                    >
-                      <Tag size={8} className="sm:w-2.5 sm:h-2.5" />
-                      {tag}
-                    </motion.span>
-                  ))}
-                  {project.tags.length > 3 && (
-                    <span className="text-xs text-gray-500 dark:text-gray-500 px-2 py-1">
-                      +{project.tags.length - 3}
-                    </span>
-                  )}
-                </div>
+                {/* Bouton Behance intégré */}
+                <motion.a
+                  href={`https://www.behance.net/gallery/${project.behanceId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="inline-flex items-center gap-2 bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all text-sm group-hover:shadow-lg"
+                >
+                  <ExternalLink size={14} />
+                  Voir sur Behance
+                </motion.a>
               </div>
             </motion.div>
           ))}
