@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Send, Linkedin, Github, Instagram, CheckCircle, AlertCircle, Loader } from 'lucide-react';
+import { Mail, MapPin, Send, Linkedin, Github, Instagram, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
-import { sendContactMessage, type ContactFormData } from '../lib/supabase';
 
 interface FormErrors {
   name?: string;
@@ -10,6 +9,13 @@ interface FormErrors {
   subject?: string;
   message?: string;
   general?: string;
+}
+
+interface ContactFormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
 }
 
 // Icône Behance personnalisée
@@ -29,9 +35,7 @@ export default function Contact() {
   });
 
   const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState(false);
-  const [submissionMessage, setSubmissionMessage] = useState('');
 
   const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,47 +84,37 @@ export default function Contact() {
       return;
     }
 
-    setIsSubmitting(true);
-    setFormErrors({});
-
-    try {
-      const result = await sendContactMessage(formData);
-      
-      // Réinitialiser le formulaire
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-      
-      setSubmissionSuccess(true);
-      setSubmissionMessage(result.message || 'Message envoyé avec succès !');
-      
-      // Masquer le message de succès après 8 secondes
-      setTimeout(() => {
-        setSubmissionSuccess(false);
-        setSubmissionMessage('');
-      }, 8000);
-      
-    } catch (error: any) {
-      console.error('Erreur lors de l\'envoi:', error);
-      
-      // Gestion des erreurs spécifiques
-      if (error.message.includes('rate limit') || error.message.includes('Trop de messages')) {
-        setFormErrors({ 
-          general: 'Vous avez envoyé trop de messages récemment. Veuillez attendre avant de renvoyer un message.' 
-        });
-      } else if (error.message.includes('email')) {
-        setFormErrors({ email: 'Adresse email invalide' });
-      } else {
-        setFormErrors({ 
-          general: error.message || 'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.' 
-        });
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Créer le lien mailto avec les données du formulaire
+    const subject = encodeURIComponent(`[Portfolio] ${formData.subject}`);
+    const body = encodeURIComponent(
+      `Nom: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Sujet: ${formData.subject}\n\n` +
+      `Message:\n${formData.message}\n\n` +
+      `---\n` +
+      `Message envoyé depuis theoblondel.ch`
+    );
+    
+    const mailtoLink = `mailto:hello@theoblondel.ch?subject=${subject}&body=${body}`;
+    
+    // Ouvrir le client email
+    window.location.href = mailtoLink;
+    
+    // Afficher le message de succès
+    setSubmissionSuccess(true);
+    
+    // Réinitialiser le formulaire
+    setFormData({
+      name: '',
+      email: '',
+      subject: '',
+      message: ''
+    });
+    
+    // Masquer le message de succès après 8 secondes
+    setTimeout(() => {
+      setSubmissionSuccess(false);
+    }, 8000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -135,14 +129,6 @@ export default function Contact() {
       setFormErrors(prev => ({
         ...prev,
         [name]: undefined
-      }));
-    }
-
-    // Effacer l'erreur générale si l'utilisateur modifie le formulaire
-    if (formErrors.general) {
-      setFormErrors(prev => ({
-        ...prev,
-        general: undefined
       }));
     }
   };
@@ -337,7 +323,7 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Contact Form with enhanced field animations */}
+          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -358,26 +344,8 @@ export default function Contact() {
                 >
                   <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
                   <div>
-                    <p className="text-green-800 dark:text-green-200 font-medium">Message envoyé avec succès !</p>
-                    <p className="text-green-600 dark:text-green-400 text-sm">Je vous répondrai dans les plus brefs délais.</p>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* General Error Message */}
-            <AnimatePresence>
-              {formErrors.general && (
-                <motion.div
-                  initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                  className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-3"
-                >
-                  <AlertCircle className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" />
-                  <div>
-                    <p className="text-red-800 dark:text-red-200 font-medium">Erreur</p>
-                    <p className="text-red-600 dark:text-red-400 text-sm">{formErrors.general}</p>
+                    <p className="text-green-800 dark:text-green-200 font-medium">Votre client email s'est ouvert !</p>
+                    <p className="text-green-600 dark:text-green-400 text-sm">Envoyez le message depuis votre client email pour me contacter.</p>
                   </div>
                 </motion.div>
               )}
@@ -399,8 +367,7 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    disabled={isSubmitting}
-                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed ${
+                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                       formErrors.name 
                         ? 'border-red-500 focus:border-red-500' 
                         : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -436,8 +403,7 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    disabled={isSubmitting}
-                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed ${
+                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                       formErrors.email 
                         ? 'border-red-500 focus:border-red-500' 
                         : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -474,8 +440,7 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  disabled={isSubmitting}
-                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                     formErrors.subject 
                       ? 'border-red-500 focus:border-red-500' 
                       : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -510,9 +475,8 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  disabled={isSubmitting}
                   rows={6}
-                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed ${
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                     formErrors.message 
                       ? 'border-red-500 focus:border-red-500' 
                       : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -539,37 +503,28 @@ export default function Contact() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                whileHover={{ scale: isFormValid && !isSubmitting ? 1.02 : 1, y: isFormValid && !isSubmitting ? -2 : 0 }}
-                whileTap={{ scale: isFormValid && !isSubmitting ? 0.98 : 1 }}
-                disabled={!isFormValid || isSubmitting}
+                whileHover={{ scale: isFormValid ? 1.02 : 1, y: isFormValid ? -2 : 0 }}
+                whileTap={{ scale: isFormValid ? 0.98 : 1 }}
+                disabled={!isFormValid}
                 className={`w-full py-3 sm:py-4 rounded-xl font-medium flex items-center justify-center gap-3 transition-all ${
-                  isFormValid && !isSubmitting
+                  isFormValid
                     ? 'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg hover:shadow-xl'
                     : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
               >
-                {isSubmitting ? (
-                  <>
-                    <Loader className="w-5 h-5 animate-spin" />
-                    Envoi en cours...
-                  </>
-                ) : (
-                  <>
-                    {t('contact.sendBtn')}
-                    <motion.div
-                      whileHover={{ x: 5, rotate: 15 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Send className="w-5 h-5" />
-                    </motion.div>
-                  </>
-                )}
+                {t('contact.sendBtn')}
+                <motion.div
+                  whileHover={{ x: 5, rotate: 15 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Send className="w-5 h-5" />
+                </motion.div>
               </motion.button>
             </form>
 
             {/* Form validation summary */}
             <AnimatePresence>
-              {hasErrors && !formErrors.general && (
+              {hasErrors && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -584,10 +539,10 @@ export default function Contact() {
               )}
             </AnimatePresence>
 
-            {/* Rate limiting info */}
+            {/* Info message */}
             <div className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
-              <p>🔒 Vos données sont protégées et stockées de manière sécurisée</p>
-              <p className="mt-1">⏱️ Limite: 3 messages par heure par adresse email</p>
+              <p>📧 Le formulaire ouvrira votre client email par défaut</p>
+              <p className="mt-1">Vous pouvez aussi m'écrire directement à hello@theoblondel.ch</p>
             </div>
           </motion.div>
         </div>
