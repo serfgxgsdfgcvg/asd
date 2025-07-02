@@ -141,7 +141,7 @@ export default function Testimonials() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="h-1 bg-black dark:bg-white"
             />
-            <span className="text-gray-600 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">{t('testimonials.subtitle')}</span>
+            <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">{t('testimonials.subtitle')}</span>
             <motion.div 
               initial={{ width: 0 }}
               whileInView={{ width: 48 }}
@@ -154,7 +154,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-black dark:text-white mb-6"
           >
             {t('testimonials.title')}
           </motion.h2>
@@ -163,7 +163,7 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             {t('testimonials.description')}
           </motion.p>
@@ -176,8 +176,8 @@ export default function Testimonials() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-8 uppercase tracking-wider">{t('testimonials.trustedBy')}</h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-8">{t('testimonials.trustedByDesc')}</p>
+          <h3 className="text-lg font-bold text-black dark:text-white mb-8 uppercase tracking-wider">{t('testimonials.trustedBy')}</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-8">{t('testimonials.trustedByDesc')}</p>
           
           {/* Horizontal scrolling companies */}
           <div className="relative overflow-hidden">
@@ -222,7 +222,7 @@ export default function Testimonials() {
                     transition={{ delay: index * 0.1, duration: 0.8 }}
                     viewport={{ once: true }}
                     whileHover={{ y: -10, transition: { duration: 0.3 } }}
-                    className="group relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all cursor-pointer h-full mx-2"
+                    className="group relative bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all cursor-pointer h-full mx-2 border border-gray-100 dark:border-gray-700"
                   >
                     {/* Quote Icon */}
                     <motion.div
@@ -262,7 +262,7 @@ export default function Testimonials() {
                       
                       {/* Project Info */}
                       <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                        <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                        <div className="text-sm font-semibold text-black dark:text-white mb-1">
                           Projet: {testimonial.project}
                         </div>
                         <div className="text-xs text-gray-600 dark:text-gray-400">
@@ -283,7 +283,7 @@ export default function Testimonials() {
                           <motion.h4 
                             whileHover={{ x: 5 }}
                             transition={{ duration: 0.2 }}
-                            className="font-bold text-gray-900 dark:text-white text-lg group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
+                            className="font-bold text-black dark:text-white text-lg group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors"
                           >
                             {testimonial.name}
                           </motion.h4>
@@ -355,11 +355,11 @@ export default function Testimonials() {
             <Star className="w-8 h-8 fill-current" />
           </motion.div>
 
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Vous avez travaillé avec moi ?
+          <h3 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-4">
+            Tu as travaillé avec moi ?
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Votre avis compte énormément ! Partagez votre expérience sur Google Reviews et aidez d'autres clients à découvrir la qualité de mes services créatifs.
+          <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            Ton avis compte énormément ! Partage ton expérience sur Google Reviews et aide d'autres clients à découvrir la qualité de mes services créatifs.
           </p>
 
           <motion.a
@@ -386,7 +386,7 @@ export default function Testimonials() {
                 <Star key={i} size={16} className="text-yellow-400 fill-current" />
               ))}
             </div>
-            <span>Votre avis nous aide à grandir</span>
+            <span>Ton avis nous aide à grandir</span>
           </div>
         </motion.div>
       </div>

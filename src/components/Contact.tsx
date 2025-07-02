@@ -159,7 +159,7 @@ export default function Contact() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="h-1 bg-black dark:bg-white"
             />
-            <span className="text-gray-600 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">{t('contact.subtitle')}</span>
+            <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">{t('contact.subtitle')}</span>
             <motion.div 
               initial={{ width: 0 }}
               whileInView={{ width: 48 }}
@@ -172,7 +172,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-black dark:text-white mb-6"
           >
             <motion.span
               initial={{ opacity: 0, y: 30 }}
@@ -196,7 +196,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             {t('contact.description')}
           </motion.p>
@@ -212,8 +212,8 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('contact.getInTouch')}</h3>
-              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-8 text-base sm:text-lg">
+              <h3 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-6">{t('contact.getInTouch')}</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8 text-base sm:text-lg">
                 {t('contact.getInTouchDesc')}
               </p>
             </div>
@@ -242,12 +242,12 @@ export default function Contact() {
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.6 }}
                   whileHover={{ x: 10, scale: 1.02, transition: { duration: 0.3 } }}
-                  className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-lg transition-all group cursor-pointer"
+                  className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-gray-50 dark:bg-gray-900 rounded-2xl hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-lg transition-all group cursor-pointer border border-gray-100 dark:border-gray-800"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.2 }}
-                    className="w-12 h-12 sm:w-16 sm:h-16 bg-black dark:bg-white text-white dark:text-black rounded-2xl flex items-center justify-center group-hover:bg-gray-800 dark:group-hover:bg-gray-100 transition-colors shadow-lg"
+                    className="w-12 h-12 sm:w-16 sm:h-16 bg-black dark:bg-white text-white dark:text-black rounded-2xl flex items-center justify-center group-hover:bg-gray-800 dark:group-hover:bg-gray-200 transition-colors shadow-lg"
                   >
                     <contact.icon className="w-5 h-5 sm:w-8 sm:h-8" />
                   </motion.div>
@@ -258,7 +258,7 @@ export default function Contact() {
                     <motion.div 
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
-                      className="font-bold text-gray-900 dark:text-white text-base sm:text-lg group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
+                      className="font-bold text-black dark:text-white text-base sm:text-lg group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors"
                     >
                       {contact.value}
                     </motion.div>
@@ -275,7 +275,7 @@ export default function Contact() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="pt-8"
             >
-              <h4 className="font-bold text-gray-900 dark:text-white mb-6 text-lg sm:text-xl">{t('contact.followMe')}</h4>
+              <h4 className="font-bold text-black dark:text-white mb-6 text-lg sm:text-xl">{t('contact.followMe')}</h4>
               <div className="flex gap-3 sm:gap-4">
                 {[
                   { 
@@ -331,7 +331,7 @@ export default function Contact() {
             viewport={{ once: true }}
             className="bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 dark:border-gray-800"
           >
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6 sm:mb-8">{t('contact.sendMessage')}</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-6 sm:mb-8">{t('contact.sendMessage')}</h3>
             
             {/* Success Message */}
             <AnimatePresence>
@@ -367,7 +367,7 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                       formErrors.name 
                         ? 'border-red-500 focus:border-red-500' 
                         : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -403,7 +403,7 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                    className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                       formErrors.email 
                         ? 'border-red-500 focus:border-red-500' 
                         : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -440,7 +440,7 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                     formErrors.subject 
                       ? 'border-red-500 focus:border-red-500' 
                       : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -476,7 +476,7 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   rows={6}
-                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all resize-none text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                     formErrors.message 
                       ? 'border-red-500 focus:border-red-500' 
                       : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
@@ -508,7 +508,7 @@ export default function Contact() {
                 disabled={!isFormValid}
                 className={`w-full py-3 sm:py-4 rounded-xl font-medium flex items-center justify-center gap-3 transition-all ${
                   isFormValid
-                    ? 'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg hover:shadow-xl'
+                    ? 'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 shadow-lg hover:shadow-xl'
                     : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
               >
@@ -542,7 +542,7 @@ export default function Contact() {
             {/* Info message */}
             <div className="mt-4 text-xs text-gray-500 dark:text-gray-400 text-center">
               <p>📧 Le formulaire ouvrira votre client email par défaut</p>
-              <p className="mt-1">Vous pouvez aussi m'écrire directement à hello@theoblondel.ch</p>
+              <p className="mt-1">Tu peux aussi m'écrire directement à hello@theoblondel.ch</p>
             </div>
           </motion.div>
         </div>

@@ -39,14 +39,14 @@ export default function About() {
                   transition={{ delay: 0.4, duration: 0.8 }}
                   className="h-1 bg-black dark:bg-white sm:w-12"
                 />
-                <span className="text-gray-600 dark:text-gray-400 font-medium tracking-wider uppercase text-xs sm:text-sm">{t('about.subtitle')}</span>
+                <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-xs sm:text-sm">{t('about.subtitle')}</span>
               </motion.div>
               
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-gray-900 dark:text-white text-center lg:text-left"
+                className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-black dark:text-white text-center lg:text-left"
               >
                 <motion.span
                   initial={{ opacity: 0, y: 30 }}
@@ -70,7 +70,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed text-center lg:text-left"
+                className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed text-center lg:text-left"
               >
                 {t('about.description1')}
               </motion.p>
@@ -79,7 +79,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed text-center lg:text-left"
+                className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed text-center lg:text-left"
               >
                 {t('about.description2')}
               </motion.p>
@@ -109,16 +109,16 @@ export default function About() {
                       >
                         <skill.icon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors" />
                       </motion.div>
-                      <span className="font-semibold text-gray-900 dark:text-white group-hover:text-black dark:group-hover:text-gray-100 transition-colors text-sm sm:text-base">{skill.title}</span>
+                      <span className="font-semibold text-black dark:text-white group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors text-sm sm:text-base">{skill.title}</span>
                     </div>
-                    <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">{skill.percentage}%</span>
+                    <span className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm group-hover:text-gray-800 dark:group-hover:text-gray-300 transition-colors">{skill.percentage}%</span>
                   </div>
                   <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-1.5 sm:h-2 overflow-hidden">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.percentage}%` }}
                       transition={{ delay: 1.2 + index * 0.1, duration: 1.2, ease: "easeOut" }}
-                      className="bg-gray-900 dark:bg-white h-1.5 sm:h-2 rounded-full relative"
+                      className="bg-black dark:bg-white h-1.5 sm:h-2 rounded-full relative"
                     >
                       <motion.div
                         animate={{ x: ['-100%', '100%'] }}
@@ -150,7 +150,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base"
+                className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm sm:text-base"
               >
                 En savoir plus sur moi
                 <motion.div
@@ -176,7 +176,7 @@ export default function About() {
                 animate={{ y: [0, -15, 0] }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                 whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-                className="aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl cursor-pointer"
+                className="aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl cursor-pointer border-4 border-gray-100 dark:border-gray-800"
               >
                 <LazyImage 
                   src="/Groudp.png" 
@@ -198,7 +198,7 @@ export default function About() {
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                   className="text-center"
                 >
-                  <div className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">5+</div>
+                  <div className="text-xl sm:text-3xl font-bold text-black dark:text-white mb-1">5+</div>
                   <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
                 </motion.div>
               </motion.div>
@@ -208,7 +208,7 @@ export default function About() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.7, duration: 0.5 }}
                 whileHover={{ scale: 1.05, y: -5, rotate: -2 }}
-                className="absolute -top-3 -left-3 sm:-top-6 sm:-left-6 bg-gray-900 dark:bg-white text-white dark:text-black rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-xl cursor-pointer"
+                className="absolute -top-3 -left-3 sm:-top-6 sm:-left-6 bg-black dark:bg-white text-white dark:text-black rounded-lg sm:rounded-xl p-2 sm:p-4 shadow-xl cursor-pointer"
               >
                 <motion.div
                   animate={{ x: [0, 8, 0], rotate: [0, -3, 0] }}

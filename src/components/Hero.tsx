@@ -8,13 +8,13 @@ export default function Hero() {
   const { t } = useApp();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-black pt-16 sm:pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white dark:bg-black pt-16 sm:pt-20">
       {/* Subtle animated background elements */}
       <div className="absolute inset-0">
         {[...Array(8)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"
+            className="absolute w-1 h-1 bg-gray-200 dark:bg-gray-800 rounded-full"
             initial={{ 
               x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
               y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
@@ -56,7 +56,7 @@ export default function Hero() {
                   transition={{ delay: 0.5, duration: 0.8 }}
                   className="h-1 bg-black dark:bg-white sm:w-12"
                 />
-                <span className="text-gray-600 dark:text-gray-400 font-medium tracking-wider uppercase text-xs sm:text-sm">{t('hero.subtitle')}</span>
+                <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-xs sm:text-sm">{t('hero.subtitle')}</span>
               </motion.div>
               
               <motion.div
@@ -65,8 +65,8 @@ export default function Hero() {
                 transition={{ delay: 0.3 }}
                 className="space-y-2 sm:space-y-4"
               >
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-medium">{t('hero.greeting')}</p>
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 dark:text-white">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-medium">{t('hero.greeting')}</p>
+                <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-black dark:text-white">
                   <motion.span
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.7 }}
-                className="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed max-w-lg mx-auto lg:mx-0"
+                className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed max-w-lg mx-auto lg:mx-0"
               >
                 {t('hero.description')}
               </motion.p>
@@ -105,7 +105,7 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group justify-center text-sm sm:text-base"
+                className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group justify-center text-sm sm:text-base"
               >
                 {t('hero.contactMe')}
                 <motion.div
@@ -119,7 +119,7 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-900 transition-all group justify-center text-sm sm:text-base"
+                className="border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium flex items-center gap-3 hover:border-black dark:hover:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-all group justify-center text-sm sm:text-base"
               >
                 <motion.div
                   whileHover={{ scale: 1.2 }}
@@ -146,7 +146,7 @@ export default function Hero() {
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto"
               >
-                <div className="w-full h-full rounded-full overflow-hidden">
+                <div className="w-full h-full rounded-full overflow-hidden border-4 border-gray-100 dark:border-gray-800">
                   <LazyImage 
                     src="/DSC00831.png" 
                     alt="Theo Blondel"
@@ -181,7 +181,7 @@ export default function Hero() {
                     transition={{ duration: 4 + index, repeat: Infinity, ease: "easeInOut" }}
                     className="text-center"
                   >
-                    <div className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</div>
+                    <div className="text-lg sm:text-2xl font-bold text-black dark:text-white">{stat.value}</div>
                     <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-tight whitespace-nowrap">{stat.text}</div>
                   </motion.div>
                 </motion.div>
@@ -209,9 +209,9 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 2 + index * 0.1 }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="text-center space-y-2 sm:space-y-3 cursor-pointer group p-4 rounded-xl hover:bg-white/50 dark:hover:bg-gray-900/50 transition-all"
+              className="text-center space-y-2 sm:space-y-3 cursor-pointer group p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-900 transition-all"
             >
-              <h3 className="font-bold text-gray-900 dark:text-white text-xs sm:text-sm uppercase tracking-wider group-hover:text-black dark:group-hover:text-gray-100 transition-colors leading-tight">
+              <h3 className="font-bold text-black dark:text-white text-xs sm:text-sm uppercase tracking-wider group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors leading-tight">
                 {t(service.titleKey)}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">

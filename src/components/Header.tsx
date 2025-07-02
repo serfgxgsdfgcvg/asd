@@ -22,7 +22,7 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.8 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-white/95 dark:bg-black/95 backdrop-blur-xl shadow-lg border-b border-gray-100 dark:border-gray-800' : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,7 +38,7 @@ export default function Header() {
               alt="Theo Blondel Logo"
               className="w-8 h-8 sm:w-10 sm:h-10"
             />
-            <span className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">THEO BLONDEL</span>
+            <span className="text-lg sm:text-xl font-bold text-black dark:text-white">THEO BLONDEL</span>
           </motion.div>
           
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
@@ -71,7 +71,7 @@ export default function Header() {
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="hidden md:block bg-black dark:bg-white text-white dark:text-black px-4 lg:px-6 py-2 lg:py-3 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm lg:text-base"
+            className="hidden md:block bg-black dark:bg-white text-white dark:text-black px-4 lg:px-6 py-2 lg:py-3 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm lg:text-base"
           >
             <span className="group-hover:mr-2 transition-all">{t('nav.letsTalk')}</span>
             <motion.span

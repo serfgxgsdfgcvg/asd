@@ -78,7 +78,7 @@ export default function Portfolio() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="h-1 bg-black dark:bg-white sm:w-12"
             />
-            <span className="text-gray-600 dark:text-gray-400 font-medium tracking-wider uppercase text-xs sm:text-sm">{t('portfolio.subtitle')}</span>
+            <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-xs sm:text-sm">{t('portfolio.subtitle')}</span>
             <motion.div 
               initial={{ width: 0 }}
               whileInView={{ width: 32 }}
@@ -91,7 +91,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-4 sm:mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-black dark:text-white mb-4 sm:mb-6"
           >
             <motion.span
               initial={{ opacity: 0, y: 30 }}
@@ -115,7 +115,7 @@ export default function Portfolio() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             {t('portfolio.description')}
           </motion.p>
@@ -136,7 +136,7 @@ export default function Portfolio() {
               transition={{ delay: index * 0.1, duration: 0.6 }}
               whileHover={{ y: -10, scale: 1.02, transition: { duration: 0.3 } }}
               onClick={() => handleProjectClick(project.behanceLink)}
-              className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card"
+              className="group relative bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all cursor-pointer project-card border border-gray-100 dark:border-gray-700"
             >
               {/* Image Container */}
               <div className="relative overflow-hidden h-64 sm:h-80">
@@ -186,11 +186,11 @@ export default function Portfolio() {
                   <motion.h3 
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
-                    className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
+                    className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-3 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors"
                   >
                     {project.title}
                   </motion.h3>
-                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base line-clamp-3">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-400 transition-colors text-sm sm:text-base line-clamp-3">
                     {project.description}
                   </p>
                 </div>
@@ -218,7 +218,7 @@ export default function Portfolio() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 sm:gap-3 bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base btn-hover-effect"
+            className="inline-flex items-center gap-2 sm:gap-3 bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm sm:text-base btn-hover-effect"
           >
             <motion.div
               whileHover={{ rotate: 45 }}

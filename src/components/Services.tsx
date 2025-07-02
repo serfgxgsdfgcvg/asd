@@ -98,7 +98,7 @@ export default function Services() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="h-1 bg-black dark:bg-white"
             />
-            <span className="text-gray-600 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">{t('services.subtitle')}</span>
+            <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">{t('services.subtitle')}</span>
             <motion.div 
               initial={{ width: 0 }}
               whileInView={{ width: 48 }}
@@ -111,7 +111,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white mb-6"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-black dark:text-white mb-6"
           >
             {t('services.title')}
           </motion.h2>
@@ -120,7 +120,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
             {t('services.description')}
           </motion.p>
@@ -142,7 +142,7 @@ export default function Services() {
                 whileInView={{ scale: 1, rotate: 0 }}
                 transition={{ delay: 0.5 + index * 0.1, type: "spring", stiffness: 200 }}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="w-14 h-14 sm:w-16 sm:h-16 bg-black dark:bg-white text-white dark:text-black rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-800 dark:group-hover:bg-gray-100 transition-colors shadow-lg"
+                className="w-14 h-14 sm:w-16 sm:h-16 bg-black dark:bg-white text-white dark:text-black rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-800 dark:group-hover:bg-gray-200 transition-colors shadow-lg"
               >
                 <service.icon className="w-6 h-6 sm:w-8 sm:h-8" />
               </motion.div>
@@ -151,11 +151,11 @@ export default function Services() {
                 <motion.h3 
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.2 }}
-                  className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
+                  className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-4 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors"
                 >
                   {service.title}
                 </motion.h3>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors text-sm sm:text-base">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 group-hover:text-gray-700 dark:group-hover:text-gray-400 transition-colors text-sm sm:text-base">
                   {service.description}
                 </p>
               </div>
@@ -192,7 +192,7 @@ export default function Services() {
           <motion.button
             whileHover={{ scale: 1.02, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all group text-sm sm:text-base"
+            className="bg-black dark:bg-white text-white dark:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all group text-sm sm:text-base"
           >
             <span className="group-hover:mr-2 transition-all">{t('services.startProject')}</span>
             <motion.span
