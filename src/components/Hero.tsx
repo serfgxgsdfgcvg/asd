@@ -79,9 +79,10 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="block italic font-light"
+                    className="block"
                   >
-                    {t('hero.title2')}
+                    <span className="italic font-light">{t('hero.title2')}</span>{' '}
+                    <span className="font-bold">{t('hero.title3')}</span>
                   </motion.span>
                 </h1>
               </motion.div>
