@@ -8,7 +8,6 @@ import SEOHead from '../components/SEOHead';
 const About = React.lazy(() => import('../components/About'));
 const Portfolio = React.lazy(() => import('../components/Portfolio'));
 const Process = React.lazy(() => import('../components/Process'));
-const FakeChat = React.lazy(() => import('../components/FakeChat'));
 const Services = React.lazy(() => import('../components/Services'));
 const Testimonials = React.lazy(() => import('../components/Testimonials'));
 const Contact = React.lazy(() => import('../components/Contact'));
@@ -42,10 +41,6 @@ export default function HomePage() {
       
       <Suspense fallback={<SectionLoader />}>
         <Process />
-      </Suspense>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <FakeChat />
       </Suspense>
       
       <Suspense fallback={<SectionLoader />}>

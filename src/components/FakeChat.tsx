@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Download, ExternalLink, ArrowRight } from 'lucide-react';
-import { useApp } from '../contexts/AppContext';
+import { MessageCircle, Download } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -14,7 +13,6 @@ interface Message {
 }
 
 export default function FakeChat() {
-  const { t } = useApp();
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
@@ -179,75 +177,23 @@ export default function FakeChat() {
   };
 
   return (
-    <section 
+    <div 
       ref={sectionRef}
-      id="fake-chat" 
-      className="py-24 sm:py-32 lg:py-40 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
+      className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-900"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16 sm:mb-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex items-center justify-center gap-3 mb-6"
-          >
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: 48 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="h-1 bg-black dark:bg-white"
-            />
-            <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">
-              Projet Fictif
-            </span>
-            <motion.div 
-              initial={{ width: 0 }}
-              whileInView={{ width: 48 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="h-1 bg-black dark:bg-white"
-            />
-          </motion.div>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-black dark:text-white mb-6"
-          >
-            Création de logo "NOIRBRUME"
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
-          >
-            Une conversation réaliste pour découvrir mon processus créatif, de A à Z.
-          </motion.p>
-        </motion.div>
-
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Chat Interface */}
         <motion.div
           variants={chatVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
         >
           {/* Chat Header */}
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
             className="bg-white dark:bg-gray-800 rounded-t-2xl border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 shadow-lg"
           >
             <div className="flex items-center gap-4">
@@ -255,19 +201,19 @@ export default function FakeChat() {
                 <motion.div 
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ delay: 0.8, type: "spring" }}
+                  transition={{ delay: 0.5, type: "spring" }}
                   className="w-3 h-3 bg-red-500 rounded-full"
                 />
                 <motion.div 
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ delay: 0.9, type: "spring" }}
+                  transition={{ delay: 0.6, type: "spring" }}
                   className="w-3 h-3 bg-yellow-500 rounded-full"
                 />
                 <motion.div 
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ delay: 1.0, type: "spring" }}
+                  transition={{ delay: 0.7, type: "spring" }}
                   className="w-3 h-3 bg-green-500 rounded-full"
                 />
               </div>
@@ -275,7 +221,7 @@ export default function FakeChat() {
                 <motion.div 
                   initial={{ scale: 0, rotate: -180 }}
                   whileInView={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 1.1, type: "spring", stiffness: 200 }}
+                  transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
                   className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
                 >
                   <MessageCircle className="w-5 h-5 text-white" />
@@ -283,7 +229,7 @@ export default function FakeChat() {
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.2 }}
+                  transition={{ delay: 0.9 }}
                 >
                   <h3 className="font-semibold text-black dark:text-white">Client - NOIRBRUME</h3>
                   <div className="flex items-center gap-2">
@@ -405,75 +351,7 @@ export default function FakeChat() {
             </div>
           </div>
         </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-16 sm:mt-20"
-        >
-          <motion.div
-            whileHover={{ scale: 1.02, y: -5 }}
-            transition={{ duration: 0.3 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-100 dark:border-gray-700 max-w-2xl mx-auto"
-          >
-            <motion.h3
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-              className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-4"
-            >
-              Envie de voir plus de projets ?
-            </motion.h3>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3 }}
-              className="text-gray-600 dark:text-gray-300 mb-8 text-lg"
-            >
-              Découvrez mes réalisations complètes et mon portfolio sur Behance.
-            </motion.p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href="#work"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 bg-black dark:bg-white text-white dark:text-black px-6 py-3 rounded-full font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-all shadow-lg group"
-              >
-                Voir mes projets
-                <motion.div
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </motion.div>
-              </motion.a>
-              
-              <motion.a
-                href="https://behance.net/theoblondel"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5 }}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-full font-medium hover:border-black dark:hover:border-white hover:bg-gray-50 dark:hover:bg-gray-900 transition-all group"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Portfolio Behance
-              </motion.a>
-            </div>
-          </motion.div>
-        </motion.div>
       </div>
-    </section>
+    </div>
   );
 }
