@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Instagram, MessageCircle, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, MapPin, Send, Linkedin, Github, Instagram, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../contexts/AppContext';
 
@@ -16,6 +16,13 @@ interface FormErrors {
   subject?: string;
   message?: string;
 }
+
+// Icône Behance personnalisée
+const BehanceIcon = ({ size = 24, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M22 7h-7v-2h7v2zm1.726 10c-.442 1.297-2.029 3-5.101 3-3.074 0-5.564-1.729-5.564-5.675 0-3.91 2.325-5.92 5.466-5.92 3.082 0 4.964 1.782 5.375 4.426.078.506.109 1.188.095 2.14H15.97c.13 3.211 3.483 3.312 4.588 2.029h3.168zm-7.686-4h4.965c-.105-1.547-1.136-2.219-2.477-2.219-1.466 0-2.277.768-2.488 2.219zm-9.574 6.988h-6.466v-14.967h6.953c5.476.081 5.58 5.444 2.72 6.906 3.461 1.26 3.577 8.061-3.207 8.061zm-3.466-8.988h3.584c2.508 0 2.906-3-.312-3h-3.272v3zm3.391 3h-3.391v3.016h3.341c3.055 0 2.868-3.016.05-3.016z"/>
+  </svg>
+);
 
 export default function Contact() {
   const { t } = useApp();
@@ -220,18 +227,11 @@ export default function Contact() {
                   description: t('contact.emailDesc')
                 },
                 { 
-                  icon: Phone, 
-                  label: t('contact.phone'), 
-                  value: '+41 76 123 45 67', 
-                  href: 'tel:+41761234567',
-                  description: t('contact.phoneDesc')
-                },
-                { 
                   icon: MapPin, 
                   label: t('contact.location'), 
-                  value: 'Zurich, Switzerland', 
+                  value: 'Vevey, Suisse', 
                   href: '#',
-                  description: t('contact.locationDesc')
+                  description: 'Basé dans la région lémanique'
                 }
               ].map((contact, index) => (
                 <motion.a
@@ -246,7 +246,7 @@ export default function Contact() {
                   <motion.div 
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ duration: 0.2 }}
-                    className="w-12 h-12 sm:w-16 sm:h-16 bg-accent-500 text-white rounded-2xl flex items-center justify-center group-hover:bg-accent-600 transition-colors shadow-lg"
+                    className="w-12 h-12 sm:w-16 sm:h-16 bg-black dark:bg-white text-white dark:text-black rounded-2xl flex items-center justify-center group-hover:bg-gray-800 dark:group-hover:bg-gray-100 transition-colors shadow-lg"
                   >
                     <contact.icon className="w-5 h-5 sm:w-8 sm:h-8" />
                   </motion.div>
@@ -257,7 +257,7 @@ export default function Contact() {
                     <motion.div 
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
-                      className="font-bold text-gray-900 dark:text-white text-base sm:text-lg group-hover:text-accent-500 transition-colors"
+                      className="font-bold text-gray-900 dark:text-white text-base sm:text-lg group-hover:text-black dark:group-hover:text-gray-100 transition-colors"
                     >
                       {contact.value}
                     </motion.div>
@@ -277,10 +277,30 @@ export default function Contact() {
               <h4 className="font-bold text-gray-900 dark:text-white mb-6 text-lg sm:text-xl">{t('contact.followMe')}</h4>
               <div className="flex gap-3 sm:gap-4">
                 {[
-                  { icon: Linkedin, href: 'https://linkedin.com/in/theoblondel', label: 'LinkedIn' },
-                  { icon: Github, href: 'https://github.com/theoblondel', label: 'GitHub' },
-                  { icon: Instagram, href: 'https://instagram.com/theoblondel', label: 'Instagram' },
-                  { icon: MessageCircle, href: 'https://twitter.com/theoblondel', label: 'Twitter' }
+                  { 
+                    icon: Linkedin, 
+                    href: 'https://www.linkedin.com/in/theo-blondel-6952432aa/', 
+                    label: 'LinkedIn',
+                    color: 'hover:bg-blue-600'
+                  },
+                  { 
+                    icon: Instagram, 
+                    href: 'https://www.instagram.com/theo.blondel/', 
+                    label: 'Instagram',
+                    color: 'hover:bg-pink-600'
+                  },
+                  { 
+                    icon: BehanceIcon, 
+                    href: 'https://www.behance.net/theoblondel', 
+                    label: 'Behance',
+                    color: 'hover:bg-blue-500'
+                  },
+                  { 
+                    icon: Github, 
+                    href: 'https://github.com/theoblondel', 
+                    label: 'GitHub',
+                    color: 'hover:bg-gray-700'
+                  }
                 ].map((social, index) => (
                   <motion.a
                     key={social.label}
@@ -292,7 +312,8 @@ export default function Contact() {
                     transition={{ delay: 0.6 + index * 0.1, type: "spring", stiffness: 200 }}
                     whileHover={{ scale: 1.1, y: -2, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
-                    className="w-12 h-12 sm:w-14 sm:h-14 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-2xl flex items-center justify-center hover:bg-accent-500 hover:text-white transition-all shadow-md hover:shadow-lg"
+                    className={`w-12 h-12 sm:w-14 sm:h-14 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-2xl flex items-center justify-center hover:text-white transition-all shadow-md hover:shadow-lg ${social.color}`}
+                    title={social.label}
                   >
                     <social.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </motion.a>
@@ -348,7 +369,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                       formErrors.name 
                         ? 'border-red-500 focus:border-red-500' 
-                        : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                        : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
                     }`}
                     placeholder={t('contact.namePlaceholder')}
                   />
@@ -384,7 +405,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                       formErrors.email 
                         ? 'border-red-500 focus:border-red-500' 
-                        : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                        : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
                     }`}
                     placeholder={t('contact.emailPlaceholder')}
                   />
@@ -421,7 +442,7 @@ export default function Contact() {
                   className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                     formErrors.subject 
                       ? 'border-red-500 focus:border-red-500' 
-                      : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                      : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
                   }`}
                   placeholder={t('contact.subjectPlaceholder')}
                 />
@@ -457,7 +478,7 @@ export default function Contact() {
                   className={`w-full px-4 py-3 bg-white dark:bg-gray-800 border rounded-xl focus:outline-none transition-all resize-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 ${
                     formErrors.message 
                       ? 'border-red-500 focus:border-red-500' 
-                      : 'border-gray-200 dark:border-gray-700 focus:border-accent-500'
+                      : 'border-gray-200 dark:border-gray-700 focus:border-black dark:focus:border-white'
                   }`}
                   placeholder={t('contact.messagePlaceholder')}
                 />
@@ -486,7 +507,7 @@ export default function Contact() {
                 disabled={!isFormValid || isSubmitting}
                 className={`w-full py-3 sm:py-4 rounded-xl font-medium flex items-center justify-center gap-3 transition-all ${
                   isFormValid && !isSubmitting
-                    ? 'bg-accent-500 hover:bg-accent-600 text-white shadow-lg hover:shadow-xl'
+                    ? 'bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-100 shadow-lg hover:shadow-xl'
                     : 'bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
                 }`}
               >
