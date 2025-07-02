@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Download, ExternalLink, ArrowRight } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
@@ -17,6 +17,8 @@ export default function FakeChat() {
   const { t } = useApp();
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const messages: Message[] = [
     {
@@ -78,28 +80,63 @@ export default function FakeChat() {
     }
   ];
 
+  // Reset animation when section comes into view
   useEffect(() => {
-    const showMessages = async () => {
-      for (let i = 0; i < messages.length; i++) {
-        await new Promise(resolve => setTimeout(resolve, i === 0 ? 500 : 2000));
-        
-        if (i < messages.length - 1) {
-          setIsTyping(true);
-          await new Promise(resolve => setTimeout(resolve, 1500));
-          setIsTyping(false);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true);
+          startAnimation();
+        } else if (!entry.isIntersecting && hasStarted) {
+          // Reset when section leaves viewport
+          resetAnimation();
         }
-        
-        setVisibleMessages(prev => [...prev, messages[i].id]);
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of section is visible
+        rootMargin: '-50px 0px -50px 0px'
       }
-    };
+    );
 
-    showMessages();
-  }, []);
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  const resetAnimation = () => {
+    setVisibleMessages([]);
+    setIsTyping(false);
+    setHasStarted(false);
+  };
+
+  const startAnimation = async () => {
+    // Clear any existing messages
+    setVisibleMessages([]);
+    setIsTyping(false);
+
+    // Start the animation sequence
+    for (let i = 0; i < messages.length; i++) {
+      // Wait before showing message
+      await new Promise(resolve => setTimeout(resolve, i === 0 ? 800 : 2500));
+      
+      // Show typing indicator before next message (except for last message)
+      if (i < messages.length - 1) {
+        setIsTyping(true);
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        setIsTyping(false);
+      }
+      
+      // Show the message
+      setVisibleMessages(prev => [...prev, messages[i].id]);
+    }
+  };
 
   const messageVariants = {
     hidden: { 
       opacity: 0, 
-      y: 20,
+      y: 30,
       scale: 0.8
     },
     visible: { 
@@ -109,25 +146,44 @@ export default function FakeChat() {
       transition: {
         type: "spring",
         stiffness: 500,
-        damping: 30
+        damping: 25,
+        duration: 0.6
       }
     }
   };
 
   const typingVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0.8, y: 20 },
     visible: { 
       opacity: 1, 
       scale: 1,
+      y: 0,
       transition: {
         type: "spring",
-        stiffness: 400
+        stiffness: 400,
+        damping: 20
+      }
+    }
+  };
+
+  const chatVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
       }
     }
   };
 
   return (
-    <section id="fake-chat" className="py-24 sm:py-32 lg:py-40 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+    <section 
+      ref={sectionRef}
+      id="fake-chat" 
+      className="py-24 sm:py-32 lg:py-40 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -181,35 +237,72 @@ export default function FakeChat() {
 
         {/* Chat Interface */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+          variants={chatVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
           {/* Chat Header */}
-          <div className="bg-white dark:bg-gray-800 rounded-t-2xl border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6">
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="bg-white dark:bg-gray-800 rounded-t-2xl border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 shadow-lg"
+          >
             <div className="flex items-center gap-4">
               <div className="flex gap-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: 0.8, type: "spring" }}
+                  className="w-3 h-3 bg-red-500 rounded-full"
+                />
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: 0.9, type: "spring" }}
+                  className="w-3 h-3 bg-yellow-500 rounded-full"
+                />
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  transition={{ delay: 1.0, type: "spring" }}
+                  className="w-3 h-3 bg-green-500 rounded-full"
+                />
               </div>
               <div className="flex items-center gap-3 flex-1">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <motion.div 
+                  initial={{ scale: 0, rotate: -180 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 1.1, type: "spring", stiffness: 200 }}
+                  className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
+                >
                   <MessageCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 1.2 }}
+                >
                   <h3 className="font-semibold text-black dark:text-white">Client - NOIRBRUME</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">En ligne</p>
-                </div>
+                  <div className="flex items-center gap-2">
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="w-2 h-2 bg-green-500 rounded-full"
+                    />
+                    <p className="text-sm text-gray-500 dark:text-gray-400">En ligne</p>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Chat Messages */}
-          <div className="bg-white dark:bg-gray-800 rounded-b-2xl p-4 sm:p-6 min-h-[600px] max-h-[700px] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-b-2xl p-4 sm:p-6 min-h-[600px] max-h-[700px] overflow-y-auto shadow-lg">
             <div className="space-y-4">
-              <AnimatePresence>
+              <AnimatePresence mode="popLayout">
                 {messages.map((message) => (
                   visibleMessages.includes(message.id) && (
                     <motion.div
@@ -217,13 +310,18 @@ export default function FakeChat() {
                       variants={messageVariants}
                       initial="hidden"
                       animate="visible"
+                      exit="hidden"
+                      layout
                       className={`flex ${message.type === 'you' ? 'justify-end' : 'justify-start'}`}
                     >
-                      <div className={`max-w-[80%] sm:max-w-[70%] ${
-                        message.type === 'client' 
-                          ? 'bg-gray-100 dark:bg-gray-700 text-black dark:text-white' 
-                          : 'bg-black dark:bg-white text-white dark:text-black'
-                      } rounded-2xl px-4 py-3 shadow-sm`}>
+                      <motion.div 
+                        whileHover={{ scale: 1.02 }}
+                        className={`max-w-[80%] sm:max-w-[70%] ${
+                          message.type === 'client' 
+                            ? 'bg-gray-100 dark:bg-gray-700 text-black dark:text-white' 
+                            : 'bg-black dark:bg-white text-white dark:text-black'
+                        } rounded-2xl px-4 py-3 shadow-md hover:shadow-lg transition-all cursor-pointer`}
+                      >
                         <div 
                           className="text-sm sm:text-base leading-relaxed"
                           dangerouslySetInnerHTML={{ __html: message.content }}
@@ -231,23 +329,27 @@ export default function FakeChat() {
                         
                         {message.hasAttachment && (
                           <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            className="mt-3 p-3 bg-white/10 dark:bg-black/10 rounded-xl border border-white/20 dark:border-black/20"
+                            initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ delay: 0.3, type: "spring" }}
+                            className="mt-3 p-3 bg-white/10 dark:bg-black/10 rounded-xl border border-white/20 dark:border-black/20 backdrop-blur-sm"
                           >
                             <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 bg-white/20 dark:bg-black/20 rounded-lg flex items-center justify-center">
+                              <motion.div 
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 0.5 }}
+                                className="w-8 h-8 bg-white/20 dark:bg-black/20 rounded-lg flex items-center justify-center"
+                              >
                                 <Download className="w-4 h-4" />
-                              </div>
+                              </motion.div>
                               <div className="flex-1">
                                 <p className="text-sm font-medium">{message.attachmentName}</p>
                                 <p className="text-xs opacity-70">Fichier joint</p>
                               </div>
                               <motion.button
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="text-xs px-3 py-1 bg-white/20 dark:bg-black/20 rounded-full hover:bg-white/30 dark:hover:bg-black/30 transition-colors"
+                                className="text-xs px-3 py-1 bg-white/20 dark:bg-black/20 rounded-full hover:bg-white/30 dark:hover:bg-black/30 transition-all shadow-sm"
                               >
                                 Télécharger
                               </motion.button>
@@ -260,7 +362,7 @@ export default function FakeChat() {
                         }`}>
                           {message.timestamp}
                         </div>
-                      </div>
+                      </motion.div>
                     </motion.div>
                   )
                 ))}
@@ -272,28 +374,29 @@ export default function FakeChat() {
                     initial="hidden"
                     animate="visible"
                     exit="hidden"
+                    layout
                     className="flex justify-start"
                   >
-                    <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3 max-w-[200px]">
-                      <div className="flex items-center gap-1">
+                    <div className="bg-gray-100 dark:bg-gray-700 rounded-2xl px-4 py-3 max-w-[200px] shadow-md">
+                      <div className="flex items-center gap-2">
                         <div className="flex gap-1">
                           <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                            className="w-2 h-2 bg-gray-400 rounded-full"
+                            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 0.8, repeat: Infinity, delay: 0 }}
+                            className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full"
                           />
                           <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                            className="w-2 h-2 bg-gray-400 rounded-full"
+                            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
+                            className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full"
                           />
                           <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                            className="w-2 h-2 bg-gray-400 rounded-full"
+                            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }}
+                            className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full"
                           />
                         </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 ml-2">Théo écrit...</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">Théo écrit...</span>
                       </div>
                     </div>
                   </motion.div>
@@ -308,11 +411,13 @@ export default function FakeChat() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.8 }}
+          viewport={{ once: true }}
           className="text-center mt-16 sm:mt-20"
         >
           <motion.div
             whileHover={{ scale: 1.02, y: -5 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-8 sm:p-12 shadow-lg border border-gray-100 dark:border-gray-700 max-w-2xl mx-auto"
+            transition={{ duration: 0.3 }}
+            className="bg-white dark:bg-gray-800 rounded-2xl p-8 sm:p-12 shadow-xl border border-gray-100 dark:border-gray-700 max-w-2xl mx-auto"
           >
             <motion.h3
               initial={{ opacity: 0, y: 20 }}
