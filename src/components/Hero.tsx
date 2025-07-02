@@ -307,7 +307,7 @@ export default function Hero() {
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="text-center sm:text-left">
                     <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1">
-                      Mon Processus Créatif en Action
+                      theoblondel.ch
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
                       Découvrez comment je transforme vos idées en réalisations concrètes
