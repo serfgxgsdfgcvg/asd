@@ -279,7 +279,7 @@ export default function About() {
                 className="aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl cursor-pointer border-4 border-gray-100 dark:border-gray-800"
               >
                 <LazyImage 
-                  src="/Groudp.png" 
+                  src="/Group.png" 
                   alt="Theo Blondel Illustration"
                   className="w-full h-full object-cover"
                 />
