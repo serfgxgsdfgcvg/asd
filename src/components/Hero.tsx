@@ -162,7 +162,7 @@ export default function Hero() {
                 >
                   <div className="w-full h-full rounded-full overflow-hidden border-4 border-gray-100 dark:border-gray-800">
                     <LazyImage 
-                      src="/DSC00831.png" 
+                      src="/DSC0831.png" 
                       alt="Theo Blondel"
                       className="w-full h-full object-cover"
                     />
