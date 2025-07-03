@@ -19,73 +19,73 @@ export default function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      name: "Emily Rodriguez",
-      role: "Marketing Director, InnovateLab",
-      content: "L'approche créative et l'expertise technique de Théo nous ont aidés à lancer une campagne digitale réussie. Les résultats parlent d'eux-mêmes – 300 % d'augmentation de l'engagement !",
+      name: t('testimonial1.name'),
+      role: t('testimonial1.role'),
+      content: t('testimonial1.content'),
       rating: 5,
-      company: "InnovateLab",
-      project: "Campagne digitale & Motion Graphics",
-      date: "Octobre 2023"
+      company: t('testimonial1.company'),
+      project: t('testimonial1.project'),
+      date: t('testimonial1.date')
     },
     {
       id: 2,
-      name: "Client anonyme",
-      role: "",
-      content: "Théo a su capter l'essence de ma marque dès le départ. Communication fluide, délais respectés, et résultat pro. Je recommande vivement.",
+      name: t('testimonial2.name'),
+      role: t('testimonial2.role'),
+      content: t('testimonial2.content'),
       rating: 5,
-      company: "",
-      project: "Création de logo",
-      date: "Avril 2025"
+      company: t('testimonial2.company'),
+      project: t('testimonial2.project'),
+      date: t('testimonial2.date')
     },
     {
       id: 3,
-      name: "Meier Nils",
-      role: "Entrepreneur",
-      content: "Le design de ma carte de visite est exactement ce que je cherchais : minimaliste, élégant et percutant. Merci pour ton écoute et ton professionnalisme !",
+      name: t('testimonial3.name'),
+      role: t('testimonial3.role'),
+      content: t('testimonial3.content'),
       rating: 5,
-      company: "",
-      project: "Identité visuelle & carte de visite",
-      date: "Avril 2025"
+      company: t('testimonial3.company'),
+      project: t('testimonial3.project'),
+      date: t('testimonial3.date')
     },
     {
       id: 4,
-      name: "Lukas Steinmann",
-      role: "Directeur artistique",
-      content: "La collaboration avec Théo Blondel a été excellente. Sa campagne d'affiches a dépassé toutes nos attentes — un travail créatif, moderne, précis jusque dans les détails. Mention spéciale pour son sens des couleurs, des typos et de l'impact visuel.",
+      name: t('testimonial4.name'),
+      role: t('testimonial4.role'),
+      content: t('testimonial4.content'),
       rating: 5,
-      company: "",
-      project: "Campagne print & direction artistique",
-      date: "Avril 2025"
+      company: t('testimonial4.company'),
+      project: t('testimonial4.project'),
+      date: t('testimonial4.date')
     },
     {
       id: 5,
-      name: "Azdine Tafssout",
-      role: "Chef de projet",
-      content: "Toujours un plaisir de bosser avec Théo. Réactif, créatif et fiable. Chaque projet avance sans stress.",
+      name: t('testimonial5.name'),
+      role: t('testimonial5.role'),
+      content: t('testimonial5.content'),
       rating: 5,
-      company: "",
-      project: "Identité de marque & print",
-      date: "Février 2025"
+      company: t('testimonial5.company'),
+      project: t('testimonial5.project'),
+      date: t('testimonial5.date')
     },
     {
       id: 6,
-      name: "Noa Vellin",
-      role: "Responsable produit",
-      content: "Super collaboration. Le projet a été fluide du début à la fin. Résultat propre, livré dans les temps, et fidèle à notre vision.",
+      name: t('testimonial6.name'),
+      role: t('testimonial6.role'),
+      content: t('testimonial6.content'),
       rating: 5,
-      company: "",
-      project: "Design packaging & supports de com'",
-      date: "Avril 2025"
+      company: t('testimonial6.company'),
+      project: t('testimonial6.project'),
+      date: t('testimonial6.date')
     },
     {
       id: 7,
-      name: "Julia Renard",
-      role: "Fondatrice, Atelier Kura",
-      content: "Théo a géré notre rebranding de A à Z. Il a tout restructuré avec clarté, goût et une vraie sensibilité. On a su dès les premiers échanges qu'on allait bosser avec lui.",
+      name: t('testimonial7.name'),
+      role: t('testimonial7.role'),
+      content: t('testimonial7.content'),
       rating: 5,
-      company: "Atelier Kura",
-      project: "Refonte d'identité visuelle",
-      date: "Mars 2025"
+      company: t('testimonial7.company'),
+      project: t('testimonial7.project'),
+      date: t('testimonial7.date')
     }
   ];
 

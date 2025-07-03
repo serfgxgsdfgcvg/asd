@@ -11,48 +11,48 @@ export default function Process() {
     {
       id: 1,
       icon: MessageCircle,
-      title: 'Brief & Écoute',
-      description: 'Comprendre tes besoins, tes objectifs et l\'univers de ta marque.',
+      title: t('process.step1.title'),
+      description: t('process.step1.desc'),
       color: 'from-blue-500 to-blue-600',
       delay: 0.1
     },
     {
       id: 2,
       icon: Search,
-      title: 'Recherche & Moodboard',
-      description: 'Explorer les inspirations, les tendances et l\'environnement visuel adapté à ton projet.',
+      title: t('process.step2.title'),
+      description: t('process.step2.desc'),
       color: 'from-purple-500 to-purple-600',
       delay: 0.2
     },
     {
       id: 3,
       icon: PenTool,
-      title: 'Croquis & Concepts',
-      description: 'Esquisser les premières idées, réfléchir aux formes, aux messages, aux couleurs qui te correspondent.',
+      title: t('process.step3.title'),
+      description: t('process.step3.desc'),
       color: 'from-green-500 to-green-600',
       delay: 0.3
     },
     {
       id: 4,
       icon: Palette,
-      title: 'Design',
-      description: 'Création du rendu final, avec typographies, visuels et composition professionnelle qui reflètent ton identité.',
+      title: t('process.step4.title'),
+      description: t('process.step4.desc'),
       color: 'from-orange-500 to-orange-600',
       delay: 0.4
     },
     {
       id: 5,
       icon: RotateCcw,
-      title: 'Révisions',
-      description: 'Tes retours sont essentiels. On ajuste ensemble jusqu\'à valider ce qui te ressemble parfaitement.',
+      title: t('process.step5.title'),
+      description: t('process.step5.desc'),
       color: 'from-pink-500 to-pink-600',
       delay: 0.5
     },
     {
       id: 6,
       icon: Package,
-      title: 'Livraison & Accompagnement',
-      description: 'Remise des fichiers optimisés, prêts à l\'emploi (web, print, réseaux). Je reste dispo pour toi !',
+      title: t('process.step6.title'),
+      description: t('process.step6.desc'),
       color: 'from-teal-500 to-teal-600',
       delay: 0.6
     }
@@ -82,7 +82,7 @@ export default function Process() {
               className="h-1 bg-black dark:bg-white"
             />
             <span className="text-gray-500 dark:text-gray-400 font-medium tracking-wider uppercase text-sm">
-              Mon Processus
+              {t('process.subtitle')}
             </span>
             <motion.div 
               initial={{ width: 0 }}
@@ -98,7 +98,7 @@ export default function Process() {
             transition={{ delay: 0.3 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-black dark:text-white mb-6"
           >
-            Mon Processus Créatif
+            {t('process.title')}
           </motion.h2>
           
           <motion.p
@@ -107,7 +107,7 @@ export default function Process() {
             transition={{ delay: 0.4 }}
             className="text-xl text-gray-600 dark:text-gray-300 font-medium mb-4"
           >
-            Une approche simple, structurée et sur-mesure
+            {t('process.description1')}
           </motion.p>
 
           <motion.p
@@ -116,7 +116,7 @@ export default function Process() {
             transition={{ delay: 0.5 }}
             className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
           >
-            Chaque projet est unique, mais ma méthode reste solide. Voici comment je transforme tes idées en résultats concrets.
+            {t('process.description2')}
           </motion.p>
         </motion.div>
 
@@ -230,7 +230,7 @@ export default function Process() {
             transition={{ delay: 1.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black dark:text-white mb-6"
           >
-            Projet "NOIRBRUME"
+            {t('process.example.title')}
           </motion.h3>
           
           <motion.p
@@ -239,8 +239,7 @@ export default function Process() {
             transition={{ delay: 1.2 }}
             className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12"
           >
-            Découvrez mon processus en action à travers une conversation réaliste avec un client fictif. 
-            De la demande initiale à la livraison finale.
+            {t('process.example.description')}
           </motion.p>
         </motion.div>
       </div>
