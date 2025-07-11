@@ -97,7 +97,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.6 }}
-                        className="block italic font-light"
+                        className="block font-bold"
                       >
                         {t('hero.mainTitle.line1')}
                       </motion.div>
@@ -113,7 +113,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.8 }}
-                        className="block font-bold"
+                        className="block italic font-light"
                       >
                         {t('hero.mainTitle.line3')}
                       </motion.div>
