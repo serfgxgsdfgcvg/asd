@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Download } from 'lucide-react';
+import { useApp } from '../contexts/AppContext';
 
 interface Message {
   id: number;
@@ -13,6 +14,7 @@ interface Message {
 }
 
 export default function FakeChat() {
+  const { t } = useApp();
   const [visibleMessages, setVisibleMessages] = useState<number[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
