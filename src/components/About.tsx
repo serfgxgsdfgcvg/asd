@@ -12,7 +12,6 @@ export default function About() {
   const skills = [
     { icon: Brush, title: t('about.skill1.title'), desc: t('about.skill1.desc'), percentage: 95 },
     { icon: Palette, title: t('about.skill2.title'), desc: t('about.skill2.desc'), percentage: 90 },
-    { icon: Zap, title: t('about.skill3.title'), desc: t('about.skill3.desc'), percentage: 88 },
     { icon: Target, title: t('about.skill4.title'), desc: t('about.skill4.desc'), percentage: 92 }
   ];
 

@@ -391,10 +391,10 @@ export default function Testimonials() {
           </motion.div>
 
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Tu as travaillé avec moi ?
+            {t('testimonials.ctaTitle')}
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-            Ton avis compte énormément ! Partage ton expérience sur Google Reviews et aide d'autres clients à découvrir la qualité de mes services créatifs.
+            {t('testimonials.ctaDescription')}
           </p>
 
           <motion.a

@@ -230,9 +230,9 @@ export default function Contact() {
                 { 
                   icon: MapPin, 
                   label: t('contact.location'), 
-                  value: 'Vevey, Suisse', 
+                  value: t('contact.locationValue'), 
                   href: '#',
-                  description: 'Basé dans la région lémanique'
+                  description: t('contact.locationDesc')
                 }
               ].map((contact, index) => (
                 <motion.a
@@ -295,12 +295,6 @@ export default function Contact() {
                     href: 'https://www.behance.net/theoblondel', 
                     label: 'Behance',
                     color: 'hover:bg-blue-500'
-                  },
-                  { 
-                    icon: Github, 
-                    href: 'https://github.com/theoblondel', 
-                    label: 'GitHub',
-                    color: 'hover:bg-gray-700'
                   }
                 ].map((social, index) => (
                   <motion.a

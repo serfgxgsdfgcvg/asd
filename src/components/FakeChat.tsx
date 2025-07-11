@@ -23,58 +23,58 @@ export default function FakeChat() {
     {
       id: 1,
       type: 'client',
-      content: 'Salut Théo ! J\'ai besoin d\'un logo pour ma marque "NOIRBRUME". Un style streetwear, sobre et poétique.',
+      content: t('fakeChat.message1'),
       timestamp: '14:32'
     },
     {
       id: 2,
       type: 'you',
-      content: 'Trop stylé comme nom ! Je vois déjà un logo typographique minimal avec une ambiance brumeuse. Je t\'envoie une première idée ce soir !',
+      content: t('fakeChat.message2'),
       timestamp: '14:35'
     },
     {
       id: 3,
       type: 'client',
-      content: 'J\'ai trop hâte de voir ça',
+      content: t('fakeChat.message3'),
       timestamp: '14:36'
     },
     {
       id: 4,
       type: 'you',
-      content: 'Voilà un premier concept avec croquis et direction graphique.',
+      content: t('fakeChat.message4'),
       timestamp: '19:42',
       hasAttachment: true,
-      attachmentName: 'NOIRBRUME_Concept_1.pdf',
+      attachmentName: `${t('project.noirbrume.name')}_Concept_1.pdf`,
       attachmentUrl: '/DSC00831.png'
     },
     {
       id: 5,
       type: 'client',
-      content: 'WAW. C\'est exactement ce que je voulais ! On part sur ça',
+      content: t('fakeChat.message5'),
       timestamp: '19:45'
     },
     {
       id: 6,
       type: 'you',
-      content: 'Parfait ! Voici le design final en couleur et en noir & blanc.',
+      content: t('fakeChat.message6'),
       timestamp: '20:15',
       hasAttachment: true,
-      attachmentName: 'NOIRBRUME_Final_Package.zip',
+      attachmentName: `${t('project.noirbrume.name')}_Final_Package.zip`,
       attachmentUrl: '/DSC00831.png'
     },
     {
       id: 7,
       type: 'client',
-      content: 'Incroyable ! Merci pour ton style et ta réactivité',
+      content: t('fakeChat.message7'),
       timestamp: '20:18'
     },
     {
       id: 8,
       type: 'you',
-      content: 'Et voilà le dossier complet avec tous les formats :<br/>Logo vectoriel (AI, SVG, PDF)<br/>Versions PNG haute résolution<br/>Guide d\'utilisation',
+      content: t('fakeChat.message8'),
       timestamp: '20:20',
       hasAttachment: true,
-      attachmentName: 'NOIRBRUME_Complete_Brand_Kit.zip',
+      attachmentName: `${t('project.noirbrume.name')}_Complete_Brand_Kit.zip`,
       attachmentUrl: '/DSC00831.png'
     }
   ];

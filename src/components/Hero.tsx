@@ -87,15 +87,37 @@ export default function Hero() {
                     >
                       {t('hero.title1')}
                     </motion.span>
-                    <motion.span
+                    <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5 }}
-                      className="block"
+                      className="space-y-1"
                     >
-                      <span className="italic font-light">{t('hero.title2')}</span>{' '}
-                      <span className="font-bold">{t('hero.title3')}</span>
-                    </motion.span>
+                      <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 }}
+                        className="block italic font-light"
+                      >
+                        {t('hero.mainTitle.line1')}
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.7 }}
+                        className="block italic font-light"
+                      >
+                        {t('hero.mainTitle.line2')}
+                      </motion.div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.8 }}
+                        className="block font-bold"
+                      >
+                        {t('hero.mainTitle.line3')}
+                      </motion.div>
+                    </motion.div>
                   </h1>
                 </motion.div>
                 
