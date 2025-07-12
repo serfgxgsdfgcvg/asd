@@ -21,6 +21,37 @@ export const useApp = () => {
   return context;
 };
 
+interface AppProviderProps {
+  children: ReactNode;
+}
+
+export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
+  const [theme, setTheme] = useState<Theme>('light');
+  const [language, setLanguage] = useState<Language>('en');
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  const t = (key: string): string => {
+    return translations[language][key] || key;
+  };
+
+  const value = {
+    theme,
+    language,
+    toggleTheme,
+    setLanguage,
+    t
+  };
+
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  );
+};
+
 const translations = {
   en: {
     // Navigation
