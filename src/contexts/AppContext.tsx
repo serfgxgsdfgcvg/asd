@@ -652,3 +652,5 @@ const translations = {
     'testimonial4.name': 'David Martinez',
     'testimonial4.role': 'Gerente de Producto, StartupX',
     'testimonial4.content': 'Theo tiene una habilidad única para entender nuestras necesidades y traducirlas en soluciones visuales excepcionales. Su profesionalismo y creatividad son notables.',
+  }
+}
